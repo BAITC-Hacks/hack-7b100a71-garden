@@ -3,9 +3,7 @@ import asyncio
 import inspect
 import logging
 from threading import RLock
-from typing import Optional
 
-from pydantic import ValidationError
 from starlette.concurrency import run_in_threadpool
 
 from backend.errors import AppError
@@ -32,12 +30,14 @@ class RecommendationService:
             self._summary_attempted = False
             self._summary = None
 
-    async def recommend(self, employee_id: str) -> dict:
-        view = self.repository.view()
+    async def recommend(self, employee_id: str, view=None) -> dict:
+        view = self.repository.view() if view is None else view
         if view.get_employee(employee_id) is None:
             raise AppError("employee_not_found", "Employee not found", 404)
         if self.provider is None:
             raise AppError("recommendation_unavailable", "Recommendation engine is not connected", 503)
+        if self.repository.version != view.version:
+            raise AppError("dataset_changed", "Employee data changed while recommendations were generated; retry", 409)
         with self._lock:
             self._version_cache(view.version)
             cached = self._cache.get(employee_id)
@@ -54,17 +54,22 @@ class RecommendationService:
         try:
             raw = await asyncio.wait_for(invoke(), timeout=self.timeout_seconds)
             result = RecommendationResult.model_validate(raw)
-            if result.employee_id != employee_id:
+            data = result.root
+            if data["employee_id"] != employee_id:
                 raise ValueError("engine returned a different employee")
-            if result.target and not view.get_role_profile(result.target.role, result.target.grade):
+            if data["as_of"] != view.as_of_date.isoformat():
+                raise ValueError("engine returned a different snapshot date")
+            if data["target"] and not view.get_role_profile(data["target"]["role"], data["target"]["grade"]):
                 raise ValueError("engine returned an unknown target")
             event_ids = set()
-            for item in result.recommendations:
-                event = view.get_event(item.event_id)
-                if event is None or event.mandatory or item.event_id in event_ids:
+            for item in data["recommendations"]:
+                event = view.get_event(item["event_id"])
+                if event is None or event.mandatory or item["event_id"] in event_ids:
                     raise ValueError("engine returned an unknown, mandatory or duplicate event")
-                event_ids.add(item.event_id)
-                if any(view.get_skill(change.skill_id) is None for change in item.skill_changes):
+                event_ids.add(item["event_id"])
+                if item["simulation"]["event_id"] != item["event_id"]:
+                    raise ValueError("engine simulation belongs to a different event")
+                if any(view.get_skill(change["skill_id"]) is None for change in item["simulation"]["skill_impact"]):
                     raise ValueError("engine returned an unknown projected skill")
         except asyncio.TimeoutError as exc:
             raise AppError("recommendation_timeout", "Recommendation engine exceeded its time limit", 504) from exc
@@ -108,7 +113,7 @@ class RecommendationService:
         evaluated = len(results)
         return {
             "available": self.provider is not None,
-            "count": sum(not result.recommendations for result in results) if evaluated else None,
+            "count": sum(not result.root["recommendations"] for result in results) if evaluated else None,
             "evaluated_count": evaluated,
             "pending_count": total - evaluated,
             "complete": evaluated == total and self.provider is not None,

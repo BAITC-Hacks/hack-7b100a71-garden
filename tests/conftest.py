@@ -152,5 +152,5 @@ def settings():
 def client(repository, settings):
     from backend.main import create_app
 
-    with TestClient(create_app(settings=settings, repository=repository)) as test_client:
+    with TestClient(create_app(settings=settings, repository=repository, recommendation_provider=None)) as test_client:
         yield test_client

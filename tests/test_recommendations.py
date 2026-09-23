@@ -8,22 +8,18 @@ from fastapi.testclient import TestClient
 
 from backend.main import create_app
 from backend.services.activity_service import ActivityService
+from backend.recommendation.engine import recommend
+from conftest import dataset_payload, make_employee, make_event
 
 
 def recommendation(employee_id="person-alpha", event_id="event-advanced"):
-    return {
-        "employee_id": employee_id,
-        "target": {"role": "Backend Engineer", "grade": "Middle"},
-        "career_readiness": 0.5,
-        "recommendations": [{
-            "event_id": event_id,
-            "reason": "Develop the next skill required by the target role.",
-            "evidence": [
-                {"factor": "skill_gap", "explanation": "Current skill is below the role requirement."},
-                {"factor": "career_goal", "explanation": "The employee selected this target grade."},
-            ],
-        }],
-    }
+    # A real full boundary fixture replaces the retired reason/evidence DTO.
+    return recommend(
+        make_employee(employee_id), dataset_payload()["role_profiles"],
+        [make_event(event_id, develops_skills=[{
+            "skill_id": "skill-technical", "gain": 1, "max_level": 5,
+        }])], [], as_of="2026-10-01",
+    )
 
 
 class RecordingProvider:
@@ -77,7 +73,9 @@ def test_async_engine_is_supported(repository, settings):
     with TestClient(create_app(settings=settings, repository=repository, recommendation_provider=AsyncProvider())) as client:
         response = client.get("/employees/person-alpha/recommendations")
     assert response.status_code == 200
-    assert len(response.json()["data"]["recommendations"][0]["evidence"]) == 2
+    item = response.json()["data"]["recommendations"][0]
+    assert item["simulation"]["skill_gaps_before"]
+    assert item["evidence"]["target_role"] == "Backend Engineer"
 
 
 def test_engine_timeout_is_reported_without_caching_a_fabricated_result(repository, settings):
@@ -189,3 +187,73 @@ def test_invalid_coverage_hook_falls_back_to_cached_recommendations(repository, 
         assert summary["pending_count"] == 1
         assert summary["complete"] is False
         assert len(provider.calls) == 1
+
+
+@pytest.mark.parametrize("corruption", [
+    "duplicate", "mandatory", "unknown_skill", "wrong_rank", "wrong_count",
+    "nonfinite", "missing_evidence", "extra_field",
+])
+def test_rich_transport_preserves_provider_guardrails(repository, settings, corruption):
+    class InvalidProvider:
+        def recommend(self, employee_id, view):
+            result = recommendation(employee_id)
+            item = result["recommendations"][0]
+            if corruption == "duplicate":
+                from copy import deepcopy
+                duplicate = deepcopy(item)
+                duplicate["rank"] = 2
+                result["recommendations"].append(duplicate)
+                result["recommendation_count"] = result["candidate_count"] = 2
+            elif corruption == "mandatory":
+                # The repository owns this flag; a provider cannot override it.
+                item["event_id"] = item["simulation"]["event_id"] = "event-foundations"
+            elif corruption == "unknown_skill":
+                item["simulation"]["skill_impact"][0]["skill_id"] = "invented-skill"
+            elif corruption == "wrong_rank":
+                item["rank"] = 2
+            elif corruption == "wrong_count":
+                result["recommendation_count"] = 3
+            elif corruption == "nonfinite":
+                item["score"] = float("nan")
+            elif corruption == "missing_evidence":
+                del item["evidence"]["audience_match"]
+            else:
+                item["fabricated_field"] = "unvalidated"
+            return result
+
+    if corruption == "mandatory":
+        from backend.data.repository import DatasetRepository
+        from conftest import make_dataset
+        repository = DatasetRepository(make_dataset(events=[
+            make_event("event-foundations", mandatory=True),
+            make_event("event-advanced"),
+        ]), state_path=None)
+    with TestClient(create_app(settings=settings, repository=repository, recommendation_provider=InvalidProvider())) as client:
+        response = client.get("/employees/person-alpha/recommendations")
+    assert response.status_code == 502
+    assert response.json()["error"]["code"] == "invalid_recommendation_result"
+
+
+def test_authorization_precedes_the_single_recommendation_snapshot(repository, settings, monkeypatch):
+    configured = replace(settings, auth_disabled=False, hr_token="hr-test-token",
+                         employee_tokens={"employee-test-token": "person-alpha"})
+    provider = RecordingProvider()
+    original_view = repository.view
+    snapshots = []
+
+    def capture_view():
+        view = original_view()
+        snapshots.append(view)
+        return view
+
+    with TestClient(create_app(settings=configured, repository=repository, recommendation_provider=provider)) as client:
+        monkeypatch.setattr(repository, "view", capture_view)
+        headers = {"Authorization": "Bearer employee-test-token"}
+        forbidden = client.get("/employees/person-beta/recommendations", headers=headers)
+        assert forbidden.status_code == 403
+        assert snapshots == []
+        assert provider.calls == []
+        allowed = client.get("/employees/person-alpha/recommendations", headers=headers)
+        assert allowed.status_code == 200
+        assert len(snapshots) == 1
+        assert provider.calls == [("person-alpha", snapshots[0].version)]
