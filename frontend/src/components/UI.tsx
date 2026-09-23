@@ -14,11 +14,11 @@ export function StatePanel({ title, description, children, error = false }: { ti
   </section>
 }
 
-export function LoadingPanel() {
+export function LoadingPanel({ label = copy.loadingTitle }: { label?: string }) {
   return <section className="surface loading-panel" role="status" aria-live="polite" aria-busy="true">
     <div className="skeleton skeleton-heading" /><div className="skeleton skeleton-line" />
     <div className="skeleton-grid">{[0, 1, 2].map((key) => <div className="skeleton skeleton-card" key={key} />)}</div>
-    <span className="sr-only">{copy.loadingTitle}. {copy.loadingDescription}</span>
+    <span className="sr-only">{label}. {copy.loadingDescription}</span>
   </section>
 }
 

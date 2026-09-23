@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createMockApi } from './mockApi'
 import { createApi } from '../services/api'
+import { scenarioOptions } from './scenarios'
 
 describe('API adapter boundary', () => {
   it('keeps returned employee records isolated between requests', async () => {
@@ -50,5 +51,30 @@ describe('API adapter boundary', () => {
 
   it.each(['real', 'invalid'])('never silently uses fixtures for %s mode', async (mode) => {
     await expect(createApi(mode).getEmployees()).rejects.toMatchObject({ code: 'CONFIGURATION' })
+  })
+
+  it('can retry an isolated career failure without losing employee identity', async () => {
+    const api = createMockApi({ latencyMs: 0, failFirstOverview: true })
+    const [employee] = await api.getEmployees()
+    await expect(api.getRecommendations(employee.id)).rejects.toMatchObject({ code: 'NETWORK' })
+    expect((await api.getEmployee(employee.id)).id).toBe(employee.id)
+    expect((await api.getRecommendations(employee.id)).employeeId).toBe(employee.id)
+  })
+
+  it('recovers from the first-read failure scenario on retry', async () => {
+    const api = createMockApi({ latencyMs: 0, failFirstRead: true })
+    await expect(api.getEmployees()).rejects.toMatchObject({ code: 'NETWORK' })
+    expect((await api.getEmployees()).length).toBeGreaterThan(0)
+  })
+
+  it('isolates missing-data scenarios and preserves returned trajectory snapshots', async () => {
+    const normal = createMockApi({ latencyMs: 0 })
+    const [employee] = await normal.getEmployees()
+    const missing = createMockApi({ ...scenarioOptions('missing-trajectory'), latencyMs: 0 })
+    expect((await missing.getRecommendations(employee.id)).trajectory).toBeNull()
+    const overview = await normal.getRecommendations(employee.id)
+    const positions = overview.trajectory!.positions.length
+    overview.trajectory!.positions.pop()
+    expect((await normal.getRecommendations(employee.id)).trajectory!.positions).toHaveLength(positions)
   })
 })

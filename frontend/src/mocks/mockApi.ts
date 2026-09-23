@@ -1,10 +1,21 @@
 import { ApiError, type CareerApi, type RequestOptions } from '../types/api'
+import type { CareerOverview } from '../types/domain'
 import { activities, careerOverviews, employeeHistories, employees, hrAnalytics } from './fixtures'
 
-type MockOptions = { latencyMs?: number; failReads?: boolean; emptyEmployees?: boolean }
+export type MockOptions = {
+  latencyMs?: number
+  failReads?: boolean
+  emptyEmployees?: boolean
+  failFirstRead?: boolean
+  failFirstOverview?: boolean
+  overviewLatencyMs?: number
+  overviewPatch?: Partial<Pick<CareerOverview, 'trajectory' | 'readiness' | 'skillGaps'>>
+}
 
-export function createMockApi({ latencyMs = 240, failReads = false, emptyEmployees = false }: MockOptions = {}): CareerApi {
-  async function read<T>(resolve: () => T, options?: RequestOptions): Promise<T> {
+export function createMockApi({ latencyMs = 240, failReads = false, emptyEmployees = false, failFirstRead = false, failFirstOverview = false, overviewLatencyMs = latencyMs, overviewPatch = {} }: MockOptions = {}): CareerApi {
+  let pendingReadFailure = failFirstRead
+  let pendingOverviewFailure = failFirstOverview
+  async function read<T>(resolve: () => T, options?: RequestOptions, delay = latencyMs): Promise<T> {
     const signal = options?.signal
     signal?.throwIfAborted()
     await new Promise<void>((done, reject) => {
@@ -16,11 +27,14 @@ export function createMockApi({ latencyMs = 240, failReads = false, emptyEmploye
       const timer = setTimeout(() => {
         signal?.removeEventListener('abort', onAbort)
         done()
-      }, latencyMs)
+      }, delay)
       signal?.addEventListener('abort', onAbort, { once: true })
     })
     signal?.throwIfAborted()
-    if (failReads) throw new ApiError('NETWORK', 'The demo request could not be completed.')
+    if (failReads || pendingReadFailure) {
+      pendingReadFailure = false
+      throw new ApiError('NETWORK', 'The demo request could not be completed.')
+    }
     return structuredClone(resolve())
   }
 
@@ -37,7 +51,14 @@ export function createMockApi({ latencyMs = 240, failReads = false, emptyEmploye
     getEmployee: (id, options) => read(() => requireEmployee(id), options),
     getEmployeeHistory: (id, options) => read(() => { requireEmployee(id); return employeeHistories[id] }, options),
     getEvents: (options) => read(() => activities, options),
-    getRecommendations: (id, options) => read(() => { requireEmployee(id); return careerOverviews[id] }, options),
+    getRecommendations: (id, options) => read(() => {
+      requireEmployee(id)
+      if (pendingOverviewFailure) {
+        pendingOverviewFailure = false
+        throw new ApiError('NETWORK', 'The career assessment could not be loaded.')
+      }
+      return { ...careerOverviews[id], ...overviewPatch }
+    }, options, overviewLatencyMs),
     getHRAnalytics: (options) => read(() => hrAnalytics, options),
     // Mutation contracts are reserved for later checkpoints. Never report a fake success.
     completeActivity: unavailable,

@@ -5,7 +5,7 @@ export interface Skill {
   id: string
   name: string
   current: number
-  scaleMax: number
+  scaleMax?: number | null
 }
 
 export interface Employee {
@@ -14,14 +14,20 @@ export interface Employee {
   role: string
   grade: string
   department: string
+  tenureLabel?: string | null
+  careerGoal?: string | null
   preferredLanguage: Language
   skills: Skill[]
 }
 
 export interface CareerTarget { role: string; grade: string }
+export interface CareerPosition extends CareerTarget {
+  state: 'past' | 'current' | 'intermediate' | 'target' | 'future'
+}
 export interface CareerTrajectory {
   kind: 'promotion' | 'transition'
-  positions: Array<CareerTarget & { state: 'past' | 'current' | 'target' | 'future' }>
+  // Ordered and labelled by the adapter; never infer progression from grades.
+  positions: CareerPosition[]
 }
 export interface CareerReadiness {
   // Agreed frontend unit: 0–1. Formatting it as a percentage is presentation only.

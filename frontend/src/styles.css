@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/dashboard.css";
 
 @theme {
   --font-sans: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -118,21 +119,6 @@ button, a, select { outline-offset: 5px; }
 .page-heading { margin: 5px 0 28px; }
 .page-heading h1 { font-size: clamp(28px, 3vw, 39px); font-weight: 500; letter-spacing: -1.3px; margin-top: 12px; line-height: 1.18; }
 .page-heading > p:last-child { font-size: 13px; line-height: 1.7; margin-top: 12px; color: var(--color-muted); }
-.identity-card { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 28px; margin-bottom: 24px; }
-.identity-name { display: flex; align-items: center; gap: 16px; }
-.identity-name h2 { font-size: 21px; font-weight: 600; letter-spacing: -.5px; }
-.identity-name p { font-size: 12px; color: var(--color-muted); margin-top: 6px; }
-.identity-position { display: grid; gap: 7px; padding-left: 28px; border-left: 1px solid var(--color-line); min-width: 200px; }
-.identity-position strong { font-size: 13px; font-weight: 500; }
-.identity-position .eyebrow { font-size: 8px; }
-.foundation-panel { padding: 30px; background: linear-gradient(130deg, #fff, #f8faf4); }
-.foundation-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.foundation-panel h2 { font-size: 25px; letter-spacing: -.7px; font-weight: 500; }
-.foundation-description { font-size: 12px; color: var(--color-muted); line-height: 1.8; margin-top: 10px; max-width: 520px; }
-.pillar-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; margin-top: 35px; padding-top: 25px; border-top: 1px solid var(--color-line); }
-.pillar > span { font-size: 10px; font-weight: 600; color: #72835b; }
-.pillar h3 { font-size: 13px; font-weight: 550; margin-top: 13px; }
-.pillar p { color: var(--color-muted); font-size: 11px; line-height: 1.8; margin-top: 8px; }
 .loading-panel { padding: 28px; }
 .skeleton { background: #eaf0e5; border-radius: 8px; animation: breathe 1.6s ease-in-out infinite; }
 .skeleton-heading { width: 45%; height: 23px; margin-bottom: 14px; }
@@ -168,8 +154,6 @@ button, a, select { outline-offset: 5px; }
   .profile-card h3 { font-size: 15px; }
   .profile-card { padding: 18px 14px 0; }
   .section-heading > .subtle-pill { display: none; }
-  .identity-card { flex-wrap: wrap; }
-  .identity-position { border-left: 0; padding-left: 0; }
 }
 @media (max-width: 700px) {
   .sidebar { display: none; position: static; width: 100%; padding: 20px; }
@@ -199,12 +183,6 @@ button, a, select { outline-offset: 5px; }
   .profile-action { font-size: 12px; padding: 18px 0; }
   .profile-role, .profile-department { font-size: 12px; }
   .footer { margin: 0 18px; font-size: 8px; }
-  .identity-card { padding: 23px; }
-  .foundation-panel { padding: 24px; }
-  .foundation-panel h2 { font-size: 23px; }
-  .pillar-grid { grid-template-columns: 1fr; gap: 23px; }
-  .pillar h3 { margin-top: 7px; }
-  .pillar p { font-size: 12px; }
   .state-panel { padding: 45px 22px; }
   .skeleton-grid { grid-template-columns: 1fr; }
   .skeleton-card:not(:first-child) { display: none; }
