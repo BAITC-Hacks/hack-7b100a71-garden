@@ -97,12 +97,10 @@ export const employeeHistories: Record<string, ActivityHistory[]> = {
 }
 
 export const hrAnalytics: HRAnalytics = {
-  totalEmployees: 3, employeesInDevelopment: 0, withoutNextStep: 2, participationRate: 0,
-  commonSkillGaps: [
-    { skillId: 'system-design', name: 'System Design', employeeCount: 1 },
-    { skillId: 'api-design', name: 'API Design', employeeCount: 1 },
-    { skillId: 'product-discovery', name: 'Product Discovery', employeeCount: 1 },
-    { skillId: 'technical-communication', name: 'Technical Communication', employeeCount: 1 },
-  ],
-  activityStatuses: [],
+  employee_count: 3, gap_basis: 'effective_skills_against_current_role_and_grade', common_skill_gaps: [],
+  employees_without_next_step: { available: false, count: null, evaluated_count: 0, pending_count: 3, complete: false },
+  activity_participation: { completed: 0, in_progress: 0, dropped: 0, no_show: 0, declined: 0, overdue: 0 },
+  participation_summary: { total_records: 0, participating_employees: 0,
+    voluntary: { completed: 0, in_progress: 0, dropped: 0, no_show: 0, declined: 0, overdue: 0 },
+    mandatory: { completed: 0, in_progress: 0, dropped: 0, no_show: 0, declined: 0, overdue: 0 } },
 }

@@ -44,13 +44,14 @@ describe('API adapter boundary', () => {
 
   it('never reports successful mutations before they are implemented', async () => {
     const api = createMockApi({ latencyMs: 0 })
-    await expect(api.completeActivity('employee', 'event')).rejects.toMatchObject({ code: 'UNAVAILABLE' })
-    await expect(api.validateDataset([])).rejects.toMatchObject({ code: 'UNAVAILABLE' })
-    await expect(api.uploadDataset([], 'validation')).rejects.toMatchObject({ code: 'UNAVAILABLE' })
+    await expect(api.completeActivity('employee', 'event', { idempotencyKey: 'mock-test' })).rejects.toMatchObject({ code: 'UNAVAILABLE' })
+    await expect(api.validateDataset({})).rejects.toMatchObject({ code: 'UNAVAILABLE' })
+    await expect(api.uploadDataset({}, 'append')).rejects.toMatchObject({ code: 'UNAVAILABLE' })
   })
 
-  it.each(['real', 'invalid'])('never silently uses fixtures for %s mode', async (mode) => {
-    await expect(createApi(mode).getEmployees()).rejects.toMatchObject({ code: 'CONFIGURATION' })
+  it('never silently uses fixtures for real or invalid mode', async () => {
+    await expect(createApi('real').getEmployees()).rejects.toMatchObject({ code: 'UNAUTHENTICATED' })
+    await expect(createApi('invalid').getEmployees()).rejects.toMatchObject({ code: 'CONFIGURATION' })
   })
 
   it('can retry an isolated career failure without losing employee identity', async () => {

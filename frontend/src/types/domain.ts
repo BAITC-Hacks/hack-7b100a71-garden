@@ -1,4 +1,6 @@
 // Frontend view models. Business values are supplied by an API adapter.
+import type { ActivityRecordDTO, EmployeeDTO, ExplanationDTO, HRAnalyticsDTO, RankedRecommendationDTO, RecommendationResultDTO, RecommendationStatus, ReconstructionDTO } from './transport'
+export type { CompletionReceipt, RecommendationStatus } from './transport'
 export type Language = 'kk' | 'ru' | 'en'
 
 export interface Skill {
@@ -18,6 +20,13 @@ export interface Employee {
   careerGoal?: string | null
   preferredLanguage: Language
   skills: Skill[]
+  version?: number
+  asOf?: string
+  workFormat?: string
+  tenureMonths?: number
+  lastReviewDate?: string
+  assessmentSkills?: Record<string, number>
+  raw?: EmployeeDTO
 }
 
 export interface CareerTarget { role: string; grade: string }
@@ -39,10 +48,15 @@ export interface SkillGap extends Skill {
   critical: boolean
 }
 export type ActivityStatus = 'completed' | 'in_progress' | 'no_show' | 'dropped' | 'declined' | 'overdue'
-export interface Activity { id: string; title: string; type: string; durationMinutes: number }
-export interface ActivityHistory { id: string; eventId: string; status: ActivityStatus; updatedAt: string }
+export interface Activity { id: string; title: string; type: string; durationMinutes: number; format?: string }
+export interface ActivityHistory {
+  id: string; eventId: string; status: ActivityStatus; updatedAt: string
+  title?: string; date?: string; completedAt?: string | null; completedOn?: string | null
+  completionPct?: number; score?: number | null; feedbackRating?: number | null; assignedBy?: string
+  raw?: ActivityRecordDTO
+}
 export interface RecommendationFactor { id: string; label: string; value: number }
-export interface RecommendationExplanation { text: string | null; factors: RecommendationFactor[] }
+export interface RecommendationExplanation { text: string | null; factors: RecommendationFactor[]; language?: Language; source?: 'deterministic' | 'openai' }
 export interface Recommendation {
   eventId: string
   title: string
@@ -54,6 +68,9 @@ export interface Recommendation {
   readinessBefore: number | null
   readinessAfter: number | null
   explanation: RecommendationExplanation
+  rank?: number
+  format?: string
+  raw?: RankedRecommendationDTO
 }
 export interface CareerOverview {
   employeeId: string
@@ -62,17 +79,24 @@ export interface CareerOverview {
   readiness: CareerReadiness | null
   skillGaps: SkillGap[]
   recommendations: Recommendation[]
+  version?: number
+  asOf?: string
+  status?: RecommendationStatus
+  targetRequirements?: SkillGap[]
+  explanationSummary?: ExplanationDTO
+  reconstruction?: ReconstructionDTO
+  skillsEstimated?: boolean
+  warnings?: string[]
+  raw?: RecommendationResultDTO
 }
-export interface HRAnalytics {
-  totalEmployees: number
-  employeesInDevelopment: number
-  withoutNextStep: number
-  participationRate: number
-  commonSkillGaps: Array<{ skillId: string; name: string; employeeCount: number }>
-  activityStatuses: Array<{ status: ActivityStatus; count: number }>
-}
+export interface HRAnalytics extends HRAnalyticsDTO { version?: number; asOf?: string }
+export type DatasetMode = 'append' | 'replace'
+export type DatasetFiles = Partial<Record<'employees_file' | 'activity_history_file' | 'events_file' | 'skills_file', File>>
 export interface DatasetValidationResult {
   valid: boolean
-  validationId: string | null
-  errors: Array<{ file: string; row: number | null; field: string | null; message: string }>
+  counts: Record<string, number>
+  errors: Array<{ code: string; location: string; message: string }>
+  mode: DatasetMode
+  version: number
 }
+export interface DatasetUploadResult { uploaded: boolean; counts: Record<string, number>; mode: DatasetMode; version: number }

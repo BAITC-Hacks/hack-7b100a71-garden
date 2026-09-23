@@ -1,0 +1,24 @@
+.signin-page { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(330px, .85fr); align-items: center; gap: 64px; max-width: 1120px; padding: 64px 42px; margin: 0 auto; }
+.signin-brand { display: flex; align-items: center; gap: 16px; color: var(--color-brand); font-size: 26px; font-weight: 600; margin-bottom: 78px; }
+.signin-brand .brand-mark { background: var(--color-brand-deep); }
+.signin-intro h1 { margin: 20px 0; font-size: clamp(36px, 4vw, 54px); line-height: 1.12; letter-spacing: -2px; font-weight: 500; }
+.signin-intro > p:not(.eyebrow) { color: var(--color-muted); max-width: 430px; line-height: 1.9; font-size: 14px; }
+.signin-path { display: flex; align-items: center; gap: 16px; margin-top: 36px; font-size: 12px; color: var(--color-brand); }
+.signin-path .icon { width: 16px; }
+.signin-card { padding: 36px; box-shadow: 0 16px 55px #123e3206; }
+.signin-card h2 { margin-top: 12px; font-weight: 550; font-size: 24px; letter-spacing: -.6px; }
+.signin-card > p:not(.eyebrow) { margin-top: 12px; font-size: 12px; line-height: 1.8; color: var(--color-muted); }
+.signin-card form { display: flex; flex-direction: column; margin-top: 24px; }
+.signin-card label { font-size: 12px; font-weight: 600; margin: 16px 0 8px; }
+.signin-card input, .signin-card select, .directory-search input { font: inherit; width: 100%; border: 1px solid var(--color-line); border-radius: 8px; padding: 12px; color: var(--color-ink); background: var(--color-canvas); }
+.signin-card input:focus, .signin-card select:focus { outline: 2px solid #789d67; outline-offset: 2px; }
+.signin-card .button { width: 100%; justify-content: space-between; margin-top: 24px; padding: 13px 16px; }
+.signin-note { font-size: 10px; line-height: 1.7; color: var(--color-muted); margin-top: 10px; }
+.signin-error { color: #9e3232; margin-top: 16px; font-size: 12px; }
+.identity-actions { display: flex; align-items: center; gap: 14px; }
+.identity-label { color: var(--color-muted); font-size: 11px; }
+.identity-switch { color: var(--color-brand); background: transparent; border: 1px solid var(--color-line); border-radius: 7px; padding: 8px 10px; font-size: 11px; }
+.directory-search { display: flex; flex-direction: column; gap: 8px; max-width: 440px; margin-bottom: 22px; font-size: 11px; color: var(--color-muted); }
+.directory-search input { background: var(--color-surface); font-size: 13px; }
+@media (max-width: 950px) { .topbar-actions { gap: 12px; flex-wrap: wrap; justify-content: flex-end; } .identity-label { display: none; } }
+@media (max-width: 740px) { .signin-page { grid-template-columns: 1fr; padding: 32px 20px; gap: 32px; } .signin-brand { margin-bottom: 32px; } .signin-intro h1 { font-size: 35px; } .signin-card { padding: 26px; } .signin-path { margin-top: 20px; } }
