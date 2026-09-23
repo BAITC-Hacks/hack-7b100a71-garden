@@ -26,7 +26,8 @@ HISTORY_COLUMNS = (
     "record_id", "employee_id", "event_id", "date", "due_date", "status",
     "completion_pct", "score", "feedback_rating", "assigned_by",
 )
-OPTIONAL_HISTORY_COLUMNS = {"completed_on"}
+# Runtime ordering is server-owned and deliberately absent from this whitelist.
+OPTIONAL_HISTORY_COLUMNS = {"completed_on", "completed_at"}
 
 
 def _issue(code: str, location: str, message: str) -> Dict[str, str]:
@@ -112,7 +113,7 @@ def _read_history(payload: bytes, issues: List[Dict[str, str]]) -> List[Activity
                                      "Row must contain exactly one value for every header column"))
                 continue
             row: Dict[str, Any] = {key: value.strip() for key, value in raw.items()}
-            for name in ("due_date", "score", "feedback_rating", "completed_on"):
+            for name in ("due_date", "score", "feedback_rating", "completed_on", "completed_at"):
                 if name in row and row[name] == "":
                     row[name] = None
             for name in ("completion_pct", "score", "feedback_rating"):

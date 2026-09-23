@@ -4,10 +4,11 @@ Strict integer levels reject booleans, strings and fractional skill assessments.
 """
 
 import re
-from datetime import date
+from datetime import date, datetime, timezone
 from typing import Annotated, Dict, List, Literal, Optional, Tuple
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, StringConstraints
+from pydantic import (AfterValidator, AwareDatetime, BaseModel, BeforeValidator,
+                      ConfigDict, Field, StringConstraints, model_validator)
 
 GRADES: Tuple[str, ...] = ("Junior", "Middle", "Senior", "Lead")
 Grade = Literal["Junior", "Middle", "Senior", "Lead"]
@@ -29,6 +30,20 @@ def _iso_date(value):
 
 
 ISODate = Annotated[date, BeforeValidator(_iso_date)]
+
+
+def _iso_timestamp(value):
+    if isinstance(value, datetime):
+        return value
+    if not isinstance(value, str) or not re.match(r"^\d{4}-\d{2}-\d{2}T", value):
+        raise ValueError("expected a timezone-aware ISO timestamp")
+    return value
+
+
+UTCTimestamp = Annotated[
+    AwareDatetime, BeforeValidator(_iso_timestamp),
+    AfterValidator(lambda value: value.astimezone(timezone.utc)),
+]
 
 
 class DomainModel(BaseModel):
@@ -112,8 +127,20 @@ class ActivityRecord(DomainModel):
     score: Optional[Percentage] = None
     feedback_rating: Optional[Annotated[int, Field(strict=True, ge=1, le=5)]] = None
     assigned_by: AssignedBy
-    # Runtime extension: the official self-paced date is enrollment/assignment.
+    # Logical dataset date differs from the actual recording clock in a demo.
     completed_on: Optional[ISODate] = None
+    completed_at: Optional[UTCTimestamp] = None
+    # Assigned under the repository transaction; never accepted from uploads.
+    runtime_sequence: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+
+    @model_validator(mode="after")
+    def completion_context(self):
+        if self.completed_at is not None and self.status != "completed":
+            raise ValueError("Only completed activities may have completed_at")
+        if self.runtime_sequence is not None:
+            if self.status != "completed" or self.completed_on is None:
+                raise ValueError("Runtime completion order requires completed status and completed_on")
+        return self
 
 
 class EmployeesDocument(DomainModel):

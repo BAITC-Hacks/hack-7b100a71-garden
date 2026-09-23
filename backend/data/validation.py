@@ -157,6 +157,7 @@ def validate_dataset(dataset: Dataset) -> Dataset:
                   "Compliance events do not increase assessed skills")
 
     participation = defaultdict(list)
+    runtime_sequences = set()
     for index, record in enumerate(dataset.history):
         prefix = "history[{}]({})".format(index, record.record_id)
         employee = employees.get(record.employee_id)
@@ -181,6 +182,21 @@ def validate_dataset(dataset: Dataset) -> Dataset:
             if not record.date <= record.completed_on <= snapshot:
                 issue("invalid_chronology", prefix + ".completed_on",
                       "Completion date must be between the history date and the snapshot date")
+        if record.runtime_sequence is not None:
+            if record.runtime_sequence in runtime_sequences:
+                issue("duplicate_runtime_sequence", prefix + ".runtime_sequence",
+                      "Runtime sequence must be unique across the snapshot")
+            runtime_sequences.add(record.runtime_sequence)
+        elif record.completed_at is not None:
+            # Imported exact timestamps describe dataset chronology; only
+            # trusted runtime context distinguishes recording and logical clocks.
+            completion_day = record.completed_at.date()
+            if not record.date <= completion_day <= snapshot:
+                issue("invalid_chronology", prefix + ".completed_at",
+                      "Completion timestamp must be between participation and snapshot dates")
+            if record.completed_on is not None and record.completed_on != completion_day:
+                issue("invalid_chronology", prefix + ".completed_on",
+                      "Imported completion date must match the exact completion timestamp")
         if record.status == "completed" and record.completion_pct != 100:
             issue("invalid_completion", prefix + ".completion_pct",
                   "Completed activities require completion_pct=100")
@@ -228,13 +244,16 @@ def validate_dataset(dataset: Dataset) -> Dataset:
             issue("repeated_completion", completed[1][1],
                   "This event is already completed for the employee")
         if completed:
-            first = min(completed, key=lambda item: item[0].completed_on or item[0].date)[0]
+            def completion_date(record):
+                return (record.completed_on or
+                        (record.completed_at.date() if record.completed_at is not None else record.date))
+            first = min(completed, key=lambda item: completion_date(item[0]))[0]
             # A historical self-paced date is enrollment, not completion. It
             # cannot establish whether another attempt happened after finishing.
-            if first.completed_on is not None or event.format != "self_paced":
-                completion_date = first.completed_on or first.date
+            if first.completed_on is not None or first.completed_at is not None or event.format != "self_paced":
+                finished_on = completion_date(first)
                 for record, prefix in records:
-                    if record.record_id != first.record_id and record.date > completion_date:
+                    if record.record_id != first.record_id and record.date > finished_on:
                         issue("participation_after_completion", prefix,
                               "This one-time event has participation after an earlier completion")
 
@@ -259,6 +278,14 @@ def merge_dataset(base: Dataset, patch: Mapping[str, Any], mode: str = "append")
         raise DatasetValidationError([{
             "code": "unknown_field", "location": str(key), "message": "Unknown dataset section"
         } for key in sorted(unknown)])
+    incoming_history = patch.get("history", ())
+    for index, row in enumerate(incoming_history if isinstance(incoming_history, (list, tuple)) else ()):
+        row = row.model_dump() if hasattr(row, "model_dump") else row
+        if isinstance(row, Mapping) and row.get("runtime_sequence") is not None:
+            raise DatasetValidationError([{
+                "code": "server_owned_field", "location": "history[{}].runtime_sequence".format(index),
+                "message": "Runtime order can only be assigned by the completion service",
+            }])
     if mode == "replace":
         missing = allowed - set(patch)
         if missing:

@@ -63,6 +63,11 @@ class _ParticipationRequired(TypedDict):
 
 class ParticipationInput(_ParticipationRequired, total=False):
     completed_at: Optional[DateValue]
+    # Trusted runtime adapter context, never inferred for imported history.
+    # completed_at retains the real operation timestamp; completed_on is the
+    # explicit business date in the dataset snapshot's logical clock.
+    completed_on: Optional[CalendarDate]
+    runtime_sequence: Optional[int]
 
 
 class CareerTarget(TypedDict):

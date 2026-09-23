@@ -12,7 +12,7 @@ from math import fsum, isfinite
 from .config import DEFAULT_CONFIG, RecommendationConfig
 from .contracts import CalendarDate, HistorySignals, RecommendationInputError
 from .skills import (
-    _calendar_date, _completion_time, _event_index, _identifier, _require_sequence,
+    _calendar_date, _participation_timing, _event_index, _identifier, _require_sequence,
 )
 
 
@@ -49,22 +49,11 @@ def _similarity(candidate, historical, policy):
 
 
 def _record_time(record):
-    participation, participation_order, participation_has_time = _completion_time(
-        record.get("date"), "history.date",
-    )
+    participation, completion, _, _, sequence = _participation_timing(record)
     completed_at = record.get("completed_at")
     if completed_at is None or completed_at == "":
         return participation, participation, "participation_date"
-    if record["status"] != "completed":
-        raise RecommendationInputError(
-            "completion_on_noncompleted_record", "Only completed participations can have completed_at",
-        )
-    completion, completion_order, completion_has_time = _completion_time(completed_at, "completed_at")
-    precedes = (completion_order < participation_order
-                if completion_has_time and participation_has_time else completion < participation)
-    if precedes:
-        raise RecommendationInputError("completion_before_participation", "Completion precedes participation")
-    return participation, completion, "completed_at"
+    return participation, completion, "runtime_completed_on" if sequence is not None else "completed_at"
 
 
 def calculate_history_signals(
@@ -197,7 +186,7 @@ def calculate_history_signals(
             evidence["zero_weight_count"] += 1
             continue
         evidence["matched_history_count"] += 1
-        if status == "completed" and date_basis != "completed_at":
+        if status == "completed" and date_basis == "participation_date":
             evidence["completion_date_proxy_count"] += 1
         outcome = outcomes[status]
         weights.append(weight)

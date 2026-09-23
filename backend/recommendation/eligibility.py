@@ -7,7 +7,7 @@ from .career import _levels, _profile_index, _requirements, resolve_target
 from .config import DEFAULT_CONFIG, RecommendationConfig
 from .contracts import CalendarDate, CatalogEligibility, EligibilityResult, RecommendationInputError
 from .simulation import simulate_event
-from .skills import _calendar_date, _completion_time, _event_index, _identifier, _require_sequence
+from .skills import _calendar_date, _participation_timing, _event_index, _identifier, _require_sequence
 
 
 def _error(code, message):
@@ -100,16 +100,7 @@ def _participation_index(history, employee_id, snapshot, config):
         status = record.get("status")
         if status not in config.history_statuses:
             _error("invalid_history_status", "Unknown status on {}".format(record_id))
-        participation, participation_order, participation_has_time = _completion_time(record.get("date"), "history.date")
-        evidence_date = participation
-        completed_at = record.get("completed_at")
-        if completed_at is not None and completed_at != "":
-            if status != "completed":
-                _error("completion_on_noncompleted_record", "Only completed participations can have completed_at")
-            evidence_date, completion_order, completion_has_time = _completion_time(completed_at, "completed_at")
-            precedes_participation = completion_order < participation_order if completion_has_time and participation_has_time else evidence_date < participation
-            if precedes_participation:
-                _error("completion_before_participation", "Completion precedes participation on {}".format(record_id))
+        participation, evidence_date, _, _, _ = _participation_timing(record)
         facts = by_event.setdefault(event_id, {
             "completed_record_ids": [], "in_progress_record_ids": [], "ignored_future_record_ids": [],
         })

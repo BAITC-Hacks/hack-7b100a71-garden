@@ -7,6 +7,11 @@ strings are accepted. Review/snapshot boundaries use its stated calendar date,
 including the whole snapshot day. Timestamp ordering uses UTC; naive timestamps
 are interpreted as UTC for ordering only. Date-only values use midnight and
 record IDs break ties, without claiming that this recovers completion order.
+
+Trusted runtime records additionally carry completed_on (logical snapshot day)
+and runtime_sequence (transaction order). Their real completed_at timestamp is
+retained, but is not confused with the fixture's logical calendar. Runtime
+operations follow the loaded assessment, including on its calendar day.
 """
 
 from collections.abc import Mapping, Sequence
@@ -64,6 +69,41 @@ def _completion_time(value, field):
     if isinstance(parsed, date):
         return parsed, datetime.combine(parsed, time.min, timezone.utc), False
     _error("invalid_date", "{} must be an ISO date or datetime".format(field))
+
+
+def _participation_timing(record):
+    """Shared date boundary for reconstruction, admission and history signals.
+
+    The adapter alone supplies runtime_sequence. A positive sequence is proof
+    of a persisted operation after loading the assessment, not an input an HTTP
+    client or dataset upload may choose. Legacy rows retain their old policy.
+    Return participation day, completion day, UTC instant, precision, sequence.
+    """
+    participation, participation_order, participation_has_time = _completion_time(
+        record.get("date"), "history.date",
+    )
+    completion = record.get("completed_at")
+    has_completion = completion is not None and completion != ""
+    sequence = record.get("runtime_sequence")
+    if sequence is not None and (type(sequence) is not int or sequence <= 0):
+        _error("invalid_runtime_sequence", "runtime_sequence must be a positive transaction order")
+    if (has_completion or sequence is not None) and record.get("status") != "completed":
+        _error("completion_on_noncompleted_record", "Only completed participations can have completion metadata")
+    if sequence is not None and not has_completion:
+        _error("missing_runtime_completion", "Runtime context requires a completion date or timestamp")
+    if not has_completion:
+        return participation, participation, participation_order, False, None
+    completion_day, order_key, has_time = _completion_time(completion, "completed_at")
+    if sequence is not None:
+        # Snapshot simulations and wall time deliberately have separate clocks.
+        completion_day = _calendar_date(record.get("completed_on"), "completed_on")
+        precedes = completion_day < participation
+    else:
+        precedes = (order_key < participation_order
+                    if has_time and participation_has_time else completion_day < participation)
+    if precedes:
+        _error("completion_before_participation", "Completion precedes participation")
+    return participation, completion_day, order_key, has_time, sequence
 
 
 def _level(value, field, config):
@@ -144,6 +184,7 @@ def reconstruct_effective_skills(
 
     seen_records = {}
     replay = []
+    runtime_sequences = set()
     uncertain_ids = []
     legacy_ids = []
     for record in history:
@@ -160,13 +201,13 @@ def reconstruct_effective_skills(
         status = record.get("status")
         if status not in config.history_statuses:
             _error("invalid_history_status", "Unknown status on {}".format(record_id))
-        participation, participation_order, participation_has_time = _completion_time(
-            record.get("date"), "{}.date".format(record_id)
-        )
+        participation, effective_date, order_key, has_time, sequence = _participation_timing(record)
         completion = record.get("completed_at")
         has_completion = completion is not None and completion != ""
-        if has_completion and status != "completed":
-            _error("completion_on_noncompleted_record", "{} has completed_at but is not completed".format(record_id))
+        if sequence is not None:
+            if sequence in runtime_sequences:
+                _error("duplicate_runtime_sequence", "Runtime transaction order must be unique")
+            runtime_sequences.add(sequence)
         if status != "completed":
             continue
         event_id = _identifier(record.get("event_id"), "{}.event_id".format(record_id))
@@ -174,34 +215,32 @@ def reconstruct_effective_skills(
             _error("unknown_event", "{} references unknown event {}".format(record_id, event_id))
         event = event_index[event_id]
         if has_completion:
-            effective_date, order_key, has_time = _completion_time(completion, "{}.completed_at".format(record_id))
-            precedes_participation = (
-                order_key < participation_order
-                if has_time and participation_has_time
-                else effective_date < participation
-            )
-            if precedes_participation:
-                _error("completion_before_participation", "{}.completed_at precedes participation date".format(record_id))
-            date_basis = "completed_at"
+            date_basis = "runtime_completed_on" if sequence is not None else "completed_at"
         else:
-            effective_date = participation
-            order_key = participation_order
-            has_time = False
             date_basis = "enrollment_date" if event["format"] == "self_paced" else "session_date"
         if effective_date > snapshot or not event["develops_skills"]:
             continue
-        if effective_date <= review:
+        if effective_date < review or (effective_date == review and sequence is None):
             if not has_completion and event["format"] == "self_paced":
                 uncertain_ids.append(record_id)
             continue
         if not has_completion:
             legacy_ids.append(record_id)
-        replay.append((order_key, record_id, event, date_basis, effective_date, has_time))
+        replay.append((order_key, record_id, event, date_basis, effective_date, has_time, sequence))
 
-    replay.sort(key=lambda item: (item[0], item[1]))
+    def replay_key(item):
+        # A sort anchor is not a fabricated completion timestamp. Runtime
+        # operations follow the loaded legacy snapshot on the same logical day;
+        # transaction sequence remains authoritative even if the wall clock ties
+        # or moves backwards. UTC ordering for every legacy row is unchanged.
+        anchor = (datetime.combine(item[4], time.max, timezone.utc)
+                  if item[6] is not None else item[0])
+        return anchor, item[6] is not None, item[6] or 0, item[1]
+
+    replay.sort(key=replay_key)
     skill_changes = []
     applied_ids = []
-    for _, record_id, event, date_basis, _, _ in replay:
+    for _, record_id, event, date_basis, _, _, _ in replay:
         applied_ids.append(record_id)
         for development in sorted(event["develops_skills"], key=lambda item: item["skill_id"]):
             skill_id = development["skill_id"]
@@ -227,6 +266,9 @@ def reconstruct_effective_skills(
         left_skills = {item["skill_id"] for item in left[2]["develops_skills"]}
         left_end = left[0] if left[5] else left[0].replace(hour=23, minute=59, second=59, microsecond=999999)
         for right in replay[left_index + 1:]:
+            if left[6] is not None or right[6] is not None:
+                # Runtime ordering is explicit in the adapter context.
+                continue
             right_skills = {item["skill_id"] for item in right[2]["develops_skills"]}
             right_end = right[0] if right[5] else right[0].replace(hour=23, minute=59, second=59, microsecond=999999)
             intervals_overlap = max(left[0], right[0]) <= min(left_end, right_end)
