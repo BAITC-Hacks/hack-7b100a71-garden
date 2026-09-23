@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 from typing import Dict, Optional, Tuple
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class Settings:
     data_dir: Path = ROOT / "data" / "career_quest_dataset"
     runtime_state_path: Optional[Path] = ROOT / ".runtime" / "state.json"
+    database_url: Optional[str] = field(default=None, repr=False)
     auth_disabled: bool = False
     hr_token: Optional[str] = None
     employee_tokens: Dict[str, str] = field(default_factory=dict)
@@ -23,6 +25,14 @@ class Settings:
     )
 
     def __post_init__(self):
+        if self.database_url is not None:
+            try:
+                parsed = urlsplit(self.database_url)
+                valid = parsed.scheme in {"postgres", "postgresql"} and bool(parsed.hostname)
+            except (TypeError, ValueError):
+                valid = False
+            if not valid:
+                raise ValueError("DATABASE_URL must be a PostgreSQL connection URL")
         if self.hr_token is not None and (
             not isinstance(self.hr_token, str) or not self.hr_token
             or any(character.isspace() for character in self.hr_token)
@@ -63,6 +73,7 @@ class Settings:
         return cls(
             data_dir=Path(os.getenv("CAREER_QUEST_DATA_DIR", str(defaults.data_dir))).expanduser(),
             runtime_state_path=state_path,
+            database_url=os.getenv("DATABASE_URL") or None,
             auth_disabled=raw_auth in {"true", "1", "yes"},
             hr_token=os.getenv("HR_API_TOKEN") or None,
             employee_tokens=tokens,

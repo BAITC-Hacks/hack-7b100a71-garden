@@ -33,7 +33,7 @@ class RecommendationService:
             self._summary = None
 
     async def recommend(self, employee_id: str) -> dict:
-        view = self.repository.view()
+        view = await run_in_threadpool(self.repository.view)
         if view.get_employee(employee_id) is None:
             raise AppError("employee_not_found", "Employee not found", 404)
         if self.provider is None:
@@ -71,7 +71,8 @@ class RecommendationService:
         except Exception as exc:
             logger.exception("Recommendation provider failed for employee %s", employee_id)
             raise AppError("invalid_recommendation_result", "Recommendation engine failed to produce a valid result", 502) from exc
-        if self.repository.version != view.version:
+        current_version = await run_in_threadpool(lambda: self.repository.version)
+        if current_version != view.version:
             raise AppError("dataset_changed", "Employee data changed while recommendations were generated; retry", 409)
         with self._lock:
             self._version_cache(view.version)

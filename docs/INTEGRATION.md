@@ -65,4 +65,4 @@ The completion endpoint requires an `Idempotency-Key` chosen by the frontend for
 
 After completion, refresh the employee profile and recommendations. The completion response already contains skill changes and the new version. The base `employee.skills` assessment remains unchanged. Import is transactional, so a frontend never observes half a dataset.
 
-Runtime state is persisted separately from source data. The process uses one worker; atomic transactions protect simultaneous requests in that process. A full replacement deliberately discards the old runtime completion order and idempotency receipts.
+With `DATABASE_URL`, runtime state lives in Supabase PostgreSQL; row locking serializes mutations across workers and repeatable-read snapshots keep related data coherent. Without it, the JSON state adapter requires one worker. A full replacement deliberately discards the old runtime completion order and idempotency receipts. See [SUPABASE.md](SUPABASE.md) for migration and initialization.
