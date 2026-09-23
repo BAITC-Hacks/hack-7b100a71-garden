@@ -4,6 +4,8 @@ React frontend connected to the FastAPI backend and the deterministic recommenda
 
 ## Run locally
 
+For the fastest local hackathon demo, use the two-terminal commands and exact sign-in values in the [root quickstart](../README.md#быстрый-запуск-демо--два-терминала). The instructions below describe role-separated access.
+
 Use Node.js **22.12 or newer**, pnpm **11.25.0**, and Python **3.11 or newer** for the backend.
 
 From the repository root, prepare a local `.env` using the root `.env.example` if one does not already exist. For identity-aware access, set `CAREER_QUEST_AUTH_DISABLED=false`, configure your own `HR_API_TOKEN`, and set `EMPLOYEE_TOKENS_JSON` to a JSON object mapping each employee token to its employee ID. Keep these values on the backend.
@@ -17,8 +19,8 @@ The script installs backend dependencies and starts FastAPI at `http://127.0.0.1
 In a separate terminal, from `frontend/`:
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm dev
+npx --yes pnpm@11.25.0 install --frozen-lockfile
+VITE_API_MODE=real VITE_API_BASE_URL=http://127.0.0.1:8000 npx --yes pnpm@11.25.0 dev --port 5173 --strictPort
 ```
 
 Open the URL printed by Vite, normally `http://127.0.0.1:5173`. Real API mode is the default. Optional `frontend/.env.local` settings follow the public [`.env.example`](.env.example):
