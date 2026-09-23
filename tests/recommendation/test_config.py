@@ -3,7 +3,7 @@
 from dataclasses import FrozenInstanceError, replace
 import unittest
 
-from backend.recommendation.config import DEFAULT_CONFIG, RecommendationConfig, ScoringWeights
+from backend.recommendation.config import DEFAULT_CONFIG, HistoryConfig, RecommendationConfig, ScoringWeights
 from backend.recommendation.contracts import RecommendationInputError
 
 
@@ -50,6 +50,28 @@ class ConfigurationTests(unittest.TestCase):
             with self.subTest(overrides=overrides):
                 with self.assertRaises(ValueError):
                     RecommendationConfig(**overrides)
+
+    def test_scoring_weights_reject_nonunit_total_nonfinite_and_negative_values(self):
+        for overrides in ({"availability": 0.1}, {"availability": float("nan")},
+                          {"availability": -0.1}, {"availability": True}):
+            with self.subTest(overrides=overrides), self.assertRaises(ValueError):
+                ScoringWeights(**overrides)
+
+    def test_history_priors_fallback_and_diagnostic_thresholds_are_centralized(self):
+        config = DEFAULT_CONFIG.history
+        self.assertEqual((config.prior_weight, config.neutral_value), (2, 0.5))
+        self.assertEqual((config.feedback_prior_weight, config.feedback_neutral_value), (2, 0.5))
+        self.assertEqual(config.unknown_source_weight, 0.5)
+        self.assertEqual(config.recent_window_days, 365)
+        self.assertEqual(config.recent_similarity_threshold, 0.5)
+        self.assertEqual(DEFAULT_CONFIG.availability_wait_scale_days, 30)
+
+    def test_history_tuning_rejects_invalid_priors_and_counter_thresholds(self):
+        for overrides in ({"feedback_prior_weight": 0}, {"feedback_neutral_value": 2},
+                          {"unknown_source_weight": -1}, {"recent_window_days": -1},
+                          {"recent_window_days": True}, {"recent_similarity_threshold": 2}):
+            with self.subTest(overrides=overrides), self.assertRaises(ValueError):
+                HistoryConfig(**overrides)
 
 
 if __name__ == "__main__":
