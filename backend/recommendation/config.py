@@ -1,4 +1,4 @@
-"""Central policy settings. Scoring/history settings are reserved for a later step."""
+"""Central, immutable policy settings for career state and recommendation scoring."""
 
 from dataclasses import dataclass, field
 from math import isfinite
@@ -40,6 +40,13 @@ class HistoryConfig:
     recency_half_life_days: float = 365.0
     prior_weight: float = 2.0
     neutral_value: float = 0.5
+    feedback_prior_weight: float = 2.0
+    feedback_neutral_value: float = 0.5
+    # Unknown assignment sources carry moderate confidence, not a zero outcome.
+    unknown_source_weight: float = 0.5
+    # Diagnostic counters only; neither threshold changes H or F.
+    recent_window_days: int = 365
+    recent_similarity_threshold: float = 0.5
     source_weights: Tuple[Tuple[str, float], ...] = (
         ("self", 1.0), ("manager", 0.5), ("hr", 0.25),
     )
@@ -59,6 +66,12 @@ class HistoryConfig:
         _positive(self.recency_half_life_days, "recency_half_life_days")
         _positive(self.prior_weight, "prior_weight")
         _unit(self.neutral_value, "neutral_value")
+        _positive(self.feedback_prior_weight, "feedback_prior_weight")
+        _unit(self.feedback_neutral_value, "feedback_neutral_value")
+        _unit(self.unknown_source_weight, "unknown_source_weight")
+        _unit(self.recent_similarity_threshold, "recent_similarity_threshold")
+        if type(self.recent_window_days) is not int or self.recent_window_days < 0:
+            raise ValueError("recent_window_days must be a nonnegative integer")
         for name, pairs in (("source_weights", self.source_weights), ("status_outcomes", self.status_outcomes)):
             if not isinstance(pairs, tuple) or any(not isinstance(pair, tuple) or len(pair) != 2 for pair in pairs):
                 raise ValueError("{} must be immutable (name, weight) pairs".format(name))

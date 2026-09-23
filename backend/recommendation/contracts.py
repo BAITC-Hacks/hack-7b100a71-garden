@@ -261,3 +261,119 @@ class CatalogEligibility(TypedDict):
     rejected_count: int
     eligible_candidates: List[EligibilityResult]
     rejected_events: List[EligibilityResult]
+
+
+# Step 3 adds preference/scoring contracts; earlier public structures stay intact.
+class ScoringEventInput(EligibilityEventInput, total=False):
+    type: str
+    duration_hours: Union[int, float, str, None]
+
+
+class HistoryParticipationInput(ParticipationInput, total=False):
+    assigned_by: Optional[str]
+    feedback_rating: Union[int, float, str, None]
+    score: Union[int, float, str, None]
+
+
+class HistoryEvidence(TypedDict):
+    matched_history_count: int
+    effective_history_weight: float
+    positive_weight: float
+    negative_weight: float
+    recent_similar_no_shows: int
+    recent_similar_completions: int
+    rating_observation_count: int
+    assessment_observation_count: int
+    effective_feedback_weight: float
+    feedback_record_count: int
+    zero_weight_count: int
+    weighted_outcome_sum: float
+    weighted_feedback_sum: float
+    considered_history_count: int
+    excluded_mandatory_count: int
+    excluded_status_count: int
+    ignored_future_count: int
+    zero_similarity_count: int
+    unknown_source_count: int
+    invalid_rating_count: int
+    invalid_assessment_count: int
+    missing_rating_count: int
+    missing_assessment_count: int
+    completion_date_proxy_count: int
+    priors: Dict[str, float]
+    config_snapshot: Dict[str, object]
+
+
+class _HistorySignalsRequired(TypedDict):
+    compatibility: float
+    feedback_signal: float
+    evidence: HistoryEvidence
+
+
+class HistorySignals(_HistorySignalsRequired, total=False):
+    # Opt-in backend/debug detail. The default exposes aggregate evidence only.
+    record_evidence: List[Dict[str, object]]
+
+
+class FactorScore(TypedDict):
+    raw: float
+    normalized: float
+    weight: float
+    contribution: float
+
+
+class ScoringEvidence(TypedDict):
+    useful_destination_gain: int
+    advertised_positive_gain: int
+    duration_hours: Optional[float]
+    duration_valid: bool
+    raw_efficiency: float
+    normalization_maxima: Dict[str, float]
+    availability_wait_days: int
+    normalization_candidate_count: int
+
+
+class ScoredCandidate(TypedDict):
+    event_id: str
+    score: float
+    factors: Dict[str, FactorScore]
+    scoring_evidence: ScoringEvidence
+
+
+class RankedRecommendation(ScoredCandidate):
+    rank: int
+    title: str
+    simulation: EventSimulation
+    evidence: CandidateEvidence
+    history_signals: HistorySignals
+
+
+class BlockedEvent(TypedDict):
+    event_id: str
+    rejection_codes: List[RejectionCode]
+
+
+class UsefulBlockedEvent(BlockedEvent):
+    total_gap_reduction: int
+    critical_gap_reduction: int
+
+
+class BlockedSummary(TypedDict):
+    rejection_counts: Dict[str, int]
+    event_rejections: List[BlockedEvent]
+    uncovered_target_gaps: List[SkillGap]
+    useful_blocked_events: List[UsefulBlockedEvent]
+
+
+class RecommendationResult(TypedDict):
+    employee_id: str
+    as_of: str
+    status: Literal["ok", "no_eligible_recommendations", "no_next_grade", "target_satisfied", "invalid_target_requirements"]
+    target: Optional[CareerTarget]
+    career_readiness: Optional[ReadinessResult]
+    skill_gaps: List[SkillGap]
+    career_state: CareerState
+    candidate_count: int
+    recommendation_count: int
+    recommendations: List[RankedRecommendation]
+    blocked_summary: Optional[BlockedSummary]
