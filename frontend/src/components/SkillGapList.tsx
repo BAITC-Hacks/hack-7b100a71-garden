@@ -13,7 +13,7 @@ function SkillGapRow({ skill }: { skill: SkillGap }) {
     <li className="skill-row">
       <div className="skill-row-heading">
         <h3>{skill.name}</h3>
-        <span className={`skill-status ${skill.critical ? 'skill-critical' : ''}`}>{skill.critical ? labels.critical : labels.standard}</span>
+        <span className={`skill-status ${skill.critical ? 'skill-critical' : ''}`}>{skill.critical ? labels.critical : labels.standard}{skill.gap === 0 ? ' · Satisfied' : ''}</span>
       </div>
       {validScale ? <div className="skill-comparison" aria-hidden="true">
         <div className="skill-required-bar" style={{ width: `${skill.required / scaleMax * 100}%` }} />
@@ -38,6 +38,7 @@ export function SkillGapList({ skills }: { skills: SkillGap[] }) {
         <p className="eyebrow">{labels.skillsEyebrow}</p><h2 id="skills-heading">{labels.skills}</h2><p>{labels.skillsDescription}</p>
       </div>
       {skills.length ? <>
+        <p className="requirements-summary">{skills.filter((skill) => skill.gap === 0).length} satisfied requirements · {skills.filter((skill) => skill.gap > 0).length} remaining gaps</p>
         <div className="skill-legend"><span><i />{labels.currentLegend}</span><span><i />{labels.targetLegend}</span></div>
         <ul className="skill-list">{skills.map((skill) => <SkillGapRow skill={skill} key={skill.id} />)}</ul>
       </> : <div className="dashboard-empty"><Icon name="grid" /><h3>{labels.noGaps}</h3><p>{labels.noGapsDescription}</p></div>}

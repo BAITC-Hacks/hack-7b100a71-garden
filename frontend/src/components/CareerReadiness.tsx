@@ -17,8 +17,10 @@ export function CareerReadiness({ readiness, target, projection }: {
   // Display validity only. Never calculate or repair an assessment.
   const available = isReadinessValue(value)
   const formatted = available ? formatReadiness(value) : null
+  const visible = available ? new Intl.NumberFormat('en', { style: 'percent', maximumFractionDigits: 2 }).format(value) : null
   const before = isReadinessValue(projection?.readinessBefore) ? formatReadiness(projection.readinessBefore) : null
   const after = isReadinessValue(projection?.readinessAfter) ? formatReadiness(projection.readinessAfter) : null
+  const percentage = new Intl.NumberFormat('en', { style: 'percent', maximumFractionDigits: 2 })
   return (
     <section className="readiness-card" aria-labelledby="readiness-heading">
       <div className="dashboard-card-heading">
@@ -33,14 +35,14 @@ export function CareerReadiness({ readiness, target, projection }: {
               <circle className="ring-track" cx="80" cy="80" r="68" />
               <circle className="ring-value" cx="80" cy="80" r="68" pathLength="100" strokeDasharray={`${value * 100} 100`} />
             </svg>
-            <span className={`readiness-number ${(formatted?.length ?? 0) > 5 ? 'readiness-number-precise' : ''}`}>{formatted}</span>
+            <span className={`readiness-number ${(visible?.length ?? 0) > 5 ? 'readiness-number-precise' : ''}`} title={formatted ?? undefined}>{visible}</span>
           </div>
           <div className="readiness-context">
             <p>{target ? labels.readinessLabel : labels.currentAssessment}</p>
             {target && <strong>{target.grade}<span>{target.role}</span></strong>}
           </div>
         </div>
-        <p className="readiness-note">{target ? labels.readinessNote : labels.readinessUntargetedNote}</p>
+        <p className="readiness-note">{target ? 'Coverage of target requirements. This does not guarantee promotion eligibility.' : labels.readinessUntargetedNote}</p>
       </> : <div className="readiness-empty">
         <span aria-hidden="true">—</span><h3>{labels.readinessUnavailable}</h3>
         <p>{target ? labels.readinessMissingNote : labels.noTargetReadiness}</p>
@@ -49,8 +51,8 @@ export function CareerReadiness({ readiness, target, projection }: {
         <h3>{labels.readinessProjection}</h3>
         <p>{projection.title}</p>
         <dl>
-          <div><dt>{labels.readinessBefore}</dt><dd>{before}</dd></div>
-          <div><dt>{labels.readinessAfter}</dt><dd>{after}</dd></div>
+          <div><dt>{labels.readinessBefore}</dt><dd title={before}>{percentage.format(projection.readinessBefore!)}</dd></div>
+          <div><dt>{labels.readinessAfter}</dt><dd title={after}>{percentage.format(projection.readinessAfter!)}</dd></div>
         </dl>
       </div>}
     </section>

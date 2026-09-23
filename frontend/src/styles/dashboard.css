@@ -35,7 +35,7 @@
 .ring-track { stroke: #ffffff1c; }
 .ring-value { stroke: var(--color-lime); stroke-linecap: butt; transition: stroke-dasharray .45s ease; }
 .readiness-number { position: absolute; inset: 0; display: grid; place-items: center; font-size: 40px; font-weight: 500; letter-spacing: -1.8px; font-variant-numeric: tabular-nums; }
-.readiness-ring .readiness-number-precise { display: block; align-content: center; text-align: center; inset: 28px 17px; font-size: 19px; line-height: 1.25; letter-spacing: -.4px; overflow-wrap: anywhere; }
+.readiness-ring .readiness-number-precise { display: block; align-content: center; text-align: center; inset: 28px 17px; font-size: 28px; line-height: 1.25; letter-spacing: -.4px; overflow-wrap: anywhere; }
 .readiness-context { min-width: 0; }
 .readiness-context p { font-size: 11px; color: #b7cbbd; line-height: 1.6; }
 .readiness-context strong { display: block; font-size: 25px; font-weight: 500; letter-spacing: -.4px; margin-top: 7px; }
@@ -199,3 +199,58 @@
   .employee-profile-identity .avatar { width: 46px; height: 46px; }
   .skill-values { gap: 10px; }
 }
+
+/* Phase 2: backend-backed progress, evidence and durable completion. */
+.effective-skills { padding: 17px 28px 22px; border-top: 1px solid var(--color-line); }
+.effective-skills summary, .activity-history summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+.effective-skills summary > span, .activity-history summary > span { font-weight: 400; color: var(--color-muted); margin-left: 7px; }
+.effective-skills > p, .activity-history > p { margin-top: 10px; font-size: 11px; color: var(--color-muted); line-height: 1.7; }
+.effective-skill-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px 22px; list-style: none; margin: 15px 0 0; padding: 0; }
+.effective-skill-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 11px; border-bottom: 1px solid var(--color-line); padding: 7px 0; }
+.effective-skill-list strong { white-space: nowrap; color: var(--color-brand); font-size: 13px; }
+.effective-skill-list small { font-weight: 400; color: var(--color-muted); font-size: 10px; }
+.requirements-summary { font-size: 11px; padding: 15px 26px 0; color: var(--color-brand); }
+.recommendation-event-id { margin-top: 5px; color: var(--color-muted); font-size: 10px; }
+.skill-impact-list { list-style: none; padding: 0; margin: 14px 0; }
+.skill-impact-list li { display: flex; justify-content: space-between; gap: 15px; font-size: 11px; line-height: 1.6; padding: 7px 0; border-bottom: 1px solid var(--color-line); }
+.skill-impact-list small { display: block; font-weight: 400; color: var(--color-muted); font-size: 9px; }
+.skill-impact-list strong { text-align: right; flex-shrink: 0; }
+.recommendation-readiness { font-size: 11px; line-height: 1.7; margin: 10px 0; }
+.recommendation-readiness > span { display: block; font-size: 10px; color: var(--color-muted); }
+.recommendation-audience { font-size: 10px; line-height: 1.7; margin: 10px 0; overflow-wrap: anywhere; }
+.recommendation-explanation, .recommendation-evidence { font-size: 11px; margin-top: 15px; }
+.recommendation-explanation summary, .recommendation-evidence summary { cursor: pointer; color: var(--color-brand); font-weight: 600; padding: 5px 0; }
+.recommendation-summary { white-space: pre-wrap; }
+.explanation-source { margin-top: 10px; color: var(--color-muted); font-size: 9px; }
+.recommendation-evidence pre, .backend-error-details pre { max-height: 320px; overflow: auto; padding: 12px; background: #edf1e7; border-radius: 8px; font-size: 10px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.factor-list { display: grid; gap: 7px; }
+.factor-list > div { display: flex; justify-content: space-between; gap: 8px; }
+.factor-list dd { margin: 0; overflow-wrap: anywhere; }
+.recommendation-actions { margin-top: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.recommendation-actions > span { color: var(--color-muted); font-size: 9px; line-height: 1.6; }
+.reconstruction-note { border: 1px solid #e4dcc7; border-radius: 10px; background: #faf7ef; padding: 14px 18px; margin-bottom: var(--dashboard-space); font-size: 11px; color: #776332; line-height: 1.8; }
+.reconstruction-note summary { cursor: pointer; font-weight: 600; }
+.reconstruction-note p { margin-top: 8px; }
+.completion-result { padding: 20px 24px; margin-bottom: var(--dashboard-space); border-color: #b9cfae; background: #f1f7eb; }
+.completion-result h2 { font-size: 17px; }
+.completion-result p { font-size: 12px; line-height: 1.7; margin-top: 8px; }
+.completion-result ul { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 12px 25px; }
+.completion-result li { display: flex; gap: 12px; align-items: center; font-size: 12px; }
+.completion-result .completion-timing { font-size: 10px; color: var(--color-muted); overflow-wrap: anywhere; }
+.backend-error-details { font-size: 11px; line-height: 1.7; margin: 8px 0; overflow-wrap: anywhere; }
+.employee-dashboard > .state-panel { margin-bottom: var(--dashboard-space); }
+.activity-history { margin-top: var(--dashboard-space); padding: 22px 26px; }
+.history-table-scroll { overflow: auto; margin-top: 15px; }
+.activity-history table { border-collapse: collapse; width: 100%; text-align: left; font-size: 11px; line-height: 1.6; }
+.activity-history th, .activity-history td { padding: 11px 12px; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+.activity-history th { color: var(--color-muted); font-weight: 500; white-space: nowrap; }
+.activity-history td small { display: block; color: var(--color-muted); margin-top: 4px; font-size: 9px; }
+@media (max-width: 980px) { .effective-skill-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .effective-skills { padding-left: 23px; padding-right: 23px; }
+  .effective-skill-list { grid-template-columns: minmax(0, 1fr); }
+  .factor-list > div { flex-wrap: wrap; }
+  .requirements-summary { padding-left: 23px; padding-right: 23px; }
+}
+.completion-assignment { display: flex; flex-direction: column; gap: 7px; width: 100%; font-size: 11px; }
+.completion-assignment select { min-width: 0; width: 100%; padding: 9px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; color: inherit; font: inherit; }
