@@ -32,9 +32,14 @@ def create_app(settings=None, repository=None, recommendation_provider=_DEFAULT_
     async def lifespan(application):
         active_repository = repository
         if active_repository is None:
-            active_repository = DatasetRepository.from_directory(
-                settings.data_dir, settings.runtime_state_path
-            )
+            if settings.database_url:
+                from backend.data.postgres_repository import PostgresRepository
+                active_repository = PostgresRepository(settings.database_url)
+                active_repository.initialize(settings.data_dir, settings.runtime_state_path)
+            else:
+                active_repository = DatasetRepository.from_directory(
+                    settings.data_dir, settings.runtime_state_path
+                )
         application.state.repository = active_repository
         application.state.activity_service = ActivityService(active_repository)
         application.state.dataset_service = DatasetService(active_repository)

@@ -69,4 +69,5 @@ Runtime state is separate from source data. Use one application worker; transact
 
 An injected provider can optionally supply synchronous `coverage(view)` returning `evaluated_count` and `without_next_step_count`, with `0 <= without_next_step_count <= evaluated_count <= employee_count`. The hook must be fast, deterministic and independent of AI generation; its result is cached per dataset version.
 
+With `DATABASE_URL`, runtime state lives in Supabase PostgreSQL; row locking serializes mutations across workers and repeatable-read snapshots keep related data coherent. Without it, the JSON state adapter requires one worker. A full replacement deliberately discards the old runtime completion order and idempotency receipts. See [SUPABASE.md](SUPABASE.md) for migration and initialization.
 The default provider uses cached employee results instead. Until one result exists, coverage `count` is null. `evaluated_count`, `pending_count` and `complete` distinguish partial coverage from a full calculation. An invalid optional hook falls back to cached results. An HR request never calls recommendations or OpenAI for every employee.

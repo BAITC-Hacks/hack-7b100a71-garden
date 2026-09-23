@@ -4,7 +4,7 @@ Frontend integration contract for Adilet. Local base URL: `http://127.0.0.1:8000
 
 ## Changes from the first backend version
 
-Successful responses now contain `data`. Lists contain an array in `data` and pagination in `meta`; the old top-level `items` and `total` fields are gone. List requests return at most 50 records by default. Dataset replacement uses `?mode=replace`, replacing `replace_existing=true`. Completion requires an `Idempotency-Key` header. Runtime changes persist separately from the official dataset when a state path is configured.
+Successful responses now contain `data`. Lists contain an array in `data` and pagination in `meta`; the old top-level `items` and `total` fields are gone. List requests return at most 50 records by default. Dataset replacement uses `?mode=replace`, replacing `replace_existing=true`. Completion requires an `Idempotency-Key` header. Runtime changes persist in Supabase when `DATABASE_URL` is configured, or in the local snapshot when a state path is configured.
 
 ## Authentication and access
 

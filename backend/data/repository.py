@@ -117,6 +117,42 @@ class MutableState:
         return RepositoryView(self.dataset, self.version, self.completed_record_ids)
 
 
+def validate_runtime_state(state: MutableState) -> MutableState:
+    """Validate persisted domain data, completion order and original receipts.
+
+    Both JSON recovery and relational reads use the same integrity contract.
+    Replace the dataset with its validated copy only after all checks succeed.
+    """
+    dataset = validate_dataset(state.dataset)
+    completed_ids = state.completed_record_ids
+    if (not isinstance(completed_ids, list)
+            or any(not isinstance(record_id, str) for record_id in completed_ids)
+            or len(completed_ids) != len(set(completed_ids))):
+        raise ValueError("runtime completion order is invalid")
+    known_ids = {record.record_id for record in dataset.history if record.status == "completed"}
+    if not set(completed_ids) <= known_ids:
+        raise ValueError("runtime completion references are invalid")
+    version = state.version
+    receipts = state.receipts
+    if type(version) is not int or version < 1 or not isinstance(receipts, dict):
+        raise ValueError("invalid runtime state metadata")
+    for key, receipt in receipts.items():
+        if (not isinstance(key, str) or not isinstance(receipt, dict)
+                or not isinstance(receipt.get("fingerprint"), str)
+                or not isinstance(receipt.get("result"), dict)):
+            raise ValueError("invalid idempotency receipt")
+        result = receipt["result"]
+        activity = result.get("activity")
+        if (not isinstance(activity, dict) or activity.get("record_id") not in completed_ids
+                or not isinstance(result.get("effective_skills"), dict)
+                or not isinstance(result.get("skill_changes"), list)
+                or type(result.get("version")) is not int
+                or not 1 <= result["version"] <= version):
+            raise ValueError("invalid idempotency result")
+    state.dataset = dataset
+    return state
+
+
 class DatasetRepository:
     def __init__(self, dataset: Dataset, state_path: Optional[Path] = None):
         dataset = validate_dataset(dataset)
@@ -200,46 +236,9 @@ class DatasetRepository:
             if payload.get("source_fingerprint") != self._source_fingerprint:
                 raise ValueError("runtime state belongs to a different source dataset; use a separate state path")
             dataset = Dataset.model_validate(payload["dataset"])
-            dataset = validate_dataset(dataset)
-            completed_ids = payload["completed_record_ids"]
-            if (not isinstance(completed_ids, list)
-                    or any(not isinstance(record_id, str) for record_id in completed_ids)
-                    or len(completed_ids) != len(set(completed_ids))):
-                raise ValueError("runtime completion order is invalid")
-            known_ids = {record.record_id for record in dataset.history if record.status == "completed"}
-            if not set(completed_ids) <= known_ids:
-                raise ValueError("runtime completion references are invalid")
-            previous_sequence = 0
-            records_by_id = {record.record_id: record for record in dataset.history}
-            for position, record_id in enumerate(completed_ids, 1):
-                record = records_by_id[record_id]
-                if record.completed_on is None:
-                    raise ValueError("runtime completion requires its logical completed_on date")
-                sequence = record.runtime_sequence or position
-                if sequence <= previous_sequence:
-                    raise ValueError("runtime sequence disagrees with persisted operation order")
-                previous_sequence = sequence
-            if any(record.runtime_sequence is not None and record.record_id not in completed_ids
-                   for record in dataset.history):
-                raise ValueError("runtime sequence lacks a persisted completion reference")
-            version = payload["version"]
-            receipts = payload["receipts"]
-            if type(version) is not int or version < 1 or not isinstance(receipts, dict):
-                raise ValueError("invalid runtime state metadata")
-            for key, receipt in receipts.items():
-                if (not isinstance(key, str) or not isinstance(receipt, dict)
-                        or not isinstance(receipt.get("fingerprint"), str)
-                        or not isinstance(receipt.get("result"), dict)):
-                    raise ValueError("invalid idempotency receipt")
-                result = receipt["result"]
-                activity = result.get("activity")
-                if (not isinstance(activity, dict) or activity.get("record_id") not in completed_ids
-                        or not isinstance(result.get("effective_skills"), dict)
-                        or not isinstance(result.get("skill_changes"), list)
-                        or type(result.get("version")) is not int
-                        or not 1 <= result["version"] <= version):
-                    raise ValueError("invalid idempotency result")
-            self._state = MutableState(dataset, version, receipts, completed_ids)
+            self._state = validate_runtime_state(MutableState(
+                dataset, payload["version"], payload["receipts"], payload["completed_record_ids"],
+            ))
         except Exception as exc:
             raise ValueError("Cannot restore runtime state: " + str(exc)) from exc
 
