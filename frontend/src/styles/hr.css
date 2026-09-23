@@ -1,0 +1,77 @@
+.hr-page-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; }
+.hr-page-heading .page-heading { max-width: 650px; }
+.hr-page-heading > .button { flex-shrink: 0; margin-top: 27px; background: white; color: var(--color-brand); border: 1px solid var(--color-line); }
+.hr-dashboard { display: grid; gap: 22px; }
+.hr-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; }
+.hr-metric { padding: 22px; min-width: 0; box-shadow: 0 3px 12px #183d2803; }
+.hr-metric dt { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; font-size: 11px; font-weight: 550; line-height: 1.5; }
+.hr-metric dt .icon { width: 17px; height: 17px; color: #7a8a73; }
+.hr-metric dd { margin: 0; }
+.hr-metric .hr-metric-value { margin-top: 15px; font-size: clamp(29px, 3vw, 40px); letter-spacing: -1.5px; font-weight: 550; line-height: 1.2; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.hr-metric .hr-metric-unavailable { color: var(--color-muted); margin-top: 24px; margin-bottom: 9px; font-size: 17px; }
+.hr-metric .hr-metric-note { font-size: 10px; color: var(--color-muted); margin-top: 9px; line-height: 1.5; }
+.hr-priority-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 22px; }
+.hr-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.hr-insight { padding: 28px; min-width: 0; }
+.hr-card-heading { margin-bottom: 28px; }
+.hr-card-heading h2 { font-size: 21px; font-weight: 550; letter-spacing: -.55px; margin-top: 8px; }
+.hr-card-heading > p:last-child { margin-top: 8px; font-size: 11px; color: var(--color-muted); line-height: 1.7; }
+.hr-bars { margin: 0; padding: 0; list-style: none; display: grid; gap: 21px; }
+.hr-bar-label { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; font-size: 12px; line-height: 1.5; }
+.hr-bar-label > span:first-child { overflow-wrap: anywhere; }
+.hr-bar-value { flex-shrink: 0; font-size: 10px; color: var(--color-muted); }
+.hr-bar-value strong { font-size: 13px; font-weight: 600; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.hr-bar-track, .hr-rate-track { height: 7px; margin-top: 9px; background: #eef2eb; border-radius: 3px; overflow: hidden; }
+.hr-bar-fill, .hr-rate-track > span { display: block; height: 100%; border-radius: inherit; background: #477b60; transition: width .3s ease; }
+.hr-next-step { position: relative; padding: 30px; background: var(--color-brand-deep); border: 1px solid var(--color-brand-deep); color: white; border-radius: var(--radius-card); display: flex; flex-direction: column; min-width: 0; }
+.hr-next-icon { height: 40px; width: 40px; border: 1px solid #b6ce962e; background: #ffffff08; border-radius: 11px; color: var(--color-lime); display: grid; place-items: center; margin-bottom: 27px; }
+.hr-next-step .eyebrow { color: #c0d5a9; font-size: 8px; }
+.hr-next-step h2 { font-size: 26px; font-weight: 450; line-height: 1.2; letter-spacing: -.7px; margin-top: 11px; max-width: 260px; }
+.hr-next-stat { margin: 19px 0 26px; display: flex; align-items: center; gap: 17px; }
+.hr-next-stat strong { font-size: 65px; line-height: 1; letter-spacing: -3px; font-weight: 450; color: var(--color-lime); overflow-wrap: anywhere; min-width: 0; }
+.hr-next-stat span { font-size: 11px; line-height: 1.7; color: #d2e0d4; max-width: 140px; }
+.hr-next-description { margin-top: auto; padding-top: 20px; border-top: 1px solid #ffffff20; font-size: 10px; line-height: 1.8; color: #c0d1c6; }
+.hr-next-unavailable { margin: 26px 0; color: #d2e0d4; font-size: 13px; line-height: 1.7; }
+.hr-participation-rate { padding: 17px 18px; border-radius: 11px; background: #f3f6ef; margin-bottom: 25px; }
+.hr-participation-rate > div:first-child { display: flex; align-items: baseline; gap: 14px; }
+.hr-participation-rate strong { font-size: 30px; font-weight: 550; letter-spacing: -1px; overflow-wrap: anywhere; min-width: 0; }
+.hr-participation-rate span { font-size: 10px; color: var(--color-muted); line-height: 1.6; }
+.hr-rate-track { background: #dfe7d7; height: 5px; }
+.hr-rate-track > span { background: var(--color-brand); }
+.hr-status-insight .hr-bars { gap: 17px; }
+.hr-status-insight .hr-bar-track { height: 5px; }
+.hr-tone-completed .hr-bar-fill { background: #386e51; }
+.hr-tone-in_progress .hr-bar-fill { background: #829868; }
+.hr-tone-no_show .hr-bar-fill, .hr-tone-dropped .hr-bar-fill, .hr-tone-declined .hr-bar-fill { background: #98a29a; }
+.hr-tone-overdue .hr-bar-fill { background: #a08353; }
+.hr-section-empty { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 9px; min-height: 155px; padding: 22px; border: 1px dashed var(--color-line); border-radius: 12px; }
+.hr-section-empty .icon { color: #839777; }
+.hr-section-empty p { font-size: 13px; font-weight: 550; }
+.hr-section-empty span { font-size: 11px; line-height: 1.7; color: var(--color-muted); }
+.hr-chart-note, .hr-sample-note { font-size: 10px; color: var(--color-muted); line-height: 1.7; }
+.hr-sample-note { margin-top: 24px; }
+.hr-refresh-error { border: 1px solid #dbc8ac; background: #fbf6ec; color: #725b37; padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; font-size: 12px; }
+@media (max-width: 1180px) {
+  .hr-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hr-page-heading { flex-wrap: wrap; gap: 0; margin-bottom: 26px; }
+  .hr-page-heading .page-heading { margin-bottom: 18px; }
+  .hr-page-heading > .button { margin-top: 0; }
+  .hr-insight { padding: 23px; }
+  .hr-next-step { padding: 25px; }
+  .hr-priority-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+}
+@media (max-width: 950px) {
+  .hr-priority-grid, .hr-detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .hr-next-icon { margin-bottom: 20px; }
+  .hr-next-step h2 { max-width: none; }
+}
+@media (max-width: 480px) {
+  .hr-metrics { gap: 10px; }
+  .hr-metric { padding: 17px 14px; }
+  .hr-metric dt .icon { display: none; }
+  .hr-metric .hr-metric-unavailable { font-size: 15px; }
+  .hr-insight, .hr-next-step { padding: 22px; }
+  .hr-bar-label { flex-wrap: wrap; gap: 3px 12px; }
+  .hr-bar-value { margin-left: auto; }
+  .hr-participation-rate > div:first-child { flex-wrap: wrap; gap: 4px 14px; }
+}

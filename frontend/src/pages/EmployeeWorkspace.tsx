@@ -1,5 +1,6 @@
 import { useParams } from 'react-router'
 import { useEmployeeDashboard } from '../hooks/useEmployeeDashboard'
+import { useActivityCompletion } from '../hooks/useActivityCompletion'
 import { ApiError } from '../types/api'
 import { copy } from '../i18n/en'
 import { BackLink, Button, LoadingPanel, StatePanel } from '../components/UI'
@@ -12,6 +13,7 @@ import { RecommendationList } from '../components/RecommendationList'
 export function EmployeeWorkspace() {
   const { employeeId = '' } = useParams()
   const { employee: profile, career } = useEmployeeDashboard(employeeId)
+  const completion = useActivityCompletion(employeeId)
   const labels = copy.dashboard
 
   if (profile.isPending) return <><BackLink /><LoadingPanel /></>
@@ -29,7 +31,7 @@ export function EmployeeWorkspace() {
   const employee = profile.data
   const overview = career.data
   return (
-    <div className="employee-dashboard">
+    <div className={`employee-dashboard ${completion.state.phase === 'success' ? 'dashboard-refreshed' : ''}`}>
       <BackLink />
       <div className="page-heading dashboard-heading">
         <div><p className="eyebrow">{copy.employeeEyebrow}</p><h1>{copy.employeeTitle}</h1><p>{copy.employeeDescription}</p></div>
@@ -48,7 +50,10 @@ export function EmployeeWorkspace() {
           </div>
           <div className="development-grid">
             <SkillGapList skills={overview.skillGaps} />
-            <RecommendationList recommendations={overview.recommendations} />
+            <RecommendationList key={employee.id} recommendations={overview.recommendations} target={overview.target}
+              onStart={(recommendation) => void completion.complete(recommendation)} completion={completion.state}
+              onRetry={() => void completion.retryCompletion()}
+              onRefresh={() => void completion.retryRefresh()} />
           </div>
         </>}
     </div>

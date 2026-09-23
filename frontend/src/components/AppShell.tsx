@@ -8,6 +8,7 @@ import { Icon } from './Icon'
 export function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
+  const workspaceTitle = pathname === '/hr/dataset' ? copy.dataset.nav : pathname === '/hr' ? copy.hrNav : copy.employeeNav
   const main = useRef<HTMLElement>(null)
   const previousPath = useRef(pathname)
   useEffect(() => {
@@ -16,8 +17,8 @@ export function AppShell() {
       main.current?.focus()
       window.scrollTo({ top: 0, behavior: 'instant' })
     }
-    document.title = `${pathname === '/hr' ? copy.hrNav : copy.employeeNav} · ${copy.brand}`
-  }, [pathname])
+    document.title = `${workspaceTitle} · ${copy.brand}`
+  }, [pathname, workspaceTitle])
 
   return <div className="app-shell">
     <a className="skip-link" href="#main-content">{copy.skip}</a>
@@ -42,7 +43,7 @@ export function AppShell() {
     <div className="workspace-content">
       <header className="topbar">
         <button className="menu-toggle" type="button" aria-label={copy.menu} aria-expanded={menuOpen} aria-controls="workspace-navigation" onClick={() => setMenuOpen(!menuOpen)}><Icon name={menuOpen ? 'close' : 'menu'} /></button>
-        <div className="breadcrumb"><span>{copy.breadcrumb}</span><Icon name="chevron" /><strong>{pathname === '/hr' ? copy.hrNav : copy.employeeNav}</strong></div>
+        <div className="breadcrumb"><span>{copy.breadcrumb}</span><Icon name="chevron" /><strong>{workspaceTitle}</strong></div>
         <div className="topbar-actions"><span className="demo-badge"><span className="status-dot" />{apiMode === 'mock' ? copy.demo : copy.liveUnavailable}</span><EmployeeSelector /></div>
       </header>
       <main className="main-content" id="main-content" ref={main} tabIndex={-1}><Outlet /></main>

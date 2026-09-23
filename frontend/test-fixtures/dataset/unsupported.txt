@@ -1,0 +1,1 @@
+Unsupported file selection fixture for the dataset upload UI.

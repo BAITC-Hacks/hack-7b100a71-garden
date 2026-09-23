@@ -15,7 +15,7 @@ export interface CareerApi {
   uploadDataset(files: File[], validationId: string): Promise<void>
 }
 
-export type ApiErrorCode = 'NOT_FOUND' | 'UNAVAILABLE' | 'CONFIGURATION' | 'NETWORK'
+export type ApiErrorCode = 'NOT_FOUND' | 'UNAVAILABLE' | 'CONFIGURATION' | 'NETWORK' | 'TIMEOUT' | 'INVALID_RESPONSE' | 'RECOMMENDATION_UNAVAILABLE' | 'ALREADY_COMPLETED'
 export class ApiError extends Error {
   readonly code: ApiErrorCode
   constructor(code: ApiErrorCode, message: string) {

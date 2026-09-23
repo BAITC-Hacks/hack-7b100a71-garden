@@ -1,4 +1,4 @@
-import type { Activity, ActivityHistory, CareerOverview, Employee, HRAnalytics, SkillGap } from '../types/domain'
+import type { Activity, ActivityHistory, CareerOverview, Employee, SkillGap } from '../types/domain'
 
 // Synthetic demonstration records, not official employee or dataset content.
 // Every score, gap, target, ordering and impact below is a fixed response fixture.
@@ -94,15 +94,4 @@ export const skillScaleExamples: SkillGap[] = [
 
 export const employeeHistories: Record<string, ActivityHistory[]> = {
   'demo-aigerim': [], 'demo-daniyar': [], 'demo-madina': [],
-}
-
-export const hrAnalytics: HRAnalytics = {
-  totalEmployees: 3, employeesInDevelopment: 0, withoutNextStep: 2, participationRate: 0,
-  commonSkillGaps: [
-    { skillId: 'system-design', name: 'System Design', employeeCount: 1 },
-    { skillId: 'api-design', name: 'API Design', employeeCount: 1 },
-    { skillId: 'product-discovery', name: 'Product Discovery', employeeCount: 1 },
-    { skillId: 'technical-communication', name: 'Technical Communication', employeeCount: 1 },
-  ],
-  activityStatuses: [],
 }

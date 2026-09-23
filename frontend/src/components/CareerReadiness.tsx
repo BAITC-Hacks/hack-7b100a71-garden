@@ -1,11 +1,8 @@
 import { copy } from '../i18n/en'
 import type { CareerReadiness as Readiness, CareerTarget, Recommendation } from '../types/domain'
 import { Icon } from './Icon'
-import { formatReadiness } from '../utils/formatReadiness'
-
-function isReadinessValue(value: number | null | undefined): value is number {
-  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 1
-}
+import { formatReadiness, isReadinessValue } from '../utils/formatReadiness'
+import { ReadinessImpact } from './ReadinessImpact'
 
 export function CareerReadiness({ readiness, target, projection }: {
   readiness: Readiness | null
@@ -48,10 +45,7 @@ export function CareerReadiness({ readiness, target, projection }: {
       {projection && before !== null && after !== null && <div className="readiness-projection" role="group" aria-label={labels.readinessProjection}>
         <h3>{labels.readinessProjection}</h3>
         <p>{projection.title}</p>
-        <dl>
-          <div><dt>{labels.readinessBefore}</dt><dd>{before}</dd></div>
-          <div><dt>{labels.readinessAfter}</dt><dd>{after}</dd></div>
-        </dl>
+        <ReadinessImpact before={projection.readinessBefore} after={projection.readinessAfter} />
       </div>}
     </section>
   )

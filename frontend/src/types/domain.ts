@@ -41,19 +41,29 @@ export interface SkillGap extends Skill {
 export type ActivityStatus = 'completed' | 'in_progress' | 'no_show' | 'dropped' | 'declined' | 'overdue'
 export interface Activity { id: string; title: string; type: string; durationMinutes: number }
 export interface ActivityHistory { id: string; eventId: string; status: ActivityStatus; updatedAt: string }
-export interface RecommendationFactor { id: string; label: string; value: number }
-export interface RecommendationExplanation { text: string | null; factors: RecommendationFactor[] }
+export interface RecommendationFactor { id: string; label: string; value?: number | null }
+export interface RecommendationExplanation { text?: string | null; factors?: RecommendationFactor[] | null }
+export interface RecommendationSkillImpact {
+  skillId: string
+  name: string
+  current?: number | null
+  after?: number | null
+  required?: number | null
+  critical?: boolean | null
+  // Optional supplied evidence. Never derive gain by subtracting skill levels.
+  gain?: number | null
+}
 export interface Recommendation {
   eventId: string
   title: string
-  type: string
-  durationMinutes: number
-  careerImpact: string | null
-  score: number | null
-  skillImpact: Array<{ skillId: string; name: string; current: number; after: number; required: number; critical: boolean }>
-  readinessBefore: number | null
-  readinessAfter: number | null
-  explanation: RecommendationExplanation
+  type?: string | null
+  durationMinutes?: number | null
+  careerImpact?: string | null
+  score?: number | null
+  skillImpact?: RecommendationSkillImpact[] | null
+  readinessBefore?: number | null
+  readinessAfter?: number | null
+  explanation?: RecommendationExplanation | null
 }
 export interface CareerOverview {
   employeeId: string
@@ -64,15 +74,36 @@ export interface CareerOverview {
   recommendations: Recommendation[]
 }
 export interface HRAnalytics {
-  totalEmployees: number
-  employeesInDevelopment: number
-  withoutNextStep: number
-  participationRate: number
-  commonSkillGaps: Array<{ skillId: string; name: string; employeeCount: number }>
-  activityStatuses: Array<{ status: ActivityStatus; count: number }>
+  // Omitted/null metrics are unavailable, not zero. All aggregates belong to the adapter.
+  totalEmployees?: number | null
+  employeesInDevelopment?: number | null
+  withoutNextStep?: number | null
+  // Presentation unit: 0–1. The adapter owns the definition and denominator.
+  participationRate?: number | null
+  commonSkillGaps?: Array<{ skillId: string; name: string; employeeCount?: number | null }> | null
+  // Provisional optional view model until the live activity-analytics contract is agreed.
+  activityParticipation?: Array<{ activityId: string; title: string; participantCount?: number | null }> | null
+  activityStatuses?: Array<{ status: ActivityStatus; count?: number | null }> | null
+}
+export interface DatasetIssue {
+  file?: string | null
+  row?: number | null
+  record?: string | number | null
+  field?: string | null
+  message?: string | null
 }
 export interface DatasetValidationResult {
-  valid: boolean
-  validationId: string | null
-  errors: Array<{ file: string; row: number | null; field: string | null; message: string }>
+  // Partial responses never authorize an import. The adapter owns validation.
+  valid?: boolean | null
+  validationId?: string | null
+  errors?: DatasetIssue[] | null
+  warnings?: DatasetIssue[] | null
+  // Optional display fields, pending the live dataset response contract.
+  summary?: {
+    employees?: number | null
+    skills?: number | null
+    events?: number | null
+    activityHistory?: number | null
+    recordsProcessed?: number | null
+  } | null
 }

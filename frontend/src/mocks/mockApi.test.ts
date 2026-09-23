@@ -42,15 +42,14 @@ describe('API adapter boundary', () => {
     await expect(request).rejects.toMatchObject({ name: 'AbortError' })
   })
 
-  it('never reports successful mutations before they are implemented', async () => {
-    const api = createMockApi({ latencyMs: 0 })
-    await expect(api.completeActivity('employee', 'event')).rejects.toMatchObject({ code: 'UNAVAILABLE' })
-    await expect(api.validateDataset([])).rejects.toMatchObject({ code: 'UNAVAILABLE' })
-    await expect(api.uploadDataset([], 'validation')).rejects.toMatchObject({ code: 'UNAVAILABLE' })
+  it('requires an issued validation identifier before the mock import acknowledgement', async () => {
+    const api = createMockApi({ latencyMs: 0, datasetLatencyMs: 0 })
+    await expect(api.uploadDataset([], 'validation')).rejects.toMatchObject({ code: 'INVALID_RESPONSE' })
   })
 
   it.each(['real', 'invalid'])('never silently uses fixtures for %s mode', async (mode) => {
     await expect(createApi(mode).getEmployees()).rejects.toMatchObject({ code: 'CONFIGURATION' })
+    await expect(createApi(mode).completeActivity('demo-aigerim', 'demo-system-design')).rejects.toMatchObject({ code: 'CONFIGURATION' })
   })
 
   it('can retry an isolated career failure without losing employee identity', async () => {
@@ -76,5 +75,46 @@ describe('API adapter boundary', () => {
     const positions = overview.trajectory!.positions.length
     overview.trajectory!.positions.pop()
     expect((await normal.getRecommendations(employee.id)).trajectory!.positions).toHaveLength(positions)
+  })
+
+  it('preserves scenario order and isolates recommendation evidence between responses', async () => {
+    const api = createMockApi({ ...scenarioOptions('recommendations-order'), latencyMs: 0 })
+    const overview = await api.getRecommendations('demo-aigerim')
+    expect(overview.recommendations.map((item) => item.eventId)).toEqual(['demo-communication', 'demo-system-design', 'demo-api-design'])
+    overview.recommendations[1].skillImpact![0].after = 999
+    expect((await api.getRecommendations('demo-aigerim')).recommendations[1].skillImpact![0].after).toBe(3)
+    const normal = await createMockApi({ latencyMs: 0 }).getRecommendations('demo-aigerim')
+    expect(normal.recommendations[0].eventId).toBe('demo-system-design')
+  })
+
+  it('returns fixed after-state and history once, and rejects duplicate completion', async () => {
+    const api = createMockApi({ latencyMs: 0, completionLatencyMs: 0 })
+    await api.completeActivity('demo-aigerim', 'demo-system-design')
+    expect((await api.getEmployee('demo-aigerim')).skills[0].current).toBe(3)
+    const overview = await api.getRecommendations('demo-aigerim')
+    expect(overview.readiness?.current).toBe(0.79)
+    expect(overview.skillGaps[0].gap).toBe(1)
+    expect(overview.recommendations.map((item) => item.eventId)).toEqual(['demo-api-design', 'demo-communication'])
+    await expect(api.completeActivity('demo-aigerim', 'demo-system-design')).rejects.toMatchObject({ code: 'ALREADY_COMPLETED' })
+    expect(await api.getEmployeeHistory('demo-aigerim')).toHaveLength(1)
+    expect((await createMockApi({ latencyMs: 0 }).getRecommendations('demo-aigerim')).readiness?.current).toBe(0.67)
+  })
+
+  it('supports a different activity order through explicit snapshots', async () => {
+    const api = createMockApi({ latencyMs: 0, completionLatencyMs: 0 })
+    await api.completeActivity('demo-aigerim', 'demo-api-design')
+    expect((await api.getEmployee('demo-aigerim')).skills.map((skill) => skill.current)).toEqual([2, 4, 3])
+    await api.completeActivity('demo-aigerim', 'demo-communication')
+    expect((await api.getRecommendations('demo-aigerim')).readiness?.current).toBe(0.78)
+    await api.completeActivity('demo-aigerim', 'demo-system-design')
+    expect((await api.getRecommendations('demo-aigerim')).recommendations).toEqual([])
+    expect(await api.getEmployeeHistory('demo-aigerim')).toHaveLength(3)
+  })
+
+  it('rejects missing employees and unavailable recommendations without changing the assessment', async () => {
+    const api = createMockApi({ latencyMs: 0, completionLatencyMs: 0 })
+    await expect(api.completeActivity('unknown', 'demo-system-design')).rejects.toMatchObject({ code: 'NOT_FOUND' })
+    await expect(api.completeActivity('demo-aigerim', 'unknown')).rejects.toMatchObject({ code: 'RECOMMENDATION_UNAVAILABLE' })
+    expect((await api.getRecommendations('demo-aigerim')).readiness?.current).toBe(0.67)
   })
 })
