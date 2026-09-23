@@ -1,0 +1,858 @@
+{
+  "scope": "Step 1 only: target, effective skills, gaps, readiness",
+  "as_of": "2026-10-01",
+  "validation": {
+    "unit_and_integration_tests_passed": 60,
+    "official_source_sha256_matches_initial_audit": true,
+    "source_sha256": {
+      "skills.json": "12d99e52b5ed7e95d9d817380b774145e53d65a2b6c961f3c57e9f09a021edee",
+      "employees.json": "bcf366fc3cecde04401200e7ea192ae5b008fa5de8b13b246ef98b1ba65945de",
+      "events.json": "e82f08dfd947b0f4bfda2d984d7e2adcdb1e2b96f239223cf4ad14dd05c1b14b",
+      "activity_history.csv": "daaec3190b7d3d37f6a820a4c2926fd3a94a4e7dc22ea8f00b350a008d11993b"
+    }
+  },
+  "summary": {
+    "employees_processed": 200,
+    "statuses": {
+      "ok": 190,
+      "no_next_grade": 10
+    },
+    "elapsed_seconds_all_employees": 0.157359,
+    "applied_skill_bearing_participations": 202,
+    "participations_with_positive_gain": 186,
+    "participations_with_no_gain_due_to_caps": 16,
+    "total_skill_level_gains": 308,
+    "zero_gain_skill_entries": 51,
+    "existing_levels_above_event_cap_preserved": 11,
+    "estimated_profiles": 139,
+    "profiles_with_ambiguous_self_paced_completions": 59,
+    "ambiguous_self_paced_records": 70,
+    "profiles_with_positive_gains_but_unchanged_target_readiness": 31,
+    "profiles_meeting_all_critical_target_requirements": 3
+  },
+  "examples": [
+    {
+      "case": "same_role_promotion",
+      "input_summary": {
+        "employee_id": "E0001",
+        "role": "Backend Engineer",
+        "grade": "Junior",
+        "career_goal": {
+          "target_role": "Backend Engineer",
+          "target_grade": "Middle"
+        },
+        "last_review_date": "2026-09-11"
+      },
+      "review_baseline_readiness": 0.5641025641025641,
+      "result": {
+        "employee_id": "E0001",
+        "as_of": "2026-10-01",
+        "status": "ok",
+        "target": {
+          "role": "Backend Engineer",
+          "grade": "Middle",
+          "source": "career_goal"
+        },
+        "skill_gaps": [
+          {
+            "skill_id": "SK_API_DESIGN",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_CONTAINERS",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_OBSERVABILITY",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_APP_SECURITY",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CICD",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CLOUD",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_COMMUNICATION",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_MENTORING",
+            "current": 0,
+            "required": 1,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_PROBLEM_SOLVING",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_PUBLIC_SPEAKING",
+            "current": 0,
+            "required": 1,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_SQL",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_SYSTEM_DESIGN",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_TEAMWORK",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          }
+        ],
+        "career_readiness": {
+          "current": 0.5897435897435898,
+          "status": "available",
+          "reason": null,
+          "critical_weight": 2.0,
+          "weighted_covered_levels": 23.0,
+          "weighted_required_levels": 39.0,
+          "critical_requirements_met": false,
+          "remaining_critical_gaps": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "all_requirements_met": false
+        },
+        "skills_reconstruction": {
+          "effective_skills": {
+            "SK_ADAPTABILITY": 2,
+            "SK_API_DESIGN": 2,
+            "SK_APP_SECURITY": 1,
+            "SK_CICD": 1,
+            "SK_CLOUD": 1,
+            "SK_COMMUNICATION": 2,
+            "SK_CONFLICT_RESOLUTION": 3,
+            "SK_CONTAINERS": 0,
+            "SK_CRITICAL_THINKING": 3,
+            "SK_EMOTIONAL_INTELLIGENCE": 2,
+            "SK_FEEDBACK": 2,
+            "SK_LEADERSHIP": 1,
+            "SK_MENTORING": 0,
+            "SK_OBSERVABILITY": 0,
+            "SK_PROBLEM_SOLVING": 2,
+            "SK_PUBLIC_SPEAKING": 0,
+            "SK_PYTHON": 3,
+            "SK_SQL": 2,
+            "SK_STAKEHOLDER_MGMT": 1,
+            "SK_SYSTEM_DESIGN": 1,
+            "SK_TEAMWORK": 2,
+            "SK_TIME_MANAGEMENT": 2,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "applied_record_ids": [
+            "R002727"
+          ],
+          "skill_changes": [
+            {
+              "record_id": "R002727",
+              "event_id": "EV_011",
+              "skill_id": "SK_APP_SECURITY",
+              "before": 0,
+              "after": 1,
+              "gain_applied": 1,
+              "date_basis": "session_date"
+            }
+          ],
+          "uncertain_record_ids": [],
+          "warnings": [
+            {
+              "code": "completion_date_proxy",
+              "message": "Participation dates substitute for missing completion timestamps. Skills are an estimate, not guaranteed exact or a lower bound; actual completion order may differ.",
+              "record_ids": [
+                "R002727"
+              ]
+            }
+          ],
+          "date_policy": "participation_date_proxy",
+          "is_estimate": true
+        }
+      }
+    },
+    {
+      "case": "cross_role_transition",
+      "input_summary": {
+        "employee_id": "E0004",
+        "role": "Data Analyst",
+        "grade": "Middle",
+        "career_goal": {
+          "target_role": "Product Manager",
+          "target_grade": "Middle"
+        },
+        "last_review_date": "2026-01-12"
+      },
+      "review_baseline_readiness": 0.39473684210526316,
+      "result": {
+        "employee_id": "E0004",
+        "as_of": "2026-10-01",
+        "status": "ok",
+        "target": {
+          "role": "Product Manager",
+          "grade": "Middle",
+          "source": "career_goal"
+        },
+        "skill_gaps": [
+          {
+            "skill_id": "SK_PRODUCT_DISCOVERY",
+            "current": 0,
+            "required": 3,
+            "gap": 3,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_PRODUCT_ANALYTICS",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_AGILE",
+            "current": 0,
+            "required": 3,
+            "gap": 3,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_REQUIREMENTS",
+            "current": 0,
+            "required": 3,
+            "gap": 3,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_PROJECT_MGMT",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_ROADMAPPING",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_UX_RESEARCH",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CRITICAL_THINKING",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_STAKEHOLDER_MGMT",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          }
+        ],
+        "career_readiness": {
+          "current": 0.42105263157894735,
+          "status": "available",
+          "reason": null,
+          "critical_weight": 2.0,
+          "weighted_covered_levels": 16.0,
+          "weighted_required_levels": 38.0,
+          "critical_requirements_met": false,
+          "remaining_critical_gaps": [
+            {
+              "skill_id": "SK_PRODUCT_DISCOVERY",
+              "current": 0,
+              "required": 3,
+              "gap": 3,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_PRODUCT_ANALYTICS",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "all_requirements_met": false
+        },
+        "skills_reconstruction": {
+          "effective_skills": {
+            "SK_AB_TESTING": 2,
+            "SK_ADAPTABILITY": 1,
+            "SK_API_TESTING": 1,
+            "SK_BI_TOOLS": 2,
+            "SK_CICD": 1,
+            "SK_CLOUD": 1,
+            "SK_COMMUNICATION": 3,
+            "SK_CONFLICT_RESOLUTION": 2,
+            "SK_CRITICAL_THINKING": 2,
+            "SK_DATA_MODELING": 1,
+            "SK_DATA_VIZ": 3,
+            "SK_EMOTIONAL_INTELLIGENCE": 2,
+            "SK_FEEDBACK": 1,
+            "SK_LEADERSHIP": 2,
+            "SK_MENTORING": 0,
+            "SK_ML_BASICS": 3,
+            "SK_PROBLEM_SOLVING": 3,
+            "SK_PRODUCT_ANALYTICS": 2,
+            "SK_PROSPECTING": 2,
+            "SK_PUBLIC_SPEAKING": 2,
+            "SK_PYTHON": 3,
+            "SK_SQL": 4,
+            "SK_STAKEHOLDER_MGMT": 2,
+            "SK_STATISTICS": 2,
+            "SK_TEAMWORK": 3,
+            "SK_TIME_MANAGEMENT": 1,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "applied_record_ids": [
+            "R001801",
+            "R002183",
+            "R002620"
+          ],
+          "skill_changes": [
+            {
+              "record_id": "R001801",
+              "event_id": "EV_024",
+              "skill_id": "SK_ML_BASICS",
+              "before": 2,
+              "after": 3,
+              "gain_applied": 1,
+              "date_basis": "enrollment_date"
+            },
+            {
+              "record_id": "R002183",
+              "event_id": "EV_023",
+              "skill_id": "SK_DATA_VIZ",
+              "before": 2,
+              "after": 3,
+              "gain_applied": 1,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R002183",
+              "event_id": "EV_023",
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "before": 1,
+              "after": 2,
+              "gain_applied": 1,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R002620",
+              "event_id": "EV_009",
+              "skill_id": "SK_CICD",
+              "before": 0,
+              "after": 1,
+              "gain_applied": 1,
+              "date_basis": "enrollment_date"
+            },
+            {
+              "record_id": "R002620",
+              "event_id": "EV_009",
+              "skill_id": "SK_CLOUD",
+              "before": 0,
+              "after": 1,
+              "gain_applied": 1,
+              "date_basis": "enrollment_date"
+            }
+          ],
+          "uncertain_record_ids": [],
+          "warnings": [
+            {
+              "code": "completion_date_proxy",
+              "message": "Participation dates substitute for missing completion timestamps. Skills are an estimate, not guaranteed exact or a lower bound; actual completion order may differ.",
+              "record_ids": [
+                "R001801",
+                "R002183",
+                "R002620"
+              ]
+            }
+          ],
+          "date_policy": "participation_date_proxy",
+          "is_estimate": true
+        }
+      }
+    },
+    {
+      "case": "null_goal_non_lead",
+      "input_summary": {
+        "employee_id": "E0003",
+        "role": "Customer Support Specialist",
+        "grade": "Senior",
+        "career_goal": null,
+        "last_review_date": "2026-02-13"
+      },
+      "review_baseline_readiness": 0.7,
+      "result": {
+        "employee_id": "E0003",
+        "as_of": "2026-10-01",
+        "status": "ok",
+        "target": {
+          "role": "Customer Support Specialist",
+          "grade": "Lead",
+          "source": "next_grade"
+        },
+        "skill_gaps": [
+          {
+            "skill_id": "SK_LEADERSHIP",
+            "current": 2,
+            "required": 4,
+            "gap": 2,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_FEEDBACK",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_PROBLEM_SOLVING",
+            "current": 1,
+            "required": 4,
+            "gap": 3,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CONFLICT_RESOLUTION",
+            "current": 2,
+            "required": 4,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_MENTORING",
+            "current": 2,
+            "required": 4,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_ADAPTABILITY",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CRM",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_TIME_MANAGEMENT",
+            "current": 3,
+            "required": 4,
+            "gap": 1,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_TROUBLESHOOTING",
+            "current": 3,
+            "required": 4,
+            "gap": 1,
+            "critical": false
+          }
+        ],
+        "career_readiness": {
+          "current": 0.7166666666666667,
+          "status": "available",
+          "reason": null,
+          "critical_weight": 2.0,
+          "weighted_covered_levels": 43.0,
+          "weighted_required_levels": 60.0,
+          "critical_requirements_met": false,
+          "remaining_critical_gaps": [
+            {
+              "skill_id": "SK_LEADERSHIP",
+              "current": 2,
+              "required": 4,
+              "gap": 2,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_FEEDBACK",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "all_requirements_met": false
+        },
+        "skills_reconstruction": {
+          "effective_skills": {
+            "SK_ADAPTABILITY": 2,
+            "SK_COMMUNICATION": 4,
+            "SK_CONFLICT_RESOLUTION": 2,
+            "SK_CRITICAL_THINKING": 2,
+            "SK_CRM": 2,
+            "SK_CUSTOMER_SERVICE": 4,
+            "SK_EMOTIONAL_INTELLIGENCE": 4,
+            "SK_FEEDBACK": 2,
+            "SK_LEADERSHIP": 2,
+            "SK_MENTORING": 2,
+            "SK_PROBLEM_SOLVING": 1,
+            "SK_PRODUCT_KNOWLEDGE": 4,
+            "SK_PUBLIC_SPEAKING": 3,
+            "SK_STAKEHOLDER_MGMT": 2,
+            "SK_TEAMWORK": 3,
+            "SK_TIME_MANAGEMENT": 3,
+            "SK_TROUBLESHOOTING": 3,
+            "SK_WRITTEN_COMMUNICATION": 4
+          },
+          "applied_record_ids": [
+            "R001833",
+            "R002082",
+            "R002708"
+          ],
+          "skill_changes": [
+            {
+              "record_id": "R001833",
+              "event_id": "EV_035",
+              "skill_id": "SK_PRODUCT_KNOWLEDGE",
+              "before": 4,
+              "after": 4,
+              "gain_applied": 0,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R001833",
+              "event_id": "EV_035",
+              "skill_id": "SK_TROUBLESHOOTING",
+              "before": 2,
+              "after": 3,
+              "gain_applied": 1,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R002082",
+              "event_id": "EV_036",
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "before": 2,
+              "after": 3,
+              "gain_applied": 1,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R002708",
+              "event_id": "EV_008",
+              "skill_id": "SK_COMMUNICATION",
+              "before": 4,
+              "after": 4,
+              "gain_applied": 0,
+              "date_basis": "session_date"
+            },
+            {
+              "record_id": "R002708",
+              "event_id": "EV_008",
+              "skill_id": "SK_WRITTEN_COMMUNICATION",
+              "before": 4,
+              "after": 4,
+              "gain_applied": 0,
+              "date_basis": "session_date"
+            }
+          ],
+          "uncertain_record_ids": [],
+          "warnings": [
+            {
+              "code": "completion_date_proxy",
+              "message": "Participation dates substitute for missing completion timestamps. Skills are an estimate, not guaranteed exact or a lower bound; actual completion order may differ.",
+              "record_ids": [
+                "R001833",
+                "R002082",
+                "R002708"
+              ]
+            }
+          ],
+          "date_policy": "participation_date_proxy",
+          "is_estimate": true
+        }
+      }
+    },
+    {
+      "case": "lead_explicit_transition",
+      "input_summary": {
+        "employee_id": "E0014",
+        "role": "HR Business Partner",
+        "grade": "Lead",
+        "career_goal": {
+          "target_role": "Product Manager",
+          "target_grade": "Lead"
+        },
+        "last_review_date": "2026-06-02"
+      },
+      "review_baseline_readiness": 0.34782608695652173,
+      "result": {
+        "employee_id": "E0014",
+        "as_of": "2026-10-01",
+        "status": "ok",
+        "target": {
+          "role": "Product Manager",
+          "grade": "Lead",
+          "source": "career_goal"
+        },
+        "skill_gaps": [
+          {
+            "skill_id": "SK_PRODUCT_DISCOVERY",
+            "current": 0,
+            "required": 5,
+            "gap": 5,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_AGILE",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_PRODUCT_ANALYTICS",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_PROJECT_MGMT",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_REQUIREMENTS",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_ROADMAPPING",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_UX_RESEARCH",
+            "current": 0,
+            "required": 4,
+            "gap": 4,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_AB_TESTING",
+            "current": 0,
+            "required": 3,
+            "gap": 3,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_CRITICAL_THINKING",
+            "current": 2,
+            "required": 4,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_MENTORING",
+            "current": 2,
+            "required": 4,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_SQL",
+            "current": 0,
+            "required": 2,
+            "gap": 2,
+            "critical": false
+          },
+          {
+            "skill_id": "SK_STAKEHOLDER_MGMT",
+            "current": 3,
+            "required": 5,
+            "gap": 2,
+            "critical": false
+          }
+        ],
+        "career_readiness": {
+          "current": 0.34782608695652173,
+          "status": "available",
+          "reason": null,
+          "critical_weight": 2.0,
+          "weighted_covered_levels": 24.0,
+          "weighted_required_levels": 69.0,
+          "critical_requirements_met": false,
+          "remaining_critical_gaps": [
+            {
+              "skill_id": "SK_PRODUCT_DISCOVERY",
+              "current": 0,
+              "required": 5,
+              "gap": 5,
+              "critical": true
+            }
+          ],
+          "all_requirements_met": false
+        },
+        "skills_reconstruction": {
+          "effective_skills": {
+            "SK_ADAPTABILITY": 3,
+            "SK_COMMUNICATION": 5,
+            "SK_COMPENSATION": 5,
+            "SK_CONFLICT_RESOLUTION": 4,
+            "SK_CRITICAL_THINKING": 2,
+            "SK_EMOTIONAL_INTELLIGENCE": 5,
+            "SK_EMPLOYEE_RELATIONS": 4,
+            "SK_FEEDBACK": 5,
+            "SK_HR_ANALYTICS": 4,
+            "SK_LABOR_LAW": 4,
+            "SK_LEADERSHIP": 5,
+            "SK_LEARNING_DESIGN": 3,
+            "SK_MENTORING": 2,
+            "SK_PROBLEM_SOLVING": 2,
+            "SK_PUBLIC_SPEAKING": 5,
+            "SK_STAKEHOLDER_MGMT": 3,
+            "SK_TALENT_ACQUISITION": 3,
+            "SK_TEAMWORK": 3,
+            "SK_TIME_MANAGEMENT": 2,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "applied_record_ids": [],
+          "skill_changes": [],
+          "uncertain_record_ids": [],
+          "warnings": [],
+          "date_policy": "participation_date_proxy",
+          "is_estimate": false
+        }
+      }
+    },
+    {
+      "case": "lead_null_goal",
+      "input_summary": {
+        "employee_id": "E0006",
+        "role": "Frontend Engineer",
+        "grade": "Lead",
+        "career_goal": null,
+        "last_review_date": "2026-09-21"
+      },
+      "review_baseline_readiness": null,
+      "result": {
+        "employee_id": "E0006",
+        "as_of": "2026-10-01",
+        "status": "no_next_grade",
+        "target": null,
+        "skill_gaps": [],
+        "career_readiness": null,
+        "skills_reconstruction": {
+          "effective_skills": {
+            "SK_ACCESSIBILITY": 4,
+            "SK_ADAPTABILITY": 3,
+            "SK_API_DESIGN": 3,
+            "SK_CICD": 1,
+            "SK_COMMUNICATION": 4,
+            "SK_CONFLICT_RESOLUTION": 3,
+            "SK_CRITICAL_THINKING": 3,
+            "SK_EMOTIONAL_INTELLIGENCE": 3,
+            "SK_FEEDBACK": 3,
+            "SK_HTML_CSS": 4,
+            "SK_JAVASCRIPT": 2,
+            "SK_LEADERSHIP": 2,
+            "SK_MENTORING": 4,
+            "SK_PROBLEM_SOLVING": 4,
+            "SK_PUBLIC_SPEAKING": 2,
+            "SK_REACT": 4,
+            "SK_STAKEHOLDER_MGMT": 2,
+            "SK_TEAMWORK": 4,
+            "SK_TIME_MANAGEMENT": 2,
+            "SK_TYPESCRIPT": 4,
+            "SK_WEB_PERFORMANCE": 4,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "applied_record_ids": [],
+          "skill_changes": [],
+          "uncertain_record_ids": [
+            "R000327",
+            "R000357"
+          ],
+          "warnings": [
+            {
+              "code": "ambiguous_self_paced_completion",
+              "message": "Self-paced enrollments on or before review have unknown completion dates; no additional gains were applied.",
+              "record_ids": [
+                "R000327",
+                "R000357"
+              ]
+            }
+          ],
+          "date_policy": "participation_date_proxy",
+          "is_estimate": true
+        }
+      }
+    }
+  ]
+}

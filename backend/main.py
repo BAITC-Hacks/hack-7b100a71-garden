@@ -11,6 +11,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from backend.config import Settings
 from backend.data.repository import DatasetRepository
 from backend.errors import AppError
+from backend.integrations.recommendation_provider import RecommendationProvider
 from backend.services.activity_service import ActivityService
 from backend.services.dataset_service import DatasetService
 from backend.services.recommendation_service import RecommendationService
@@ -18,8 +19,14 @@ from backend.services.recommendation_service import RecommendationService
 logger = logging.getLogger(__name__)
 
 
-def create_app(settings=None, repository=None, recommendation_provider=None):
+_DEFAULT_PROVIDER = object()
+
+
+def create_app(settings=None, repository=None, recommendation_provider=_DEFAULT_PROVIDER):
     settings = settings or Settings.from_env()
+    # Explicit None remains an injectable unavailable-provider infrastructure state.
+    if recommendation_provider is _DEFAULT_PROVIDER:
+        recommendation_provider = RecommendationProvider()
 
     @asynccontextmanager
     async def lifespan(application):

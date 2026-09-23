@@ -1,0 +1,993 @@
+{
+  "verified_at": "2026-09-23T12:12:22.085965+00:00",
+  "scope": "Actual browser interactions with Vite + auth-enabled Uvicorn. Separate HTTP readbacks from that same disposable persisted runtime state. No live OpenAI calls.",
+  "as_of": "2026-10-01",
+  "browser": "Codex in-app browser",
+  "browser_observations": {
+    "E0001": {
+      "target": "Backend Engineer / Middle",
+      "language": "kk",
+      "before": {
+        "readiness": 0.5897435897435898,
+        "SK_API_DESIGN": 2,
+        "SK_SYSTEM_DESIGN": 1,
+        "rank_1": "EV_005"
+      },
+      "completed_event": "EV_005",
+      "after": {
+        "readiness": 0.6666666666666666,
+        "SK_API_DESIGN": 3,
+        "SK_SYSTEM_DESIGN": 2,
+        "recommendations": [
+          "EV_036"
+        ]
+      }
+    },
+    "E0004": {
+      "target": "Product Manager / Middle",
+      "language": "ru",
+      "before": {
+        "readiness": 0.42105263157894735,
+        "rank_1": "EV_026",
+        "audience_match": "target_role"
+      },
+      "completed_event": "EV_026",
+      "after": {
+        "readiness": 0.5263157894736842,
+        "recommendations": [
+          "EV_021",
+          "EV_027"
+        ]
+      }
+    },
+    "E0006": {
+      "status": "no_next_grade",
+      "normal_empty_state": true
+    },
+    "E0018": {
+      "status": "no_eligible_recommendations",
+      "normal_empty_state": true
+    },
+    "JURY_PHASE2_PERSON": {
+      "created_through": "HR validate + upload append in browser",
+      "active_version": 4,
+      "employees_count": 201,
+      "profile_opened": true,
+      "readiness": 0.5641025641025641,
+      "recommendations": [
+        "EV_005",
+        "EV_040",
+        "EV_036"
+      ]
+    }
+  },
+  "http_readbacks_after_browser_actions": {
+    "E0001": {
+      "profile_version": 4,
+      "effective_skills": {
+        "SK_ADAPTABILITY": 2,
+        "SK_API_DESIGN": 3,
+        "SK_APP_SECURITY": 1,
+        "SK_CICD": 1,
+        "SK_CLOUD": 1,
+        "SK_COMMUNICATION": 2,
+        "SK_CONFLICT_RESOLUTION": 3,
+        "SK_CONTAINERS": 0,
+        "SK_CRITICAL_THINKING": 3,
+        "SK_EMOTIONAL_INTELLIGENCE": 2,
+        "SK_FEEDBACK": 2,
+        "SK_LEADERSHIP": 1,
+        "SK_MENTORING": 0,
+        "SK_OBSERVABILITY": 0,
+        "SK_PROBLEM_SOLVING": 2,
+        "SK_PUBLIC_SPEAKING": 0,
+        "SK_PYTHON": 3,
+        "SK_SQL": 2,
+        "SK_STAKEHOLDER_MGMT": 1,
+        "SK_SYSTEM_DESIGN": 2,
+        "SK_TEAMWORK": 2,
+        "SK_TIME_MANAGEMENT": 2,
+        "SK_WRITTEN_COMMUNICATION": 3
+      },
+      "recommendation_version": 4,
+      "target": {
+        "role": "Backend Engineer",
+        "grade": "Middle",
+        "source": "career_goal"
+      },
+      "status": "ok",
+      "readiness": {
+        "current": 0.6666666666666666,
+        "status": "available",
+        "reason": null,
+        "critical_weight": 2.0,
+        "weighted_covered_levels": 26.0,
+        "weighted_required_levels": 39.0,
+        "critical_requirements_met": true,
+        "remaining_critical_gaps": [],
+        "all_requirements_met": false
+      },
+      "recommendations": [
+        {
+          "rank": 1,
+          "event_id": "EV_036",
+          "score": 0.5735220760384466,
+          "audience_match": "both",
+          "explanation_language": "kk",
+          "explanation_source": "deterministic"
+        }
+      ],
+      "runtime_history": [
+        {
+          "record_id": "RUNTIME-056fd44ff2ae4602b2881ce3ab92700b",
+          "employee_id": "E0001",
+          "event_id": "EV_005",
+          "date": "2026-10-01",
+          "due_date": null,
+          "status": "completed",
+          "completion_pct": 100,
+          "score": null,
+          "feedback_rating": null,
+          "assigned_by": "self",
+          "completed_on": "2026-10-01",
+          "completed_at": "2026-09-23T12:04:05.536647Z",
+          "runtime_sequence": 1
+        }
+      ]
+    },
+    "E0004": {
+      "profile_version": 4,
+      "effective_skills": {
+        "SK_AB_TESTING": 2,
+        "SK_ADAPTABILITY": 1,
+        "SK_API_TESTING": 1,
+        "SK_BI_TOOLS": 2,
+        "SK_CICD": 1,
+        "SK_CLOUD": 1,
+        "SK_COMMUNICATION": 3,
+        "SK_CONFLICT_RESOLUTION": 2,
+        "SK_CRITICAL_THINKING": 2,
+        "SK_DATA_MODELING": 1,
+        "SK_DATA_VIZ": 3,
+        "SK_EMOTIONAL_INTELLIGENCE": 2,
+        "SK_FEEDBACK": 1,
+        "SK_LEADERSHIP": 2,
+        "SK_MENTORING": 0,
+        "SK_ML_BASICS": 3,
+        "SK_PROBLEM_SOLVING": 3,
+        "SK_PRODUCT_ANALYTICS": 2,
+        "SK_PRODUCT_DISCOVERY": 1,
+        "SK_PROSPECTING": 2,
+        "SK_PUBLIC_SPEAKING": 2,
+        "SK_PYTHON": 3,
+        "SK_REQUIREMENTS": 1,
+        "SK_SQL": 4,
+        "SK_STAKEHOLDER_MGMT": 2,
+        "SK_STATISTICS": 2,
+        "SK_TEAMWORK": 3,
+        "SK_TIME_MANAGEMENT": 1,
+        "SK_UX_RESEARCH": 1,
+        "SK_WRITTEN_COMMUNICATION": 3
+      },
+      "recommendation_version": 4,
+      "target": {
+        "role": "Product Manager",
+        "grade": "Middle",
+        "source": "career_goal"
+      },
+      "status": "ok",
+      "readiness": {
+        "current": 0.5263157894736842,
+        "status": "available",
+        "reason": null,
+        "critical_weight": 2.0,
+        "weighted_covered_levels": 20.0,
+        "weighted_required_levels": 38.0,
+        "critical_requirements_met": false,
+        "remaining_critical_gaps": [
+          {
+            "skill_id": "SK_PRODUCT_DISCOVERY",
+            "current": 1,
+            "required": 3,
+            "gap": 2,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_PRODUCT_ANALYTICS",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          }
+        ],
+        "all_requirements_met": false
+      },
+      "recommendations": [
+        {
+          "rank": 1,
+          "event_id": "EV_021",
+          "score": 0.5788286269177946,
+          "audience_match": "both",
+          "explanation_language": "ru",
+          "explanation_source": "deterministic"
+        },
+        {
+          "rank": 2,
+          "event_id": "EV_027",
+          "score": 0.564253049851525,
+          "audience_match": "target_role",
+          "explanation_language": "ru",
+          "explanation_source": "deterministic"
+        }
+      ],
+      "runtime_history": [
+        {
+          "record_id": "RUNTIME-788c1b37f2c84e30b9a8fad147488599",
+          "employee_id": "E0004",
+          "event_id": "EV_026",
+          "date": "2026-10-01",
+          "due_date": null,
+          "status": "completed",
+          "completion_pct": 100,
+          "score": null,
+          "feedback_rating": null,
+          "assigned_by": "self",
+          "completed_on": "2026-10-01",
+          "completed_at": "2026-09-23T12:05:03.696201Z",
+          "runtime_sequence": 2
+        }
+      ]
+    },
+    "E0006": {
+      "profile_version": 4,
+      "effective_skills": {
+        "SK_ACCESSIBILITY": 4,
+        "SK_ADAPTABILITY": 3,
+        "SK_API_DESIGN": 3,
+        "SK_CICD": 1,
+        "SK_COMMUNICATION": 4,
+        "SK_CONFLICT_RESOLUTION": 3,
+        "SK_CRITICAL_THINKING": 3,
+        "SK_EMOTIONAL_INTELLIGENCE": 3,
+        "SK_FEEDBACK": 3,
+        "SK_HTML_CSS": 4,
+        "SK_JAVASCRIPT": 2,
+        "SK_LEADERSHIP": 2,
+        "SK_MENTORING": 4,
+        "SK_PROBLEM_SOLVING": 4,
+        "SK_PUBLIC_SPEAKING": 2,
+        "SK_REACT": 4,
+        "SK_STAKEHOLDER_MGMT": 2,
+        "SK_TEAMWORK": 4,
+        "SK_TIME_MANAGEMENT": 2,
+        "SK_TYPESCRIPT": 4,
+        "SK_WEB_PERFORMANCE": 4,
+        "SK_WRITTEN_COMMUNICATION": 3
+      },
+      "recommendation_version": 4,
+      "target": null,
+      "status": "no_next_grade",
+      "readiness": null,
+      "recommendations": [],
+      "runtime_history": []
+    },
+    "E0018": {
+      "profile_version": 4,
+      "effective_skills": {
+        "SK_AB_TESTING": 2,
+        "SK_ADAPTABILITY": 1,
+        "SK_APP_SECURITY": 2,
+        "SK_COMMUNICATION": 3,
+        "SK_CONFLICT_RESOLUTION": 1,
+        "SK_CRITICAL_THINKING": 3,
+        "SK_CRM": 0,
+        "SK_CUSTOMER_SERVICE": 1,
+        "SK_EMOTIONAL_INTELLIGENCE": 3,
+        "SK_FEEDBACK": 1,
+        "SK_LEADERSHIP": 1,
+        "SK_MENTORING": 0,
+        "SK_PROBLEM_SOLVING": 1,
+        "SK_PRODUCT_KNOWLEDGE": 2,
+        "SK_PUBLIC_SPEAKING": 3,
+        "SK_STAKEHOLDER_MGMT": 3,
+        "SK_TEAMWORK": 1,
+        "SK_TIME_MANAGEMENT": 2,
+        "SK_TROUBLESHOOTING": 1,
+        "SK_WRITTEN_COMMUNICATION": 3
+      },
+      "recommendation_version": 4,
+      "target": {
+        "role": "Customer Support Specialist",
+        "grade": "Middle",
+        "source": "career_goal"
+      },
+      "status": "no_eligible_recommendations",
+      "readiness": {
+        "current": 0.6176470588235294,
+        "status": "available",
+        "reason": null,
+        "critical_weight": 2.0,
+        "weighted_covered_levels": 21.0,
+        "weighted_required_levels": 34.0,
+        "critical_requirements_met": false,
+        "remaining_critical_gaps": [
+          {
+            "skill_id": "SK_CONFLICT_RESOLUTION",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": true
+          },
+          {
+            "skill_id": "SK_TROUBLESHOOTING",
+            "current": 1,
+            "required": 2,
+            "gap": 1,
+            "critical": true
+          }
+        ],
+        "all_requirements_met": false
+      },
+      "recommendations": [],
+      "runtime_history": []
+    },
+    "JURY_PHASE2_PERSON": {
+      "profile_version": 4,
+      "effective_skills": {
+        "SK_ADAPTABILITY": 2,
+        "SK_API_DESIGN": 2,
+        "SK_APP_SECURITY": 0,
+        "SK_CICD": 1,
+        "SK_CLOUD": 1,
+        "SK_COMMUNICATION": 2,
+        "SK_CONFLICT_RESOLUTION": 3,
+        "SK_CONTAINERS": 0,
+        "SK_CRITICAL_THINKING": 3,
+        "SK_EMOTIONAL_INTELLIGENCE": 2,
+        "SK_FEEDBACK": 2,
+        "SK_LEADERSHIP": 1,
+        "SK_MENTORING": 0,
+        "SK_OBSERVABILITY": 0,
+        "SK_PROBLEM_SOLVING": 2,
+        "SK_PUBLIC_SPEAKING": 0,
+        "SK_PYTHON": 3,
+        "SK_SQL": 2,
+        "SK_STAKEHOLDER_MGMT": 1,
+        "SK_SYSTEM_DESIGN": 1,
+        "SK_TEAMWORK": 2,
+        "SK_TIME_MANAGEMENT": 2,
+        "SK_WRITTEN_COMMUNICATION": 3
+      },
+      "recommendation_version": 4,
+      "target": {
+        "role": "Backend Engineer",
+        "grade": "Middle",
+        "source": "career_goal"
+      },
+      "status": "ok",
+      "readiness": {
+        "current": 0.5641025641025641,
+        "status": "available",
+        "reason": null,
+        "critical_weight": 2.0,
+        "weighted_covered_levels": 22.0,
+        "weighted_required_levels": 39.0,
+        "critical_requirements_met": false,
+        "remaining_critical_gaps": [
+          {
+            "skill_id": "SK_API_DESIGN",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          }
+        ],
+        "all_requirements_met": false
+      },
+      "recommendations": [
+        {
+          "rank": 1,
+          "event_id": "EV_005",
+          "score": 0.8555722891566265,
+          "audience_match": "both",
+          "explanation_language": "kk",
+          "explanation_source": "deterministic"
+        },
+        {
+          "rank": 2,
+          "event_id": "EV_040",
+          "score": 0.4967391304347826,
+          "audience_match": "both",
+          "explanation_language": "kk",
+          "explanation_source": "deterministic"
+        },
+        {
+          "rank": 3,
+          "event_id": "EV_036",
+          "score": 0.44054054054054054,
+          "audience_match": "both",
+          "explanation_language": "kk",
+          "explanation_source": "deterministic"
+        }
+      ],
+      "runtime_history": []
+    }
+  },
+  "hr_after_import": {
+    "data": {
+      "employee_count": 201,
+      "gap_basis": "effective_skills_against_current_role_and_grade",
+      "common_skill_gaps": [
+        {
+          "skill_id": "SK_COMMUNICATION",
+          "skill_name": "Communication",
+          "category": "communication",
+          "employee_count": 68,
+          "total_levels_missing": 82,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_MENTORING",
+          "skill_name": "Mentoring",
+          "category": "leadership",
+          "employee_count": 51,
+          "total_levels_missing": 55,
+          "critical_employee_count": 6
+        },
+        {
+          "skill_id": "SK_PUBLIC_SPEAKING",
+          "skill_name": "Public Speaking",
+          "category": "communication",
+          "employee_count": 46,
+          "total_levels_missing": 49,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_STAKEHOLDER_MGMT",
+          "skill_name": "Stakeholder Management",
+          "category": "communication",
+          "employee_count": 40,
+          "total_levels_missing": 48,
+          "critical_employee_count": 4
+        },
+        {
+          "skill_id": "SK_SQL",
+          "skill_name": "SQL",
+          "category": "engineering",
+          "employee_count": 38,
+          "total_levels_missing": 44,
+          "critical_employee_count": 6
+        },
+        {
+          "skill_id": "SK_LEADERSHIP",
+          "skill_name": "Leadership",
+          "category": "leadership",
+          "employee_count": 33,
+          "total_levels_missing": 42,
+          "critical_employee_count": 6
+        },
+        {
+          "skill_id": "SK_TEAMWORK",
+          "skill_name": "Teamwork",
+          "category": "collaboration",
+          "employee_count": 33,
+          "total_levels_missing": 41,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_EMOTIONAL_INTELLIGENCE",
+          "skill_name": "Emotional Intelligence",
+          "category": "collaboration",
+          "employee_count": 29,
+          "total_levels_missing": 34,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_CICD",
+          "skill_name": "CI/CD",
+          "category": "engineering",
+          "employee_count": 26,
+          "total_levels_missing": 33,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_PROBLEM_SOLVING",
+          "skill_name": "Problem Solving",
+          "category": "thinking",
+          "employee_count": 26,
+          "total_levels_missing": 31,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_CRITICAL_THINKING",
+          "skill_name": "Critical Thinking",
+          "category": "thinking",
+          "employee_count": 25,
+          "total_levels_missing": 32,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_CRM",
+          "skill_name": "CRM Systems",
+          "category": "sales",
+          "employee_count": 25,
+          "total_levels_missing": 31,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_API_DESIGN",
+          "skill_name": "API Design",
+          "category": "engineering",
+          "employee_count": 25,
+          "total_levels_missing": 28,
+          "critical_employee_count": 10
+        },
+        {
+          "skill_id": "SK_PRODUCT_KNOWLEDGE",
+          "skill_name": "Product Knowledge",
+          "category": "sales",
+          "employee_count": 24,
+          "total_levels_missing": 26,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_TIME_MANAGEMENT",
+          "skill_name": "Time Management",
+          "category": "personal_effectiveness",
+          "employee_count": 22,
+          "total_levels_missing": 25,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_PYTHON",
+          "skill_name": "Python",
+          "category": "engineering",
+          "employee_count": 20,
+          "total_levels_missing": 22,
+          "critical_employee_count": 9
+        },
+        {
+          "skill_id": "SK_CONTAINERS",
+          "skill_name": "Containers & Orchestration",
+          "category": "engineering",
+          "employee_count": 19,
+          "total_levels_missing": 20,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_HTML_CSS",
+          "skill_name": "HTML & CSS",
+          "category": "frontend",
+          "employee_count": 16,
+          "total_levels_missing": 19,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_WRITTEN_COMMUNICATION",
+          "skill_name": "Written Communication",
+          "category": "communication",
+          "employee_count": 16,
+          "total_levels_missing": 19,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_CLOUD",
+          "skill_name": "Cloud Platforms",
+          "category": "engineering",
+          "employee_count": 16,
+          "total_levels_missing": 18,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_AB_TESTING",
+          "skill_name": "A/B Testing",
+          "category": "data",
+          "employee_count": 15,
+          "total_levels_missing": 18,
+          "critical_employee_count": 5
+        },
+        {
+          "skill_id": "SK_FEEDBACK",
+          "skill_name": "Feedback",
+          "category": "leadership",
+          "employee_count": 14,
+          "total_levels_missing": 17,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_APP_SECURITY",
+          "skill_name": "Application Security",
+          "category": "engineering",
+          "employee_count": 13,
+          "total_levels_missing": 13,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_CUSTOMER_SERVICE",
+          "skill_name": "Customer Service",
+          "category": "support",
+          "employee_count": 12,
+          "total_levels_missing": 15,
+          "critical_employee_count": 4
+        },
+        {
+          "skill_id": "SK_PRODUCT_ANALYTICS",
+          "skill_name": "Product Analytics",
+          "category": "product",
+          "employee_count": 12,
+          "total_levels_missing": 13,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_JAVASCRIPT",
+          "skill_name": "JavaScript",
+          "category": "frontend",
+          "employee_count": 11,
+          "total_levels_missing": 15,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_OBSERVABILITY",
+          "skill_name": "Observability",
+          "category": "engineering",
+          "employee_count": 11,
+          "total_levels_missing": 15,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_REACT",
+          "skill_name": "React",
+          "category": "frontend",
+          "employee_count": 11,
+          "total_levels_missing": 15,
+          "critical_employee_count": 5
+        },
+        {
+          "skill_id": "SK_TROUBLESHOOTING",
+          "skill_name": "Technical Troubleshooting",
+          "category": "support",
+          "employee_count": 11,
+          "total_levels_missing": 13,
+          "critical_employee_count": 7
+        },
+        {
+          "skill_id": "SK_SYSTEM_DESIGN",
+          "skill_name": "System Design",
+          "category": "engineering",
+          "employee_count": 10,
+          "total_levels_missing": 11,
+          "critical_employee_count": 1
+        },
+        {
+          "skill_id": "SK_TYPESCRIPT",
+          "skill_name": "TypeScript",
+          "category": "frontend",
+          "employee_count": 10,
+          "total_levels_missing": 10,
+          "critical_employee_count": 7
+        },
+        {
+          "skill_id": "SK_ADAPTABILITY",
+          "skill_name": "Adaptability",
+          "category": "personal_effectiveness",
+          "employee_count": 9,
+          "total_levels_missing": 10,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_PROJECT_MGMT",
+          "skill_name": "Project Management",
+          "category": "product",
+          "employee_count": 9,
+          "total_levels_missing": 10,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_REQUIREMENTS",
+          "skill_name": "Requirements Writing",
+          "category": "product",
+          "employee_count": 9,
+          "total_levels_missing": 10,
+          "critical_employee_count": 4
+        },
+        {
+          "skill_id": "SK_NEGOTIATION",
+          "skill_name": "Negotiation",
+          "category": "sales",
+          "employee_count": 8,
+          "total_levels_missing": 12,
+          "critical_employee_count": 7
+        },
+        {
+          "skill_id": "SK_ACCESSIBILITY",
+          "skill_name": "Web Accessibility",
+          "category": "frontend",
+          "employee_count": 8,
+          "total_levels_missing": 10,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_JAVA",
+          "skill_name": "Java",
+          "category": "engineering",
+          "employee_count": 8,
+          "total_levels_missing": 10,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_PROSPECTING",
+          "skill_name": "Prospecting",
+          "category": "sales",
+          "employee_count": 8,
+          "total_levels_missing": 10,
+          "critical_employee_count": 4
+        },
+        {
+          "skill_id": "SK_AGILE",
+          "skill_name": "Agile Practices",
+          "category": "product",
+          "employee_count": 8,
+          "total_levels_missing": 9,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_UX_RESEARCH",
+          "skill_name": "UX Research",
+          "category": "product",
+          "employee_count": 8,
+          "total_levels_missing": 8,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_BI_TOOLS",
+          "skill_name": "BI Tools",
+          "category": "data",
+          "employee_count": 7,
+          "total_levels_missing": 9,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_TEST_AUTOMATION",
+          "skill_name": "Test Automation",
+          "category": "quality",
+          "employee_count": 7,
+          "total_levels_missing": 9,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_TEST_DESIGN",
+          "skill_name": "Test Design",
+          "category": "quality",
+          "employee_count": 7,
+          "total_levels_missing": 8,
+          "critical_employee_count": 1
+        },
+        {
+          "skill_id": "SK_CONFLICT_RESOLUTION",
+          "skill_name": "Conflict Resolution",
+          "category": "leadership",
+          "employee_count": 7,
+          "total_levels_missing": 7,
+          "critical_employee_count": 4
+        },
+        {
+          "skill_id": "SK_TALENT_ACQUISITION",
+          "skill_name": "Talent Acquisition",
+          "category": "hr",
+          "employee_count": 7,
+          "total_levels_missing": 7,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_DATA_VIZ",
+          "skill_name": "Data Visualization",
+          "category": "data",
+          "employee_count": 6,
+          "total_levels_missing": 8,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_ACCOUNT_MGMT",
+          "skill_name": "Account Management",
+          "category": "sales",
+          "employee_count": 6,
+          "total_levels_missing": 7,
+          "critical_employee_count": 1
+        },
+        {
+          "skill_id": "SK_DATA_MODELING",
+          "skill_name": "Data Modeling",
+          "category": "data",
+          "employee_count": 6,
+          "total_levels_missing": 6,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_ROADMAPPING",
+          "skill_name": "Roadmapping & Prioritization",
+          "category": "product",
+          "employee_count": 6,
+          "total_levels_missing": 6,
+          "critical_employee_count": 1
+        },
+        {
+          "skill_id": "SK_STATISTICS",
+          "skill_name": "Statistics",
+          "category": "data",
+          "employee_count": 6,
+          "total_levels_missing": 6,
+          "critical_employee_count": 5
+        },
+        {
+          "skill_id": "SK_ML_BASICS",
+          "skill_name": "Machine Learning Fundamentals",
+          "category": "data",
+          "employee_count": 5,
+          "total_levels_missing": 6,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_WEB_PERFORMANCE",
+          "skill_name": "Web Performance",
+          "category": "frontend",
+          "employee_count": 5,
+          "total_levels_missing": 6,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_API_TESTING",
+          "skill_name": "API Testing",
+          "category": "quality",
+          "employee_count": 5,
+          "total_levels_missing": 5,
+          "critical_employee_count": 1
+        },
+        {
+          "skill_id": "SK_PRODUCT_DISCOVERY",
+          "skill_name": "Product Discovery",
+          "category": "product",
+          "employee_count": 5,
+          "total_levels_missing": 5,
+          "critical_employee_count": 3
+        },
+        {
+          "skill_id": "SK_LEARNING_DESIGN",
+          "skill_name": "Learning Program Design",
+          "category": "hr",
+          "employee_count": 4,
+          "total_levels_missing": 4,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_EMPLOYEE_RELATIONS",
+          "skill_name": "Employee Relations",
+          "category": "hr",
+          "employee_count": 3,
+          "total_levels_missing": 4,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_HR_ANALYTICS",
+          "skill_name": "HR Analytics",
+          "category": "hr",
+          "employee_count": 3,
+          "total_levels_missing": 3,
+          "critical_employee_count": 3
+        },
+        {
+          "skill_id": "SK_LABOR_LAW",
+          "skill_name": "Labor Law",
+          "category": "hr",
+          "employee_count": 3,
+          "total_levels_missing": 3,
+          "critical_employee_count": 2
+        },
+        {
+          "skill_id": "SK_COMPENSATION",
+          "skill_name": "Compensation & Benefits",
+          "category": "hr",
+          "employee_count": 2,
+          "total_levels_missing": 2,
+          "critical_employee_count": 0
+        },
+        {
+          "skill_id": "SK_LOAD_TESTING",
+          "skill_name": "Load Testing",
+          "category": "quality",
+          "employee_count": 2,
+          "total_levels_missing": 2,
+          "critical_employee_count": 0
+        }
+      ],
+      "employees_without_next_step": {
+        "available": true,
+        "count": 2,
+        "evaluated_count": 5,
+        "pending_count": 196,
+        "complete": false
+      },
+      "activity_participation": {
+        "completed": 2180,
+        "in_progress": 16,
+        "dropped": 160,
+        "no_show": 195,
+        "declined": 104,
+        "overdue": 90
+      },
+      "participation_summary": {
+        "total_records": 2745,
+        "participating_employees": 200,
+        "voluntary": {
+          "completed": 1046,
+          "in_progress": 16,
+          "dropped": 160,
+          "no_show": 195,
+          "declined": 104,
+          "overdue": 0
+        },
+        "mandatory": {
+          "completed": 1134,
+          "in_progress": 0,
+          "dropped": 0,
+          "no_show": 0,
+          "declined": 0,
+          "overdue": 90
+        }
+      }
+    },
+    "meta": {
+      "version": 4,
+      "as_of_date": "2026-10-01"
+    }
+  },
+  "dataset_sha256": {
+    "README.kz.md": "8fac05c63cbe65089f406c19b22213e063f2f8daf63401bb4c3e8c058166d6f0",
+    "README.md": "cd4a190009c6bb40c8f339b48da251af63adb2a50329b3ec77e8711315d8d96f",
+    "README.ru.md": "4baffc7b705d9b0801415ea5e2a6199174fbf59868fce3d3634786938e53657c",
+    "activity_history.csv": "daaec3190b7d3d37f6a820a4c2926fd3a94a4e7dc22ea8f00b350a008d11993b",
+    "employees.json": "bcf366fc3cecde04401200e7ea192ae5b008fa5de8b13b246ef98b1ba65945de",
+    "events.json": "e82f08dfd947b0f4bfda2d984d7e2adcdb1e2b96f239223cf4ad14dd05c1b14b",
+    "skills.json": "12d99e52b5ed7e95d9d817380b774145e53d65a2b6c961f3c57e9f09a021edee"
+  },
+  "matches_phase1_and_origin_main": true,
+  "browser_dataset_replace": {
+    "validated_version": 4,
+    "uploaded_version": 5,
+    "counts": {
+      "employees": 200,
+      "skills": 60,
+      "role_profiles": 32,
+      "events": 40,
+      "history": 2743
+    },
+    "scope": "Replace four official files in disposable local runtime only; source files unchanged."
+  },
+  "browser_console_errors": [],
+  "verification": {
+    "recommendation_ai": {
+      "passed": 280,
+      "seconds": 5.14
+    },
+    "backend": {
+      "passed": 102,
+      "seconds": 0.9
+    },
+    "integration": {
+      "passed": 43,
+      "seconds": 4.85
+    },
+    "combined_backend": {
+      "passed": 425,
+      "seconds": 10.63
+    },
+    "frontend": {
+      "passed": 120,
+      "files": 10,
+      "seconds": 2.07
+    },
+    "build": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "backend_warning": "Existing Starlette TestClient AnyIO BlockingPortal deprecation"
+  }
+}

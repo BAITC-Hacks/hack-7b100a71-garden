@@ -1,17 +1,22 @@
 """Completion changes participation state once and leaves assessed skills untouched."""
 import hashlib
 import json
-from typing import Optional
+from datetime import datetime, timezone
+from typing import Callable, Optional
 from uuid import uuid4
 
 from backend.data.repository import DatasetRepository, MutableState
 from backend.errors import AppError
 from backend.models.domain import ActivityRecord
+from backend.integrations.engine_inputs import history_for_engine
+from backend.recommendation.career import build_career_state
+from backend.recommendation.eligibility import evaluate_event
 
 
 class ActivityService:
-    def __init__(self, repository: DatasetRepository):
+    def __init__(self, repository: DatasetRepository, *, clock: Optional[Callable[[], datetime]] = None):
         self.repository = repository
+        self._clock = clock or (lambda: datetime.now(timezone.utc))
 
     def complete(self, event_id: str, employee_id: str, idempotency_key: str,
                  record_id: Optional[str] = None, score: Optional[int] = None,
@@ -42,7 +47,10 @@ class ActivityService:
             recurring = event_id == "EV_036" or (event.mandatory and event.type == "compliance")
             if previous and not recurring:
                 raise AppError("already_completed", "This development event has already been completed", 409)
-            if event_id == "EV_036" and any((row.completed_on or row.date) == view.as_of_date for row in previous):
+            if event_id == "EV_036" and any(
+                (row.completed_on or (row.completed_at.date() if row.completed_at is not None else row.date))
+                == view.as_of_date for row in previous
+            ):
                 raise AppError("session_already_completed", "This club session was already completed on the dataset date", 409)
 
             selected = None
@@ -62,14 +70,39 @@ class ActivityService:
             if selected is None:
                 if event.mandatory:
                     raise AppError("assignment_required", "A mandatory event requires an existing active assignment", 409)
-                if employee.role not in event.target_roles or employee.grade not in event.target_grades:
-                    raise AppError("event_audience_mismatch", "Event does not target this employee's current role and grade")
+                current_role_match = employee.role in event.target_roles
+                goal = employee.career_goal
+                target_role_match = goal is not None and goal.target_role in event.target_roles
+                if (not (current_role_match or target_role_match)
+                        or employee.grade not in event.target_grades):
+                    raise AppError("event_audience_mismatch", "Event does not target the current or explicit destination role at the attained grade")
                 unmet = [{"skill_id": skill_id, "required": required,
                           "actual": before.get(skill_id, 0)}
                          for skill_id, required in event.prerequisites.items()
                          if before.get(skill_id, 0) < required]
                 if unmet:
                     raise AppError("prerequisites_not_met", "Event prerequisites are not met", details=unmet)
+                if not current_role_match:
+                    # Extending admission to an explicit destination must use
+                    # the existing engine rules, not create a second policy.
+                    history_input = history_for_engine(
+                        view.get_employee_history(employee_id), view.get_runtime_completion_ids(),
+                    )
+                    employee_input = employee.model_dump(mode="json")
+                    career_state = build_career_state(
+                        employee_input,
+                        [profile.model_dump(mode="json") for profile in view.get_all_role_profiles()],
+                        [item.model_dump(mode="json") for item in view.get_all_events()],
+                        history_input, as_of=view.as_of_date,
+                    )
+                    target_profile = view.get_role_profile(goal.target_role, goal.target_grade)
+                    admission = evaluate_event(
+                        employee_input, career_state, target_profile.model_dump(mode="json"),
+                        event.model_dump(mode="json"), history_input, as_of=view.as_of_date,
+                    )
+                    if not admission["eligible"]:
+                        raise AppError("event_not_eligible", "Destination-role event is not eligible",
+                                       details=admission["rejection_reasons"])
             if score is not None and event.type not in {"course", "certification", "compliance"}:
                 raise AppError("score_not_supported", "Scores are only supported for courses, certifications and compliance")
 
@@ -84,11 +117,23 @@ class ActivityService:
                 }
             else:
                 selected_data = selected.model_dump()
+            recorded_at = self._clock()
+            if (not isinstance(recorded_at, datetime) or recorded_at.tzinfo is None
+                    or recorded_at.utcoffset() is None):
+                raise AppError("invalid_completion_clock", "Completion clock must return an aware timestamp", 503)
+            # The transaction serializes all writes, including equal or
+            # backwards wall-clock instants. Legacy IDs preserve the old order.
+            next_sequence = max(
+                [len(state.completed_record_ids)] +
+                [row.runtime_sequence or 0 for row in state.dataset.history]
+            ) + 1
             selected_data.update(status="completed", completion_pct=100,
                                  score=score,
                                  feedback_rating=(feedback_rating if feedback_rating is not None
                                                   else selected_data.get("feedback_rating")),
-                                 completed_on=view.as_of_date)
+                                 completed_on=view.as_of_date,
+                                 completed_at=recorded_at.astimezone(timezone.utc),
+                                 runtime_sequence=next_sequence)
             completed = ActivityRecord.model_validate(selected_data)
             if selected is None:
                 state.dataset.history.append(completed)

@@ -82,6 +82,10 @@ class RepositoryView:
     def get_all_history(self):
         return [self._copy(item) for item in self._dataset.history]
 
+    def get_runtime_completion_ids(self):
+        """Return the trusted persisted operation order, detached from storage."""
+        return tuple(self._live_completed_ids)
+
     def get_effective_skills(self, employee_id):
         if employee_id not in self._skill_cache:
             from backend.services.skill_projection import project_skills
@@ -90,7 +94,7 @@ class RepositoryView:
                 raise AppError("employee_not_found", "Employee not found", 404)
             self._skill_cache[employee_id] = project_skills(
                 employee, self._history.get(employee_id, ()), self._events,
-                self._live_completed_ids,
+                self._live_completed_ids, as_of=self.as_of_date,
             )
         return dict(self._skill_cache[employee_id])
 
@@ -154,7 +158,14 @@ class DatasetRepository:
         dataset = validate_dataset(dataset)
         self._lock = RLock()
         self._state_path = Path(state_path) if state_path is not None else None
-        canonical = json.dumps(dataset.model_dump(mode="json"), sort_keys=True,
+        source = dataset.model_dump(mode="json")
+        # Keep fingerprints of v1 state stable when new optional fields are
+        # absent from the original input; do not discard supplied timestamps.
+        for record in source["history"]:
+            for field_name in ("completed_at", "runtime_sequence"):
+                if record.get(field_name) is None:
+                    record.pop(field_name, None)
+        canonical = json.dumps(source, sort_keys=True,
                                separators=(",", ":"), ensure_ascii=False)
         self._source_fingerprint = hashlib.sha256(canonical.encode()).hexdigest()
         self._state = MutableState(dataset.model_copy(deep=True))
@@ -195,7 +206,7 @@ class DatasetRepository:
         try:
             self._state_path.parent.mkdir(parents=True, exist_ok=True)
             payload = {
-                "schema_version": 1,
+                "schema_version": 2,
                 "source_fingerprint": self._source_fingerprint,
                 "version": state.version,
                 "dataset": state.dataset.model_dump(mode="json"),
@@ -220,7 +231,7 @@ class DatasetRepository:
     def _restore(self):
         try:
             payload = json.loads(self._state_path.read_text(encoding="utf-8"))
-            if payload.get("schema_version") != 1:
+            if payload.get("schema_version") not in {1, 2}:
                 raise ValueError("unsupported runtime state schema")
             if payload.get("source_fingerprint") != self._source_fingerprint:
                 raise ValueError("runtime state belongs to a different source dataset; use a separate state path")

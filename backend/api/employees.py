@@ -80,10 +80,7 @@ def get_history(
 async def get_recommendations(
     employee_id: str,
     identity: Identity = Depends(current_identity),
-    view: Any = Depends(get_view),
     service: Any = Depends(get_recommendation_service),
 ) -> Dict[str, Any]:
     require_employee_or_hr(identity, employee_id)
-    if view.get_employee(employee_id) is None:
-        raise AppError("employee_not_found", "Employee was not found.", status_code=404)
     return {"data": await service.recommend(employee_id)}

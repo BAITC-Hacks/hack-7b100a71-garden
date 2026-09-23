@@ -1,0 +1,1688 @@
+{
+  "data": {
+    "employee_id": "E0001",
+    "as_of": "2026-10-01",
+    "status": "ok",
+    "target": {
+      "role": "Backend Engineer",
+      "grade": "Middle",
+      "source": "career_goal"
+    },
+    "career_readiness": {
+      "current": 0.5897435897435898,
+      "status": "available",
+      "reason": null,
+      "critical_weight": 2.0,
+      "weighted_covered_levels": 23.0,
+      "weighted_required_levels": 39.0,
+      "critical_requirements_met": false,
+      "remaining_critical_gaps": [
+        {
+          "skill_id": "SK_API_DESIGN",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": true
+        }
+      ],
+      "all_requirements_met": false
+    },
+    "skill_gaps": [
+      {
+        "skill_id": "SK_API_DESIGN",
+        "current": 2,
+        "required": 3,
+        "gap": 1,
+        "critical": true
+      },
+      {
+        "skill_id": "SK_CONTAINERS",
+        "current": 0,
+        "required": 2,
+        "gap": 2,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_OBSERVABILITY",
+        "current": 0,
+        "required": 2,
+        "gap": 2,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_APP_SECURITY",
+        "current": 1,
+        "required": 2,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_CICD",
+        "current": 1,
+        "required": 2,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_CLOUD",
+        "current": 1,
+        "required": 2,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_COMMUNICATION",
+        "current": 2,
+        "required": 3,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_MENTORING",
+        "current": 0,
+        "required": 1,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_PROBLEM_SOLVING",
+        "current": 2,
+        "required": 3,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_PUBLIC_SPEAKING",
+        "current": 0,
+        "required": 1,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_SQL",
+        "current": 2,
+        "required": 3,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_SYSTEM_DESIGN",
+        "current": 1,
+        "required": 2,
+        "gap": 1,
+        "critical": false
+      },
+      {
+        "skill_id": "SK_TEAMWORK",
+        "current": 2,
+        "required": 3,
+        "gap": 1,
+        "critical": false
+      }
+    ],
+    "career_state": {
+      "employee_id": "E0001",
+      "as_of": "2026-10-01",
+      "status": "ok",
+      "target": {
+        "role": "Backend Engineer",
+        "grade": "Middle",
+        "source": "career_goal"
+      },
+      "skill_gaps": [
+        {
+          "skill_id": "SK_API_DESIGN",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": true
+        },
+        {
+          "skill_id": "SK_CONTAINERS",
+          "current": 0,
+          "required": 2,
+          "gap": 2,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_OBSERVABILITY",
+          "current": 0,
+          "required": 2,
+          "gap": 2,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_APP_SECURITY",
+          "current": 1,
+          "required": 2,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_CICD",
+          "current": 1,
+          "required": 2,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_CLOUD",
+          "current": 1,
+          "required": 2,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_COMMUNICATION",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_MENTORING",
+          "current": 0,
+          "required": 1,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_PROBLEM_SOLVING",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_PUBLIC_SPEAKING",
+          "current": 0,
+          "required": 1,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_SQL",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_SYSTEM_DESIGN",
+          "current": 1,
+          "required": 2,
+          "gap": 1,
+          "critical": false
+        },
+        {
+          "skill_id": "SK_TEAMWORK",
+          "current": 2,
+          "required": 3,
+          "gap": 1,
+          "critical": false
+        }
+      ],
+      "career_readiness": {
+        "current": 0.5897435897435898,
+        "status": "available",
+        "reason": null,
+        "critical_weight": 2.0,
+        "weighted_covered_levels": 23.0,
+        "weighted_required_levels": 39.0,
+        "critical_requirements_met": false,
+        "remaining_critical_gaps": [
+          {
+            "skill_id": "SK_API_DESIGN",
+            "current": 2,
+            "required": 3,
+            "gap": 1,
+            "critical": true
+          }
+        ],
+        "all_requirements_met": false
+      },
+      "skills_reconstruction": {
+        "effective_skills": {
+          "SK_ADAPTABILITY": 2,
+          "SK_API_DESIGN": 2,
+          "SK_APP_SECURITY": 1,
+          "SK_CICD": 1,
+          "SK_CLOUD": 1,
+          "SK_COMMUNICATION": 2,
+          "SK_CONFLICT_RESOLUTION": 3,
+          "SK_CONTAINERS": 0,
+          "SK_CRITICAL_THINKING": 3,
+          "SK_EMOTIONAL_INTELLIGENCE": 2,
+          "SK_FEEDBACK": 2,
+          "SK_LEADERSHIP": 1,
+          "SK_MENTORING": 0,
+          "SK_OBSERVABILITY": 0,
+          "SK_PROBLEM_SOLVING": 2,
+          "SK_PUBLIC_SPEAKING": 0,
+          "SK_PYTHON": 3,
+          "SK_SQL": 2,
+          "SK_STAKEHOLDER_MGMT": 1,
+          "SK_SYSTEM_DESIGN": 1,
+          "SK_TEAMWORK": 2,
+          "SK_TIME_MANAGEMENT": 2,
+          "SK_WRITTEN_COMMUNICATION": 3
+        },
+        "applied_record_ids": [
+          "R002727"
+        ],
+        "skill_changes": [
+          {
+            "record_id": "R002727",
+            "event_id": "EV_011",
+            "skill_id": "SK_APP_SECURITY",
+            "before": 0,
+            "after": 1,
+            "gain_applied": 1,
+            "date_basis": "session_date"
+          }
+        ],
+        "uncertain_record_ids": [],
+        "warnings": [
+          {
+            "code": "completion_date_proxy",
+            "message": "Participation dates substitute for missing completion timestamps. Skills are an estimate, not guaranteed exact or a lower bound; actual completion order may differ.",
+            "record_ids": [
+              "R002727"
+            ]
+          }
+        ],
+        "date_policy": "participation_date_proxy",
+        "is_estimate": true
+      }
+    },
+    "candidate_count": 2,
+    "recommendation_count": 2,
+    "recommendations": [
+      {
+        "event_id": "EV_005",
+        "score": 0.8587990735249423,
+        "factors": {
+          "critical_skill_impact": {
+            "raw": 1.0,
+            "normalized": 1.0,
+            "weight": 0.35,
+            "contribution": 0.35
+          },
+          "gap_reduction": {
+            "raw": 2.0,
+            "normalized": 1.0,
+            "weight": 0.25,
+            "contribution": 0.25
+          },
+          "career_relevance": {
+            "raw": 1.0,
+            "normalized": 1.0,
+            "weight": 0.15,
+            "contribution": 0.15
+          },
+          "historical_compatibility": {
+            "raw": 0.532267843683159,
+            "normalized": 0.532267843683159,
+            "weight": 0.1,
+            "contribution": 0.053226784368315905
+          },
+          "history_feedback_signal": {
+            "raw": 0.5,
+            "normalized": 0.5,
+            "weight": 0.05,
+            "contribution": 0.025
+          },
+          "effort_efficiency": {
+            "raw": 0.125,
+            "normalized": 0.25,
+            "weight": 0.05,
+            "contribution": 0.0125
+          },
+          "availability": {
+            "raw": 0.3614457831325301,
+            "normalized": 0.3614457831325301,
+            "weight": 0.05,
+            "contribution": 0.018072289156626505
+          }
+        },
+        "scoring_evidence": {
+          "useful_destination_gain": 2,
+          "advertised_positive_gain": 2,
+          "duration_hours": 16.0,
+          "duration_valid": true,
+          "raw_efficiency": 0.125,
+          "availability_wait_days": 53,
+          "normalization_candidate_count": 2,
+          "normalization_maxima": {
+            "critical_skill_impact": 1.0,
+            "gap_reduction": 2.0,
+            "effort_efficiency": 0.5
+          }
+        },
+        "title": "System Design Fundamentals",
+        "simulation": {
+          "event_id": "EV_005",
+          "target": {
+            "role": "Backend Engineer",
+            "grade": "Middle"
+          },
+          "simulated_skills_after": {
+            "SK_ADAPTABILITY": 2,
+            "SK_API_DESIGN": 3,
+            "SK_APP_SECURITY": 1,
+            "SK_CICD": 1,
+            "SK_CLOUD": 1,
+            "SK_COMMUNICATION": 2,
+            "SK_CONFLICT_RESOLUTION": 3,
+            "SK_CONTAINERS": 0,
+            "SK_CRITICAL_THINKING": 3,
+            "SK_EMOTIONAL_INTELLIGENCE": 2,
+            "SK_FEEDBACK": 2,
+            "SK_LEADERSHIP": 1,
+            "SK_MENTORING": 0,
+            "SK_OBSERVABILITY": 0,
+            "SK_PROBLEM_SOLVING": 2,
+            "SK_PUBLIC_SPEAKING": 0,
+            "SK_PYTHON": 3,
+            "SK_SQL": 2,
+            "SK_STAKEHOLDER_MGMT": 1,
+            "SK_SYSTEM_DESIGN": 2,
+            "SK_TEAMWORK": 2,
+            "SK_TIME_MANAGEMENT": 2,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "skill_impact": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "before": 2,
+              "advertised_gain": 1,
+              "max_level": 3,
+              "after": 3,
+              "actual_gain": 1
+            },
+            {
+              "skill_id": "SK_SYSTEM_DESIGN",
+              "before": 1,
+              "advertised_gain": 1,
+              "max_level": 3,
+              "after": 2,
+              "actual_gain": 1
+            }
+          ],
+          "target_skill_impact": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap_before": 1,
+              "after": 3,
+              "gap_after": 0,
+              "useful_gain": 1,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_SYSTEM_DESIGN",
+              "current": 1,
+              "required": 2,
+              "gap_before": 1,
+              "after": 2,
+              "gap_after": 0,
+              "useful_gain": 1,
+              "critical": false
+            }
+          ],
+          "skill_gaps_before": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_CONTAINERS",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_OBSERVABILITY",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_APP_SECURITY",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CICD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CLOUD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_COMMUNICATION",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_MENTORING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PROBLEM_SOLVING",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SQL",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SYSTEM_DESIGN",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_TEAMWORK",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            }
+          ],
+          "skill_gaps_after": [
+            {
+              "skill_id": "SK_CONTAINERS",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_OBSERVABILITY",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_APP_SECURITY",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CICD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CLOUD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_COMMUNICATION",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_MENTORING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PROBLEM_SOLVING",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SQL",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_TEAMWORK",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            }
+          ],
+          "critical_gaps_before": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "critical_gaps_after": [],
+          "total_gap_before": 15,
+          "total_gap_after": 13,
+          "total_gap_reduction": 2,
+          "critical_gap_before": 1,
+          "critical_gap_after": 0,
+          "critical_gap_reduction": 1,
+          "requirements_closed": [
+            "SK_API_DESIGN",
+            "SK_SYSTEM_DESIGN"
+          ],
+          "critical_requirements_closed": [
+            "SK_API_DESIGN"
+          ],
+          "readiness_before": 0.5897435897435898,
+          "readiness_after": 0.6666666666666666,
+          "readiness_delta": 0.07692307692307687,
+          "readiness_before_details": {
+            "current": 0.5897435897435898,
+            "status": "available",
+            "reason": null,
+            "critical_weight": 2.0,
+            "weighted_covered_levels": 23.0,
+            "weighted_required_levels": 39.0,
+            "critical_requirements_met": false,
+            "remaining_critical_gaps": [
+              {
+                "skill_id": "SK_API_DESIGN",
+                "current": 2,
+                "required": 3,
+                "gap": 1,
+                "critical": true
+              }
+            ],
+            "all_requirements_met": false
+          },
+          "readiness_after_details": {
+            "current": 0.6666666666666666,
+            "status": "available",
+            "reason": null,
+            "critical_weight": 2.0,
+            "weighted_covered_levels": 26.0,
+            "weighted_required_levels": 39.0,
+            "critical_requirements_met": true,
+            "remaining_critical_gaps": [],
+            "all_requirements_met": false
+          }
+        },
+        "evidence": {
+          "current_role": "Backend Engineer",
+          "target_role": "Backend Engineer",
+          "target_grade": "Middle",
+          "audience_match": "both",
+          "attained_grade": "Junior",
+          "matched_current_grade": "Junior",
+          "prerequisite_checks": [],
+          "history": {
+            "completed_record_ids": [],
+            "in_progress_record_ids": [],
+            "ignored_future_record_ids": [],
+            "recurring_exception": false
+          },
+          "availability": {
+            "format": "online",
+            "available": true,
+            "self_paced": false,
+            "next_session_date": "2026-11-23",
+            "days_until_next_session": 53,
+            "valid_session_dates": [
+              "2026-11-23",
+              "2026-12-25"
+            ]
+          },
+          "skills_are_estimated": true
+        },
+        "history_signals": {
+          "compatibility": 0.532267843683159,
+          "feedback_signal": 0.5,
+          "evidence": {
+            "considered_history_count": 7,
+            "matched_history_count": 1,
+            "effective_history_weight": 0.13797573353627124,
+            "positive_weight": 0.13797573353627124,
+            "negative_weight": 0.0,
+            "recent_similar_no_shows": 0,
+            "recent_similar_completions": 0,
+            "rating_observation_count": 1,
+            "assessment_observation_count": 0,
+            "feedback_record_count": 1,
+            "effective_feedback_weight": 0.13797573353627124,
+            "excluded_mandatory_count": 4,
+            "excluded_status_count": 0,
+            "ignored_future_count": 0,
+            "zero_similarity_count": 2,
+            "zero_weight_count": 0,
+            "unknown_source_count": 0,
+            "missing_rating_count": 0,
+            "missing_assessment_count": 1,
+            "invalid_rating_count": 0,
+            "invalid_assessment_count": 0,
+            "completion_date_proxy_count": 1,
+            "priors": {
+              "compatibility_value": 0.5,
+              "compatibility_weight": 2.0,
+              "feedback_value": 0.5,
+              "feedback_weight": 2.0
+            },
+            "config_snapshot": {
+              "skill_similarity_weight": 0.6,
+              "type_similarity_weight": 0.25,
+              "format_similarity_weight": 0.15,
+              "recency_half_life_days": 365.0,
+              "source_weights": {
+                "self": 1.0,
+                "manager": 0.5,
+                "hr": 0.25
+              },
+              "unknown_source_weight": 0.5,
+              "status_outcomes": {
+                "completed": 1.0,
+                "dropped": 0.25,
+                "no_show": 0.0,
+                "declined": 0.4
+              },
+              "excluded_statuses": [
+                "in_progress",
+                "overdue"
+              ],
+              "include_mandatory": false,
+              "history_prior_weight": 2.0,
+              "history_prior_value": 0.5,
+              "feedback_prior_weight": 2.0,
+              "feedback_prior_value": 0.5,
+              "recent_window_days": 365,
+              "recent_similarity_threshold": 0.5
+            },
+            "weighted_outcome_sum": 0.13797573353627124,
+            "weighted_feedback_sum": 0.06898786676813562
+          }
+        },
+        "rank": 1,
+        "explanation": {
+          "language": "kk",
+          "source": "deterministic",
+          "text": "Мақсат: «Backend Engineer» рөлі, «Middle» грейді. Симуляция бойынша аяқтау мақсат талаптарына қатысты дағды тапшылығын 2 деңгейге азайтады, оның 1 деңгейі критикалық дағдыларға қатысты. Симуляцияда «SK_API_DESIGN»: 2 → 3; талап етілетін деңгей: 3; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық дағды. Симуляцияда «SK_SYSTEM_DESIGN»: 1 → 2; талап етілетін деңгей: 2; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық емес дағды. Модель бойынша мақсат талаптарының қамтылуы: 58.97% → 66.67%; өзгеріс: +7.69 пайыздық тармақ. Симуляцияда бұрын орындалмаған 2 талап толық орындалады, оның ішінде 1 критикалық талап бар. Аудитория қазіргі «Backend Engineer» рөліне де, нақты мақсаттағы «Backend Engineer» рөліне де сәйкес; қатысуға рұқсат үшін қол жеткізген «Junior» грейді қолданылады. Мақсаттағы рөл арқылы қатысу — қолданба саясаты. Келесі қолжетімді сессия: 2026-11-23; есептік күннен бастап күту мерзімі: 53 күн. Симуляцияда шектерді ескергеннен кейін дағдылардың нақты өсімі — 2 деңгей. Оның 2 деңгейі мақсат талаптарына қатысты тапшылықты азайтады. Дағдылары, түрі немесе форматы ұқсас 1 қатысу ескерілді; үйлесімділік сигналы — 0.532. Соңғы 365 күнде ұқсастығы ≥ 0.500 болғандар: келмеу — 0, аяқтау — 0. Ескерілген іс-шара бағаларының саны: 1; қорытынды оқу бағаларының саны: 0. Кері байланыстың тегістелген сигналы — 0.500. Тиімді дағды деңгейлері шамамен қалпына келтірілген: тарихта аяқталу уақытына қатысты белгісіздік бар. Дайындық көрсеткіші мақсат талаптарының қамтылуын өлшейді және қызметте жоғарылауға кепілдік бермейді.",
+          "facts": [
+            {
+              "fact_id": "target",
+              "code": "target",
+              "values": {
+                "role": "Backend Engineer",
+                "grade": "Middle"
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/target"
+              ]
+            },
+            {
+              "fact_id": "impact",
+              "code": "impact",
+              "values": {
+                "total": 2,
+                "critical": 1
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/total_gap_reduction",
+                "/recommendations/0/simulation/critical_gap_reduction"
+              ]
+            },
+            {
+              "fact_id": "skill:SK_API_DESIGN",
+              "code": "skill",
+              "values": {
+                "before": 2,
+                "after": 3,
+                "required": 3,
+                "gap_before": 1,
+                "gap_after": 0,
+                "skill_id": "SK_API_DESIGN",
+                "critical": true
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/target_skill_impact/0"
+              ]
+            },
+            {
+              "fact_id": "skill:SK_SYSTEM_DESIGN",
+              "code": "skill",
+              "values": {
+                "before": 1,
+                "after": 2,
+                "required": 2,
+                "gap_before": 1,
+                "gap_after": 0,
+                "skill_id": "SK_SYSTEM_DESIGN",
+                "critical": false
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/target_skill_impact/1"
+              ]
+            },
+            {
+              "fact_id": "readiness",
+              "code": "readiness",
+              "values": {
+                "before": 0.5897435897435898,
+                "after": 0.6666666666666666,
+                "delta": 0.07692307692307687
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/readiness_before",
+                "/recommendations/0/simulation/readiness_after",
+                "/recommendations/0/simulation/readiness_delta"
+              ]
+            },
+            {
+              "fact_id": "closures",
+              "code": "closures",
+              "values": {
+                "total": 2,
+                "critical": 1
+              },
+              "evidence_paths": [
+                "/recommendations/0/simulation/requirements_closed",
+                "/recommendations/0/simulation/critical_requirements_closed"
+              ]
+            },
+            {
+              "fact_id": "audience_both",
+              "code": "audience_both",
+              "values": {
+                "current_role": "Backend Engineer",
+                "attained_grade": "Junior",
+                "target_role": "Backend Engineer"
+              },
+              "evidence_paths": [
+                "/recommendations/0/evidence/audience_match",
+                "/recommendations/0/evidence/current_role",
+                "/recommendations/0/evidence/target_role",
+                "/recommendations/0/evidence/attained_grade"
+              ]
+            },
+            {
+              "fact_id": "availability_scheduled",
+              "code": "availability_scheduled",
+              "values": {
+                "date": "2026-11-23",
+                "days": 53
+              },
+              "evidence_paths": [
+                "/recommendations/0/evidence/availability"
+              ]
+            },
+            {
+              "fact_id": "usefulness",
+              "code": "usefulness",
+              "values": {
+                "useful": 2,
+                "actual": 2
+              },
+              "evidence_paths": [
+                "/recommendations/0/scoring_evidence/useful_destination_gain",
+                "/recommendations/0/scoring_evidence/advertised_positive_gain"
+              ]
+            },
+            {
+              "fact_id": "history_observed",
+              "code": "history_observed",
+              "values": {
+                "count": 1,
+                "compatibility": 0.532267843683159,
+                "no_shows": 0,
+                "completions": 0,
+                "recent_days": 365,
+                "similarity_min": 0.5
+              },
+              "evidence_paths": [
+                "/recommendations/0/history_signals/compatibility",
+                "/recommendations/0/history_signals/evidence"
+              ]
+            },
+            {
+              "fact_id": "feedback",
+              "code": "feedback",
+              "values": {
+                "ratings": 1,
+                "assessments": 0,
+                "signal": 0.5
+              },
+              "evidence_paths": [
+                "/recommendations/0/history_signals/feedback_signal",
+                "/recommendations/0/history_signals/evidence/rating_observation_count",
+                "/recommendations/0/history_signals/evidence/assessment_observation_count"
+              ]
+            },
+            {
+              "fact_id": "estimate",
+              "code": "estimate",
+              "values": {},
+              "evidence_paths": [
+                "/recommendations/0/evidence/skills_are_estimated"
+              ]
+            },
+            {
+              "fact_id": "readiness_note",
+              "code": "readiness_note",
+              "values": {},
+              "evidence_paths": [
+                "/recommendations/0/simulation/readiness_before_details"
+              ]
+            }
+          ],
+          "segments": [
+            {
+              "fact_id": "target",
+              "text": "Мақсат: «Backend Engineer» рөлі, «Middle» грейді."
+            },
+            {
+              "fact_id": "impact",
+              "text": "Симуляция бойынша аяқтау мақсат талаптарына қатысты дағды тапшылығын 2 деңгейге азайтады, оның 1 деңгейі критикалық дағдыларға қатысты."
+            },
+            {
+              "fact_id": "skill:SK_API_DESIGN",
+              "text": "Симуляцияда «SK_API_DESIGN»: 2 → 3; талап етілетін деңгей: 3; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық дағды."
+            },
+            {
+              "fact_id": "skill:SK_SYSTEM_DESIGN",
+              "text": "Симуляцияда «SK_SYSTEM_DESIGN»: 1 → 2; талап етілетін деңгей: 2; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық емес дағды."
+            },
+            {
+              "fact_id": "readiness",
+              "text": "Модель бойынша мақсат талаптарының қамтылуы: 58.97% → 66.67%; өзгеріс: +7.69 пайыздық тармақ."
+            },
+            {
+              "fact_id": "closures",
+              "text": "Симуляцияда бұрын орындалмаған 2 талап толық орындалады, оның ішінде 1 критикалық талап бар."
+            },
+            {
+              "fact_id": "audience_both",
+              "text": "Аудитория қазіргі «Backend Engineer» рөліне де, нақты мақсаттағы «Backend Engineer» рөліне де сәйкес; қатысуға рұқсат үшін қол жеткізген «Junior» грейді қолданылады. Мақсаттағы рөл арқылы қатысу — қолданба саясаты."
+            },
+            {
+              "fact_id": "availability_scheduled",
+              "text": "Келесі қолжетімді сессия: 2026-11-23; есептік күннен бастап күту мерзімі: 53 күн."
+            },
+            {
+              "fact_id": "usefulness",
+              "text": "Симуляцияда шектерді ескергеннен кейін дағдылардың нақты өсімі — 2 деңгей. Оның 2 деңгейі мақсат талаптарына қатысты тапшылықты азайтады."
+            },
+            {
+              "fact_id": "history_observed",
+              "text": "Дағдылары, түрі немесе форматы ұқсас 1 қатысу ескерілді; үйлесімділік сигналы — 0.532. Соңғы 365 күнде ұқсастығы ≥ 0.500 болғандар: келмеу — 0, аяқтау — 0."
+            },
+            {
+              "fact_id": "feedback",
+              "text": "Ескерілген іс-шара бағаларының саны: 1; қорытынды оқу бағаларының саны: 0. Кері байланыстың тегістелген сигналы — 0.500."
+            },
+            {
+              "fact_id": "estimate",
+              "text": "Тиімді дағды деңгейлері шамамен қалпына келтірілген: тарихта аяқталу уақытына қатысты белгісіздік бар."
+            },
+            {
+              "fact_id": "readiness_note",
+              "text": "Дайындық көрсеткіші мақсат талаптарының қамтылуын өлшейді және қызметте жоғарылауға кепілдік бермейді."
+            }
+          ]
+        }
+      },
+      {
+        "event_id": "EV_036",
+        "score": 0.44852207603844657,
+        "factors": {
+          "critical_skill_impact": {
+            "raw": 0.0,
+            "normalized": 0.0,
+            "weight": 0.35,
+            "contribution": 0.0
+          },
+          "gap_reduction": {
+            "raw": 1.0,
+            "normalized": 0.5,
+            "weight": 0.25,
+            "contribution": 0.125
+          },
+          "career_relevance": {
+            "raw": 1.0,
+            "normalized": 1.0,
+            "weight": 0.15,
+            "contribution": 0.15
+          },
+          "historical_compatibility": {
+            "raw": 0.5625574614337364,
+            "normalized": 0.5625574614337364,
+            "weight": 0.1,
+            "contribution": 0.05625574614337364
+          },
+          "history_feedback_signal": {
+            "raw": 0.5345157870906478,
+            "normalized": 0.5345157870906478,
+            "weight": 0.05,
+            "contribution": 0.026725789354532393
+          },
+          "effort_efficiency": {
+            "raw": 0.5,
+            "normalized": 1.0,
+            "weight": 0.05,
+            "contribution": 0.05
+          },
+          "availability": {
+            "raw": 0.8108108108108107,
+            "normalized": 0.8108108108108107,
+            "weight": 0.05,
+            "contribution": 0.04054054054054054
+          }
+        },
+        "scoring_evidence": {
+          "useful_destination_gain": 1,
+          "advertised_positive_gain": 1,
+          "duration_hours": 2.0,
+          "duration_valid": true,
+          "raw_efficiency": 0.5,
+          "availability_wait_days": 7,
+          "normalization_candidate_count": 2,
+          "normalization_maxima": {
+            "critical_skill_impact": 1.0,
+            "gap_reduction": 2.0,
+            "effort_efficiency": 0.5
+          }
+        },
+        "title": "Public Speaking Club",
+        "simulation": {
+          "event_id": "EV_036",
+          "target": {
+            "role": "Backend Engineer",
+            "grade": "Middle"
+          },
+          "simulated_skills_after": {
+            "SK_ADAPTABILITY": 2,
+            "SK_API_DESIGN": 2,
+            "SK_APP_SECURITY": 1,
+            "SK_CICD": 1,
+            "SK_CLOUD": 1,
+            "SK_COMMUNICATION": 2,
+            "SK_CONFLICT_RESOLUTION": 3,
+            "SK_CONTAINERS": 0,
+            "SK_CRITICAL_THINKING": 3,
+            "SK_EMOTIONAL_INTELLIGENCE": 2,
+            "SK_FEEDBACK": 2,
+            "SK_LEADERSHIP": 1,
+            "SK_MENTORING": 0,
+            "SK_OBSERVABILITY": 0,
+            "SK_PROBLEM_SOLVING": 2,
+            "SK_PUBLIC_SPEAKING": 1,
+            "SK_PYTHON": 3,
+            "SK_SQL": 2,
+            "SK_STAKEHOLDER_MGMT": 1,
+            "SK_SYSTEM_DESIGN": 1,
+            "SK_TEAMWORK": 2,
+            "SK_TIME_MANAGEMENT": 2,
+            "SK_WRITTEN_COMMUNICATION": 3
+          },
+          "skill_impact": [
+            {
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "before": 0,
+              "advertised_gain": 1,
+              "max_level": 4,
+              "after": 1,
+              "actual_gain": 1
+            }
+          ],
+          "target_skill_impact": [
+            {
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "current": 0,
+              "required": 1,
+              "gap_before": 1,
+              "after": 1,
+              "gap_after": 0,
+              "useful_gain": 1,
+              "critical": false
+            }
+          ],
+          "skill_gaps_before": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_CONTAINERS",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_OBSERVABILITY",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_APP_SECURITY",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CICD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CLOUD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_COMMUNICATION",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_MENTORING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PROBLEM_SOLVING",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PUBLIC_SPEAKING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SQL",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SYSTEM_DESIGN",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_TEAMWORK",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            }
+          ],
+          "skill_gaps_after": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            },
+            {
+              "skill_id": "SK_CONTAINERS",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_OBSERVABILITY",
+              "current": 0,
+              "required": 2,
+              "gap": 2,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_APP_SECURITY",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CICD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_CLOUD",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_COMMUNICATION",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_MENTORING",
+              "current": 0,
+              "required": 1,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_PROBLEM_SOLVING",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SQL",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_SYSTEM_DESIGN",
+              "current": 1,
+              "required": 2,
+              "gap": 1,
+              "critical": false
+            },
+            {
+              "skill_id": "SK_TEAMWORK",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": false
+            }
+          ],
+          "critical_gaps_before": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "critical_gaps_after": [
+            {
+              "skill_id": "SK_API_DESIGN",
+              "current": 2,
+              "required": 3,
+              "gap": 1,
+              "critical": true
+            }
+          ],
+          "total_gap_before": 15,
+          "total_gap_after": 14,
+          "total_gap_reduction": 1,
+          "critical_gap_before": 1,
+          "critical_gap_after": 1,
+          "critical_gap_reduction": 0,
+          "requirements_closed": [
+            "SK_PUBLIC_SPEAKING"
+          ],
+          "critical_requirements_closed": [],
+          "readiness_before": 0.5897435897435898,
+          "readiness_after": 0.6153846153846154,
+          "readiness_delta": 0.02564102564102566,
+          "readiness_before_details": {
+            "current": 0.5897435897435898,
+            "status": "available",
+            "reason": null,
+            "critical_weight": 2.0,
+            "weighted_covered_levels": 23.0,
+            "weighted_required_levels": 39.0,
+            "critical_requirements_met": false,
+            "remaining_critical_gaps": [
+              {
+                "skill_id": "SK_API_DESIGN",
+                "current": 2,
+                "required": 3,
+                "gap": 1,
+                "critical": true
+              }
+            ],
+            "all_requirements_met": false
+          },
+          "readiness_after_details": {
+            "current": 0.6153846153846154,
+            "status": "available",
+            "reason": null,
+            "critical_weight": 2.0,
+            "weighted_covered_levels": 24.0,
+            "weighted_required_levels": 39.0,
+            "critical_requirements_met": false,
+            "remaining_critical_gaps": [
+              {
+                "skill_id": "SK_API_DESIGN",
+                "current": 2,
+                "required": 3,
+                "gap": 1,
+                "critical": true
+              }
+            ],
+            "all_requirements_met": false
+          }
+        },
+        "evidence": {
+          "current_role": "Backend Engineer",
+          "target_role": "Backend Engineer",
+          "target_grade": "Middle",
+          "audience_match": "both",
+          "attained_grade": "Junior",
+          "matched_current_grade": "Junior",
+          "prerequisite_checks": [],
+          "history": {
+            "completed_record_ids": [],
+            "in_progress_record_ids": [],
+            "ignored_future_record_ids": [],
+            "recurring_exception": true
+          },
+          "availability": {
+            "format": "offline",
+            "available": true,
+            "self_paced": false,
+            "next_session_date": "2026-10-08",
+            "days_until_next_session": 7,
+            "valid_session_dates": [
+              "2026-10-08",
+              "2026-10-22",
+              "2026-11-05",
+              "2026-11-19",
+              "2026-12-03",
+              "2026-12-17"
+            ]
+          },
+          "skills_are_estimated": true
+        },
+        "history_signals": {
+          "compatibility": 0.5625574614337364,
+          "feedback_signal": 0.5345157870906478,
+          "evidence": {
+            "considered_history_count": 7,
+            "matched_history_count": 2,
+            "effective_history_weight": 0.2860145318229503,
+            "positive_weight": 0.2860145318229503,
+            "negative_weight": 0.0,
+            "recent_similar_no_shows": 0,
+            "recent_similar_completions": 0,
+            "rating_observation_count": 1,
+            "assessment_observation_count": 0,
+            "feedback_record_count": 1,
+            "effective_feedback_weight": 0.1483005701736633,
+            "excluded_mandatory_count": 4,
+            "excluded_status_count": 0,
+            "ignored_future_count": 0,
+            "zero_similarity_count": 1,
+            "zero_weight_count": 0,
+            "unknown_source_count": 0,
+            "missing_rating_count": 1,
+            "missing_assessment_count": 2,
+            "invalid_rating_count": 0,
+            "invalid_assessment_count": 0,
+            "completion_date_proxy_count": 2,
+            "priors": {
+              "compatibility_value": 0.5,
+              "compatibility_weight": 2.0,
+              "feedback_value": 0.5,
+              "feedback_weight": 2.0
+            },
+            "config_snapshot": {
+              "skill_similarity_weight": 0.6,
+              "type_similarity_weight": 0.25,
+              "format_similarity_weight": 0.15,
+              "recency_half_life_days": 365.0,
+              "source_weights": {
+                "self": 1.0,
+                "manager": 0.5,
+                "hr": 0.25
+              },
+              "unknown_source_weight": 0.5,
+              "status_outcomes": {
+                "completed": 1.0,
+                "dropped": 0.25,
+                "no_show": 0.0,
+                "declined": 0.4
+              },
+              "excluded_statuses": [
+                "in_progress",
+                "overdue"
+              ],
+              "include_mandatory": false,
+              "history_prior_weight": 2.0,
+              "history_prior_value": 0.5,
+              "feedback_prior_weight": 2.0,
+              "feedback_prior_value": 0.5,
+              "recent_window_days": 365,
+              "recent_similarity_threshold": 0.5
+            },
+            "weighted_outcome_sum": 0.2860145318229503,
+            "weighted_feedback_sum": 0.1483005701736633
+          }
+        },
+        "rank": 2,
+        "explanation": {
+          "language": "kk",
+          "source": "deterministic",
+          "text": "Мақсат: «Backend Engineer» рөлі, «Middle» грейді. Симуляция бойынша аяқтау мақсат талаптарына қатысты дағды тапшылығын 1 деңгейге азайтады, оның 0 деңгейі критикалық дағдыларға қатысты. Симуляцияда «SK_PUBLIC_SPEAKING»: 0 → 1; талап етілетін деңгей: 1; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық емес дағды. Модель бойынша мақсат талаптарының қамтылуы: 58.97% → 61.54%; өзгеріс: +2.56 пайыздық тармақ. Симуляцияда бұрын орындалмаған 1 талап толық орындалады, оның ішінде 0 критикалық талап бар. Аудитория қазіргі «Backend Engineer» рөліне де, нақты мақсаттағы «Backend Engineer» рөліне де сәйкес; қатысуға рұқсат үшін қол жеткізген «Junior» грейді қолданылады. Мақсаттағы рөл арқылы қатысу — қолданба саясаты. Келесі қолжетімді сессия: 2026-10-08; есептік күннен бастап күту мерзімі: 7 күн. Симуляцияда шектерді ескергеннен кейін дағдылардың нақты өсімі — 1 деңгей. Оның 1 деңгейі мақсат талаптарына қатысты тапшылықты азайтады. Дағдылары, түрі немесе форматы ұқсас 2 қатысу ескерілді; үйлесімділік сигналы — 0.563. Соңғы 365 күнде ұқсастығы ≥ 0.500 болғандар: келмеу — 0, аяқтау — 0. Ескерілген іс-шара бағаларының саны: 1; қорытынды оқу бағаларының саны: 0. Кері байланыстың тегістелген сигналы — 0.535. Тиімді дағды деңгейлері шамамен қалпына келтірілген: тарихта аяқталу уақытына қатысты белгісіздік бар. Дайындық көрсеткіші мақсат талаптарының қамтылуын өлшейді және қызметте жоғарылауға кепілдік бермейді.",
+          "facts": [
+            {
+              "fact_id": "target",
+              "code": "target",
+              "values": {
+                "role": "Backend Engineer",
+                "grade": "Middle"
+              },
+              "evidence_paths": [
+                "/recommendations/1/simulation/target"
+              ]
+            },
+            {
+              "fact_id": "impact",
+              "code": "impact",
+              "values": {
+                "total": 1,
+                "critical": 0
+              },
+              "evidence_paths": [
+                "/recommendations/1/simulation/total_gap_reduction",
+                "/recommendations/1/simulation/critical_gap_reduction"
+              ]
+            },
+            {
+              "fact_id": "skill:SK_PUBLIC_SPEAKING",
+              "code": "skill",
+              "values": {
+                "before": 0,
+                "after": 1,
+                "required": 1,
+                "gap_before": 1,
+                "gap_after": 0,
+                "skill_id": "SK_PUBLIC_SPEAKING",
+                "critical": false
+              },
+              "evidence_paths": [
+                "/recommendations/1/simulation/target_skill_impact/0"
+              ]
+            },
+            {
+              "fact_id": "readiness",
+              "code": "readiness",
+              "values": {
+                "before": 0.5897435897435898,
+                "after": 0.6153846153846154,
+                "delta": 0.02564102564102566
+              },
+              "evidence_paths": [
+                "/recommendations/1/simulation/readiness_before",
+                "/recommendations/1/simulation/readiness_after",
+                "/recommendations/1/simulation/readiness_delta"
+              ]
+            },
+            {
+              "fact_id": "closures",
+              "code": "closures",
+              "values": {
+                "total": 1,
+                "critical": 0
+              },
+              "evidence_paths": [
+                "/recommendations/1/simulation/requirements_closed",
+                "/recommendations/1/simulation/critical_requirements_closed"
+              ]
+            },
+            {
+              "fact_id": "audience_both",
+              "code": "audience_both",
+              "values": {
+                "current_role": "Backend Engineer",
+                "attained_grade": "Junior",
+                "target_role": "Backend Engineer"
+              },
+              "evidence_paths": [
+                "/recommendations/1/evidence/audience_match",
+                "/recommendations/1/evidence/current_role",
+                "/recommendations/1/evidence/target_role",
+                "/recommendations/1/evidence/attained_grade"
+              ]
+            },
+            {
+              "fact_id": "availability_scheduled",
+              "code": "availability_scheduled",
+              "values": {
+                "date": "2026-10-08",
+                "days": 7
+              },
+              "evidence_paths": [
+                "/recommendations/1/evidence/availability"
+              ]
+            },
+            {
+              "fact_id": "usefulness",
+              "code": "usefulness",
+              "values": {
+                "useful": 1,
+                "actual": 1
+              },
+              "evidence_paths": [
+                "/recommendations/1/scoring_evidence/useful_destination_gain",
+                "/recommendations/1/scoring_evidence/advertised_positive_gain"
+              ]
+            },
+            {
+              "fact_id": "history_observed",
+              "code": "history_observed",
+              "values": {
+                "count": 2,
+                "compatibility": 0.5625574614337364,
+                "no_shows": 0,
+                "completions": 0,
+                "recent_days": 365,
+                "similarity_min": 0.5
+              },
+              "evidence_paths": [
+                "/recommendations/1/history_signals/compatibility",
+                "/recommendations/1/history_signals/evidence"
+              ]
+            },
+            {
+              "fact_id": "feedback",
+              "code": "feedback",
+              "values": {
+                "ratings": 1,
+                "assessments": 0,
+                "signal": 0.5345157870906478
+              },
+              "evidence_paths": [
+                "/recommendations/1/history_signals/feedback_signal",
+                "/recommendations/1/history_signals/evidence/rating_observation_count",
+                "/recommendations/1/history_signals/evidence/assessment_observation_count"
+              ]
+            },
+            {
+              "fact_id": "estimate",
+              "code": "estimate",
+              "values": {},
+              "evidence_paths": [
+                "/recommendations/1/evidence/skills_are_estimated"
+              ]
+            },
+            {
+              "fact_id": "readiness_note",
+              "code": "readiness_note",
+              "values": {},
+              "evidence_paths": [
+                "/recommendations/1/simulation/readiness_before_details"
+              ]
+            }
+          ],
+          "segments": [
+            {
+              "fact_id": "target",
+              "text": "Мақсат: «Backend Engineer» рөлі, «Middle» грейді."
+            },
+            {
+              "fact_id": "impact",
+              "text": "Симуляция бойынша аяқтау мақсат талаптарына қатысты дағды тапшылығын 1 деңгейге азайтады, оның 0 деңгейі критикалық дағдыларға қатысты."
+            },
+            {
+              "fact_id": "skill:SK_PUBLIC_SPEAKING",
+              "text": "Симуляцияда «SK_PUBLIC_SPEAKING»: 0 → 1; талап етілетін деңгей: 1; тапшылық: 1 → 0. Бұл — мақсат үшін критикалық емес дағды."
+            },
+            {
+              "fact_id": "readiness",
+              "text": "Модель бойынша мақсат талаптарының қамтылуы: 58.97% → 61.54%; өзгеріс: +2.56 пайыздық тармақ."
+            },
+            {
+              "fact_id": "closures",
+              "text": "Симуляцияда бұрын орындалмаған 1 талап толық орындалады, оның ішінде 0 критикалық талап бар."
+            },
+            {
+              "fact_id": "audience_both",
+              "text": "Аудитория қазіргі «Backend Engineer» рөліне де, нақты мақсаттағы «Backend Engineer» рөліне де сәйкес; қатысуға рұқсат үшін қол жеткізген «Junior» грейді қолданылады. Мақсаттағы рөл арқылы қатысу — қолданба саясаты."
+            },
+            {
+              "fact_id": "availability_scheduled",
+              "text": "Келесі қолжетімді сессия: 2026-10-08; есептік күннен бастап күту мерзімі: 7 күн."
+            },
+            {
+              "fact_id": "usefulness",
+              "text": "Симуляцияда шектерді ескергеннен кейін дағдылардың нақты өсімі — 1 деңгей. Оның 1 деңгейі мақсат талаптарына қатысты тапшылықты азайтады."
+            },
+            {
+              "fact_id": "history_observed",
+              "text": "Дағдылары, түрі немесе форматы ұқсас 2 қатысу ескерілді; үйлесімділік сигналы — 0.563. Соңғы 365 күнде ұқсастығы ≥ 0.500 болғандар: келмеу — 0, аяқтау — 0."
+            },
+            {
+              "fact_id": "feedback",
+              "text": "Ескерілген іс-шара бағаларының саны: 1; қорытынды оқу бағаларының саны: 0. Кері байланыстың тегістелген сигналы — 0.535."
+            },
+            {
+              "fact_id": "estimate",
+              "text": "Тиімді дағды деңгейлері шамамен қалпына келтірілген: тарихта аяқталу уақытына қатысты белгісіздік бар."
+            },
+            {
+              "fact_id": "readiness_note",
+              "text": "Дайындық көрсеткіші мақсат талаптарының қамтылуын өлшейді және қызметте жоғарылауға кепілдік бермейді."
+            }
+          ]
+        }
+      }
+    ],
+    "blocked_summary": null,
+    "explanation_summary": {
+      "language": "kk",
+      "source": "deterministic",
+      "text": "Талаптарға сай 2 іс-шараның ішінен 2 ұсыныс таңдалды.",
+      "facts": [
+        {
+          "fact_id": "status_ok",
+          "code": "status_ok",
+          "values": {
+            "count": 2,
+            "candidates": 2
+          },
+          "evidence_paths": [
+            "/status",
+            "/recommendation_count",
+            "/candidate_count"
+          ]
+        }
+      ],
+      "segments": [
+        {
+          "fact_id": "status_ok",
+          "text": "Талаптарға сай 2 іс-шараның ішінен 2 ұсыныс таңдалды."
+        }
+      ]
+    },
+    "explanation_meta": {
+      "requested_language": "kk",
+      "language": "kk",
+      "language_fallback": false,
+      "openai_requested": true,
+      "provider_status": "missing_api_key"
+    },
+    "version": 1
+  }
+}
