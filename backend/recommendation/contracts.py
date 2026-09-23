@@ -130,3 +130,134 @@ class CareerState(TypedDict):
     skill_gaps: List[SkillGap]
     career_readiness: Optional[ReadinessResult]
     skills_reconstruction: SkillsReconstruction
+
+
+# Step 2 adds boundary contracts without changing the Step 1 inputs or results.
+class _EligibilityEventRequired(EventInput):
+    mandatory: bool
+    target_roles: Sequence[str]
+    target_grades: Sequence[str]
+    prerequisites: Mapping[str, int]
+    upcoming_sessions: Sequence[CalendarDate]
+
+
+class EligibilityEventInput(_EligibilityEventRequired, total=False):
+    title: str
+
+
+class TargetProfileRef(TypedDict):
+    role: str
+    grade: str
+
+
+RejectionCode = Literal[
+    "MANDATORY", "ROLE_MISMATCH", "GRADE_MISMATCH", "PREREQUISITE_NOT_MET",
+    "ALREADY_COMPLETED", "ALREADY_IN_PROGRESS", "NO_TARGET_GAP_IMPACT",
+    "NO_UPCOMING_SESSION", "NO_CAREER_TARGET",
+]
+
+
+class RejectionReason(TypedDict):
+    code: RejectionCode
+    message: str
+
+
+class PrerequisiteCheck(TypedDict):
+    skill_id: str
+    current: int
+    required: int
+    met: bool
+
+
+class SkillImpact(TypedDict):
+    skill_id: str
+    before: int
+    advertised_gain: int
+    max_level: int
+    after: int
+    actual_gain: int
+
+
+class TargetSkillImpact(TypedDict):
+    skill_id: str
+    current: int
+    required: int
+    gap_before: int
+    after: int
+    gap_after: int
+    useful_gain: int
+    critical: bool
+
+
+class EventSimulation(TypedDict):
+    event_id: str
+    target: TargetProfileRef
+    simulated_skills_after: Dict[str, int]
+    skill_impact: List[SkillImpact]
+    target_skill_impact: List[TargetSkillImpact]
+    skill_gaps_before: List[SkillGap]
+    skill_gaps_after: List[SkillGap]
+    critical_gaps_before: List[SkillGap]
+    critical_gaps_after: List[SkillGap]
+    total_gap_before: int
+    total_gap_after: int
+    total_gap_reduction: int
+    critical_gap_before: int
+    critical_gap_after: int
+    critical_gap_reduction: int
+    requirements_closed: List[str]
+    critical_requirements_closed: List[str]
+    readiness_before: Optional[float]
+    readiness_after: Optional[float]
+    readiness_delta: Optional[float]
+    readiness_before_details: ReadinessResult
+    readiness_after_details: ReadinessResult
+
+
+class ParticipationEligibilityEvidence(TypedDict):
+    completed_record_ids: List[str]
+    in_progress_record_ids: List[str]
+    ignored_future_record_ids: List[str]
+    recurring_exception: bool
+
+
+class AvailabilityEvidence(TypedDict):
+    format: str
+    available: bool
+    self_paced: bool
+    next_session_date: Optional[str]
+    days_until_next_session: Optional[int]
+    valid_session_dates: List[str]
+
+
+class CandidateEvidence(TypedDict):
+    current_role: str
+    target_role: Optional[str]
+    target_grade: Optional[str]
+    audience_match: Optional[Literal["current_role", "target_role", "both"]]
+    attained_grade: str
+    matched_current_grade: Optional[str]
+    prerequisite_checks: List[PrerequisiteCheck]
+    history: ParticipationEligibilityEvidence
+    availability: AvailabilityEvidence
+    skills_are_estimated: bool
+
+
+class EligibilityResult(TypedDict):
+    event_id: str
+    title: str
+    eligible: bool
+    rejection_reasons: List[RejectionReason]
+    evidence: CandidateEvidence
+    simulation: Optional[EventSimulation]
+
+
+class CatalogEligibility(TypedDict):
+    employee_id: str
+    as_of: str
+    target: Optional[CareerTarget]
+    event_count: int
+    eligible_count: int
+    rejected_count: int
+    eligible_candidates: List[EligibilityResult]
+    rejected_events: List[EligibilityResult]

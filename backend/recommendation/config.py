@@ -1,4 +1,4 @@
-"""Central policy settings. Scoring/history settings are reserved for Step 2."""
+"""Central policy settings. Scoring/history settings are reserved for a later step."""
 
 from dataclasses import dataclass, field
 from math import isfinite
