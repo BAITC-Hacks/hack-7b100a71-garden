@@ -1,0 +1,15 @@
+export const datasetCopy = {
+  mode: 'Import mode', append: 'Append records', replace: 'Replace dataset',
+  appendHelp: 'Add employee or activity history records. Assign a different file role to each selected file.',
+  replaceHelp: 'Replace the active dataset. All four file roles are required. Existing records will be replaced when you import.',
+  role: 'File role', chooseRole: 'Choose a file role',
+  roles: { employees: 'Employees', activityHistory: 'Activity history', events: 'Events', skills: 'Skills' },
+  selectionHelp: 'Assign unique file roles. Append accepts employees and activity history; replacement requires employees, activity history, events and skills.',
+  uncertain: 'The import outcome is unknown',
+  uncertainHelp: 'The server may have applied this import before the connection failed. Do not submit it again. Refresh the displayed data and confirm the dataset with your administrator before starting another import.',
+  check: 'Refresh application data', checking: 'Refreshing application data…',
+  checked: 'Application data has been refreshed. The previous import remains unconfirmed; check with your administrator before submitting it again.',
+  checkFailed: 'Application data could not be refreshed. The import remains unconfirmed. You can retry this read-only refresh.',
+  rejected: 'The import was rejected', rejectedHelp: 'Review the server response and validate the selected files again before another import.',
+  replaceAction: 'Replace active dataset', roleProfiles: 'Role profiles', location: 'Location', code: 'Code',
+} as const

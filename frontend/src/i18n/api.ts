@@ -1,0 +1,17 @@
+export const apiCopy = {
+  eyebrow: 'CAREER QUEST · LIVE WORKSPACE', title: 'Connect to your workspace.',
+  description: 'Use the access token supplied by your team to open the connected Career Quest workspace.',
+  token: 'Access token', connect: 'Open workspace', privacy: 'Your token stays in this tab’s memory. It is never saved in browser storage.',
+  missingAddress: 'The backend address is not configured. Ask your team to configure this workspace before connecting.',
+  change: 'Change access token', busy: 'Finish the current operation before changing access token.',
+  evidence: 'Supplied evidence', estimated: 'Skills are estimated',
+  estimatedDescription: 'The current skills were reconstructed from available history. Review the supplied caveats alongside this assessment.',
+  assessmentNotes: 'Assessment notes', raw: 'Raw value', normalized: 'Normalized', weight: 'Weight', contribution: 'Contribution',
+  coverage: 'Next-step coverage', coveragePartial: 'Coverage assessment is incomplete',
+  coverageUnavailable: 'Next-step coverage is unavailable.', evaluated: 'Employees evaluated', pending: 'Employees pending evaluation',
+  coverageComplete: 'Coverage assessment complete', participating: 'Participating employees', participationRecords: 'Participation records',
+  evaluatedOnly: 'Among evaluated employees', coveragePartialDescription: 'This count covers evaluated employees only. Additional employee assessments are pending.',
+  version: 'Dataset version',
+  gapBasis: 'Assessment basis',
+  yes: 'Yes', no: 'No', noValue: 'Not provided',
+} as const

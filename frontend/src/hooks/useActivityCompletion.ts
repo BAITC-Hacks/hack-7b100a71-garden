@@ -5,9 +5,13 @@ import { refreshEmployeeState } from '../services/refreshEmployeeState'
 import { ApiError } from '../types/api'
 import type { CareerOverview, Recommendation } from '../types/domain'
 import { canRetryCompletion, idleCompletion, isCompletionBusy, type CompletionState } from '../types/completion'
+import { isActivityCompletionBlocked } from '../services/operationGuards'
+import { useOperationGuard } from './useOperationGuard'
+import { mutationCopy } from '../i18n/mutations'
 
 export function useActivityCompletion(employeeId: string) {
   const client = useQueryClient()
+  const blocked = useOperationGuard(isActivityCompletionBlocked)
   const key = queryKeys.completion(employeeId)
   // Employee-scoped operation metadata survives selection changes. Business data
   // is only published by refreshEmployeeState after both reads succeed.
@@ -26,6 +30,7 @@ export function useActivityCompletion(employeeId: string) {
   }
 
   async function complete(recommendation: Recommendation) {
+    if (isActivityCompletionBlocked(client)) return
     const previous = current()
     if (isCompletionBusy(previous) || previous.phase === 'refresh-error' || previous.completedEventIds.includes(recommendation.eventId) ||
       (previous.phase === 'error' && !canRetryCompletion(previous))) return
@@ -43,10 +48,13 @@ export function useActivityCompletion(employeeId: string) {
       update({ alreadyCompleted: true })
     }
     update({ confirmed: true, completedEventIds: [...current().completedEventIds, recommendation.eventId] })
+    // The server owns aggregates. Mark existing analytics stale for the next visit.
+    void client.invalidateQueries({ queryKey: queryKeys.hr, refetchType: 'none' })
     await refresh()
   }
 
   async function retryRefresh() {
+    if (isActivityCompletionBlocked(client)) return
     const latest = current()
     if (latest.phase !== 'refresh-error' && !(latest.phase === 'error' && latest.errorCode === 'RECOMMENDATION_UNAVAILABLE')) return
     await refresh()
@@ -57,5 +65,5 @@ export function useActivityCompletion(employeeId: string) {
     if (canRetryCompletion(latest) && latest.eventId && latest.title) await complete({ eventId: latest.eventId, title: latest.title })
   }
 
-  return { state, complete, retryRefresh, retryCompletion }
+  return { state, complete, retryRefresh, retryCompletion, blockedReason: blocked ? mutationCopy.completionBlocked : undefined }
 }

@@ -14,6 +14,7 @@ export function CareerReadiness({ readiness, target, projection }: {
   // Display validity only. Never calculate or repair an assessment.
   const available = isReadinessValue(value)
   const formatted = available ? formatReadiness(value) : null
+  const extended = (formatted?.length ?? 0) > 10
   const before = isReadinessValue(projection?.readinessBefore) ? formatReadiness(projection.readinessBefore) : null
   const after = isReadinessValue(projection?.readinessAfter) ? formatReadiness(projection.readinessAfter) : null
   return (
@@ -30,13 +31,14 @@ export function CareerReadiness({ readiness, target, projection }: {
               <circle className="ring-track" cx="80" cy="80" r="68" />
               <circle className="ring-value" cx="80" cy="80" r="68" pathLength="100" strokeDasharray={`${value * 100} 100`} />
             </svg>
-            <span className={`readiness-number ${(formatted?.length ?? 0) > 5 ? 'readiness-number-precise' : ''}`}>{formatted}</span>
+            <span className={`readiness-number ${extended ? 'readiness-number-caption' : (formatted?.length ?? 0) > 5 ? 'readiness-number-precise' : ''}`}>{extended ? labels.currentAssessment : formatted}</span>
           </div>
           <div className="readiness-context">
             <p>{target ? labels.readinessLabel : labels.currentAssessment}</p>
             {target && <strong>{target.grade}<span>{target.role}</span></strong>}
           </div>
         </div>
+        {extended && <p className="readiness-exact-value">{formatted}</p>}
         <p className="readiness-note">{target ? labels.readinessNote : labels.readinessUntargetedNote}</p>
       </> : <div className="readiness-empty">
         <span aria-hidden="true">—</span><h3>{labels.readinessUnavailable}</h3>

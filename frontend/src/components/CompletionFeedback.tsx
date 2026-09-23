@@ -5,6 +5,22 @@ import { canRetryCompletion, type CompletionState } from '../types/completion'
 import { ReadinessImpact } from './ReadinessImpact'
 import { Button } from './UI'
 
+function errorDescription(state: CompletionState) {
+  const labels = copy.completion
+  switch (state.errorCode) {
+    case 'NETWORK': case 'TIMEOUT': case 'INVALID_RESPONSE': return labels.retryUnconfirmed
+    case 'UNAVAILABLE': return labels.temporarilyUnavailable
+    case 'AUTHENTICATION': return labels.authenticationRequired
+    case 'FORBIDDEN': return labels.permissionDenied
+    case 'CONFLICT': return labels.requestConflict
+    case 'VALIDATION': return labels.invalidRequest
+    case 'CONFIGURATION': return labels.configurationRequired
+    case 'NOT_FOUND': return labels.employeeMissing
+    case 'RECOMMENDATION_UNAVAILABLE': return labels.unavailable
+    default: return labels.cannotRetry
+  }
+}
+
 export function CompletionFeedback({ state, onRetry, onRefresh }: { state: CompletionState; onRetry: () => void; onRefresh: () => void }) {
   const labels = copy.completion
   const panel = useRef<HTMLDivElement>(null)
@@ -18,13 +34,13 @@ export function CompletionFeedback({ state, onRetry, onRefresh }: { state: Compl
   const refreshError = state.phase === 'refresh-error'
   const error = state.phase === 'error'
   const unavailable = error && state.errorCode === 'RECOMMENDATION_UNAVAILABLE'
+  const unconfirmed = error && (state.errorCode === 'NETWORK' || state.errorCode === 'TIMEOUT' || state.errorCode === 'INVALID_RESPONSE')
   const title = state.confirmed ? (state.alreadyCompleted ? labels.alreadyCompleted : labels.completed) :
     state.phase === 'submitting' ? labels.submitting : state.phase === 'refreshing' ? labels.refreshingTitle :
-      refreshError ? labels.refreshFailedTitle : error ? labels.failed : labels.refreshed
+      refreshError ? labels.refreshFailedTitle : unconfirmed ? labels.unconfirmed : error ? labels.failed : labels.refreshed
   const description = state.phase === 'submitting' ? labels.submittingDescription :
     state.phase === 'refreshing' ? (state.confirmed ? labels.refreshing : labels.refreshingOnly) : refreshError ? labels.refreshFailed :
-      unavailable ? labels.unavailable : error && state.errorCode === 'NOT_FOUND' ? labels.employeeMissing :
-        error ? labels.failedDescription : labels.successDescription
+      error ? errorDescription(state) : labels.successDescription
   return <div ref={panel} tabIndex={-1} className={`completion-feedback ${error || refreshError ? 'completion-warning' : ''}`}
     role={error || refreshError ? 'alert' : 'status'} aria-live={error || refreshError ? 'assertive' : 'polite'}>
     <div className="completion-feedback-copy">

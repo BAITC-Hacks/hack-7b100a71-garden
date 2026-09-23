@@ -1,12 +1,15 @@
 import { createMockApi, type MockOptions } from '../mocks/mockApi'
 import { scenarioOptions } from '../mocks/scenarios'
 import { ApiError, type CareerApi } from '../types/api'
+import { createHttpApi } from './httpApi'
+import type { HttpClientOptions } from './httpClient'
 
-export function createApi(mode: string = 'mock', mockOptions: MockOptions = {}): CareerApi {
+export function createApi(mode: string = 'mock', mockOptions: MockOptions = {}, httpOptions?: HttpClientOptions): CareerApi {
   if (mode === 'mock') return createMockApi(mockOptions)
+  if (mode === 'real') return createHttpApi(httpOptions ?? { baseURL: import.meta.env.VITE_API_BASE_URL ?? '' })
 
-  // Fail explicitly until the real contract is available; never silently fall back to fixtures.
-  const unavailable = () => Promise.reject(new ApiError('CONFIGURATION', 'The live API is not connected. Please use mock mode for this preview.'))
+  // Unknown modes fail explicitly and never silently fall back to demo records.
+  const unavailable = () => Promise.reject(new ApiError('CONFIGURATION', 'Choose VITE_API_MODE=mock or real.'))
   return {
     getEmployees: unavailable, getEmployee: unavailable, getEmployeeHistory: unavailable,
     getEvents: unavailable, getRecommendations: unavailable, getHRAnalytics: unavailable,

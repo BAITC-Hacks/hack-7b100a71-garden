@@ -18,7 +18,10 @@ export const unavailableActivityResponses: Record<string, CareerOverview> = {
 
 function snapshot(skills: SkillGap[], readiness: number, recommendations: Recommendation[]) {
   return {
-    employee: { ...employee, skills },
+    employee: { ...employee, skills: skills.map((skill) => {
+      if (typeof skill.current !== 'number') throw new Error('Completion fixtures require supplied current skill levels.')
+      return { ...skill, current: skill.current }
+    }) },
     overview: { ...overview, skillGaps: skills, readiness: { current: readiness }, recommendations },
   }
 }

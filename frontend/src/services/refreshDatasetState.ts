@@ -3,11 +3,11 @@ import { ApiError, type CareerApi } from '../types/api'
 import { queryKeys } from './queryClient'
 
 export const DATASET_REFRESH_TIMEOUT_MS = 10_000
-const affected = new Set(['employees', 'employee', 'recommendations', 'history', 'events', 'hr-analytics'])
+const affected = new Set(['employees', 'employee', 'recommendations', 'history', 'events', 'hr-analytics', 'employee-snapshot-refresh'])
 
 // Invalidate only dataset-backed resources. Local operation state and unrelated
 // queries survive. The API owns every returned employee and aggregate value.
-export async function refreshDatasetState(api: CareerApi, client: QueryClient) {
+export async function refreshDatasetState(api: CareerApi, client: QueryClient, confirmedImport = false) {
   const filter = { predicate: (query: { queryKey: readonly unknown[] }) => affected.has(String(query.queryKey[0])) }
   await client.cancelQueries(filter)
   await client.invalidateQueries({ ...filter, refetchType: 'none' })
@@ -29,6 +29,9 @@ export async function refreshDatasetState(api: CareerApi, client: QueryClient) {
     if (!Array.isArray(employees) || !analytics || typeof analytics !== 'object') throw new ApiError('INVALID_RESPONSE', 'The refreshed application data is incomplete.')
     client.setQueryData(queryKeys.employees, employees)
     client.setQueryData(queryKeys.hr, analytics)
+    // A replacement can reset backend completion receipts. Clear prior local
+    // operation acknowledgements only after a confirmed import and fresh reads.
+    if (confirmedImport) client.removeQueries({ queryKey: ['activity-completion'] })
   } finally {
     clearTimeout(timer)
     controller.abort()

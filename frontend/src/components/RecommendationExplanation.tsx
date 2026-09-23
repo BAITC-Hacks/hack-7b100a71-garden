@@ -3,6 +3,8 @@ import type { CareerTarget, Recommendation } from '../types/domain'
 import { ActivityImpact } from './ActivityImpact'
 import { Icon } from './Icon'
 import { ReadinessImpact } from './ReadinessImpact'
+import { SuppliedEvidence } from './SuppliedEvidence'
+import { apiCopy } from '../i18n/api'
 
 export function RecommendationExplanation({ recommendation, target }: { recommendation: Recommendation; target?: CareerTarget | null }) {
   const labels = copy.dashboard
@@ -24,9 +26,15 @@ export function RecommendationExplanation({ recommendation, target }: { recommen
       <section>
         <h4>{labels.recommendationFactors}</h4>
         {factors?.length ? <dl className="recommendation-factors">{factors.map((factor) =>
-          <div key={factor.id}><dt>{factor.label}</dt><dd>{typeof factor.value === 'number' && Number.isFinite(factor.value) ? factor.value : labels.notProvided}</dd></div>,
+          <div key={factor.id}><dt>{factor.label}</dt><dd className="recommendation-factor-detail">
+            {[factor.raw, factor.normalized, factor.weight, factor.contribution].some((value) => typeof value === 'number')
+              ? (['raw', 'normalized', 'weight', 'contribution'] as const).map((field) => typeof factor[field] === 'number' && Number.isFinite(factor[field])
+                ? <span key={field}><small>{apiCopy[field]}</small>{factor[field]}</span> : null)
+              : typeof factor.value === 'number' && Number.isFinite(factor.value) ? factor.value : labels.notProvided}
+          </dd></div>,
         )}</dl> : <p className="impact-unavailable">{labels.noFactors}</p>}
       </section>
+      <SuppliedEvidence recommendation={recommendation} />
       <section className="written-explanation">
         <h4><Icon name="spark" />{labels.writtenExplanation}</h4>
         <p>{recommendation.explanation?.text?.trim() ? recommendation.explanation.text : labels.noExplanation}</p>

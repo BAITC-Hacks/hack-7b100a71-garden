@@ -36,6 +36,8 @@
 .ring-value { stroke: var(--color-lime); stroke-linecap: butt; transition: stroke-dasharray .45s ease; }
 .readiness-number { position: absolute; inset: 0; display: grid; place-items: center; font-size: 40px; font-weight: 500; letter-spacing: -1.8px; font-variant-numeric: tabular-nums; }
 .readiness-ring .readiness-number-precise { display: block; align-content: center; text-align: center; inset: 28px 17px; font-size: 19px; line-height: 1.25; letter-spacing: -.4px; overflow-wrap: anywhere; }
+.readiness-ring .readiness-number-caption { display: grid; place-content: center; text-align: center; inset: 30px 25px; font-size: 13px; font-weight: 500; line-height: 1.6; letter-spacing: 0; color: #dbe8d6; }
+.readiness-exact-value { margin: 16px 0 0; font-size: 22px; font-weight: 550; letter-spacing: -.5px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .readiness-context { min-width: 0; }
 .readiness-context p { font-size: 11px; color: #b7cbbd; line-height: 1.6; }
 .readiness-context strong { display: block; font-size: 25px; font-weight: 500; letter-spacing: -.4px; margin-top: 7px; }
@@ -106,11 +108,11 @@
 .skill-required-bar { background: #cbd9b5; }
 .skill-current-bar { background: #39634b; }
 .skill-target-marker { position: absolute; top: -3px; height: 15px; width: 2px; background: #7c9463; transform: translateX(-1px); border-radius: 2px; }
-.skill-values { display: flex; align-items: center; gap: 19px; margin: 0; font-variant-numeric: tabular-nums; }
-.skill-values > div { display: flex; align-items: center; gap: 6px; font-size: 10px; }
+.skill-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 12px; margin: 0; font-variant-numeric: tabular-nums; }
+.skill-values > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; font-size: 10px; min-width: 0; }
 .skill-values dt { color: #6a786d; }
-.skill-values dd { margin: 0; font-size: 12px; font-weight: 600; color: #344e3d; }
-.skill-values .skill-gap-value { margin-left: auto; }
+.skill-values dd { margin: 0; font-size: 12px; font-weight: 600; color: #344e3d; overflow-wrap: anywhere; }
+.skill-missing { font-size: 10px; color: var(--color-muted); font-weight: 400; }
 .skill-scale { display: flex; align-items: center; gap: 5px; color: var(--color-muted); font-size: 10px; line-height: 1.6; margin-top: 10px; }
 .skill-scale strong { font-weight: 500; }
 .comparison-unavailable { margin: 12px 0; font-size: 11px; color: var(--color-muted); }

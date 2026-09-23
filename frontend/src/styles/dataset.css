@@ -1,6 +1,13 @@
 .hr-header-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 27px; justify-content: flex-end; flex-shrink: 0; }
-.hr-header-actions > button, .dataset-secondary { background: white; color: var(--color-brand); border: 1px solid var(--color-line); }
+.hr-header-actions > button, .button.dataset-secondary { background: white; color: var(--color-brand); border: 1px solid var(--color-line); }
+.hr-header-actions > .button:hover:not(:disabled), .button.dataset-secondary:hover:not(:disabled) { background: var(--color-soft); color: var(--color-brand); }
+.hr-header-actions > a.button:hover { background: var(--color-brand-deep); color: white; }
 .dataset-workspace { max-width: 980px; }
+.dataset-contract-options { margin-top: 22px; display: grid; gap: 10px; }
+.dataset-contract-options label, .dataset-role-label { display: grid; gap: 7px; font-size: 11px; color: var(--color-muted); }
+.dataset-contract-options select, .dataset-role-label select { background: white; color: var(--color-ink); border: 1px solid var(--color-line); padding: 9px 12px; border-radius: 7px; width: 100%; max-width: 310px; }
+.dataset-contract-options p { font-size: 11px; color: var(--color-muted); line-height: 1.8; }
+.dataset-role-label { margin-top: 12px; }
 .dataset-mode-note { max-width: 980px; font-size: 11px; line-height: 1.8; border-left: 2px solid #8ba471; color: #5c7059; background: #edf3e8; padding: 13px 17px; margin: -7px 0 25px; border-radius: 0 7px 7px 0; }
 .dataset-steps { display: flex; list-style: none; padding: 0; margin: 0 0 27px; gap: 25px; }
 .dataset-steps li { display: flex; align-items: center; gap: 9px; color: var(--color-muted); font-size: 11px; }

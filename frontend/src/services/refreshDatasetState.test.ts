@@ -7,6 +7,22 @@ import { queryKeys } from './queryClient'
 afterEach(() => vi.useRealTimers())
 
 describe('dataset refresh boundary', () => {
+  it('cancels a pending manual employee snapshot read before refreshing imported data', async () => {
+    const client = new QueryClient()
+    const api = createMockApi({ latencyMs: 0 })
+    let aborted = false
+    const pending = client.fetchQuery({ queryKey: ['employee-snapshot-refresh', 'demo-aigerim'], queryFn: ({ signal }) =>
+      new Promise<never>((_, reject) => signal.addEventListener('abort', () => {
+        aborted = true
+        reject(new DOMException('Cancelled', 'AbortError'))
+      }, { once: true })), retry: false,
+    }).catch(() => undefined)
+    await refreshDatasetState(api, client, true)
+    await pending
+    expect(aborted).toBe(true)
+    expect(client.getQueryData(queryKeys.employees)).toEqual(await api.getEmployees())
+    client.clear()
+  })
   it('refreshes active employee resources and directory/HR snapshots while keeping local state', async () => {
     const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
     const api = createMockApi({ latencyMs: 0 })
@@ -39,6 +55,17 @@ describe('dataset refresh boundary', () => {
     expect(client.getQueryState(queryKeys.employees)?.isInvalidated).toBe(true)
     await vi.runAllTimersAsync()
     expect(client.getQueryData(queryKeys.employees)).toEqual(previous)
+    client.clear()
+  })
+
+  it('clears completion acknowledgements only after a confirmed import is refreshed', async () => {
+    const client = new QueryClient()
+    const api = createMockApi({ latencyMs: 0 })
+    client.setQueryData(queryKeys.completion('demo-aigerim'), { phase: 'success' })
+    client.setQueryData(['layout-preference'], 'preserved')
+    await refreshDatasetState(api, client, true)
+    expect(client.getQueryData(queryKeys.completion('demo-aigerim'))).toBeUndefined()
+    expect(client.getQueryData(['layout-preference'])).toBe('preserved')
     client.clear()
   })
 })

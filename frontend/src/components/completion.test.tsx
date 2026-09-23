@@ -77,7 +77,7 @@ describe('activity completion interaction', () => {
   it('shows a completion failure and retries without reloading', async () => {
     mount({ failFirstCompletion: true })
     await clickFirst()
-    expect(await screen.findByRole('heading', { name: 'Activity could not be completed' })).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: 'Completion could not be confirmed' })).toBeTruthy()
     expect(screen.getByRole('meter', { name: 'Career readiness' }).getAttribute('aria-valuenow')).toBe('0.67')
     fireEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Retry completion' }))
     await expectSynced()

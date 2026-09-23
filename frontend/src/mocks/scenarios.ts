@@ -32,7 +32,12 @@ export function scenarioOptions(name: string | null): MockOptions {
     case 'empty-trajectory': return { overviewPatch: { trajectory: { kind: 'promotion', positions: [] } } }
     case 'missing-readiness': return { overviewPatch: { readiness: null } }
     case 'precision': return { overviewPatch: { readiness: { current: 0.675 } } }
+    case 'api-precision': return { overviewPatch: { readiness: { current: 0.5897435897435898 } } }
     case 'no-gaps': return { overviewPatch: { skillGaps: [] } }
+    case 'partial-skills': return { overviewPatch: { skillGaps: [
+      { id: 'system-design', name: 'System Design', current: 0, required: 4, scaleMax: 5 },
+      { id: 'mentoring', name: 'Mentoring', current: null, gap: 0, critical: null, scaleMax: 5 },
+    ] } }
     case 'skill-scales': return { overviewPatch: { skillGaps: skillScaleExamples } }
     case 'recommendations-one': return { overviewPatch: { recommendations: singleRecommendation } }
     case 'recommendations-empty': return { overviewPatch: { recommendations: [] } }

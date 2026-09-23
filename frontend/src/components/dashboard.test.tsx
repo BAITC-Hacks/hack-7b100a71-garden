@@ -216,4 +216,23 @@ describe('dashboard presentation boundaries', () => {
     expect(text(element)).toContain('Level comparison unavailable')
     expect(renderToStaticMarkup(element)).not.toContain('skill-comparison')
   })
+
+  it.each([undefined, null])('does not invent critical status or gap values when absent: %s', (missing) => {
+    const element = <SkillGapList skills={[{ id: 'partial', name: 'Partial evidence', current: 0, required: 4, scaleMax: 5, gap: missing, critical: missing }]} />
+    expect(text(element)).toContain('Current 0 Required 4 Gap Not provided')
+    expect(text(element)).not.toMatch(/Critical|Standard/)
+    expect(renderToStaticMarkup(element)).toContain('width:0%')
+  })
+
+  it('keeps supplied gaps when levels are missing and omits the comparison', () => {
+    const element = <SkillGapList skills={[{ id: 'partial', name: 'Partial levels', current: null, required: NaN, gap: 0, critical: true, scaleMax: 10 }]} />
+    expect(text(element)).toContain('Current Not provided Required Not provided Gap 0')
+    expect(text(element)).toContain('Critical')
+    expect(renderToStaticMarkup(element)).not.toContain('skill-comparison')
+    expect(text(element)).not.toContain('NaN')
+  })
+
+  it.each([undefined, null])('handles an absent skill list: %s', (skills) => {
+    expect(text(<SkillGapList skills={skills} />)).toContain('No skill gaps to show')
+  })
 })

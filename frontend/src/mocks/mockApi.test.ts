@@ -44,7 +44,7 @@ describe('API adapter boundary', () => {
 
   it('requires an issued validation identifier before the mock import acknowledgement', async () => {
     const api = createMockApi({ latencyMs: 0, datasetLatencyMs: 0 })
-    await expect(api.uploadDataset([], 'validation')).rejects.toMatchObject({ code: 'INVALID_RESPONSE' })
+    await expect(api.uploadDataset([], 'validation')).rejects.toMatchObject({ code: 'VALIDATION' })
   })
 
   it.each(['real', 'invalid'])('never silently uses fixtures for %s mode', async (mode) => {

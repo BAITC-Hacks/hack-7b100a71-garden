@@ -3,6 +3,7 @@
 @import "./styles/recommendations.css";
 @import "./styles/hr.css";
 @import "./styles/dataset.css";
+@import "./styles/api-access.css";
 
 @theme {
   --font-sans: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -99,12 +100,12 @@ button, a, select { outline-offset: 5px; }
 .grade-badge { display: inline-block; border: 1px solid var(--color-line); padding: 4px 8px; border-radius: 5px; font-size: 9px; font-weight: 500; color: var(--color-muted); width: fit-content; }
 .profile-card h3 { font-size: 17px; font-weight: 600; letter-spacing: -.3px; }
 .profile-role { margin-top: 7px; font-size: 11px; color: #4e6055; }
-.profile-department { margin-top: 5px; font-size: 10px; color: #79867c; }
+.profile-department { margin-top: 5px; font-size: 10px; color: var(--color-muted); }
 .profile-action { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 26px; padding: 16px 0; border-top: 1px solid #edf0e8; font-size: 10px; font-weight: 600; color: var(--color-brand); }
 .profile-action .icon { width: 16px; height: 16px; }
 .demo-footnote { display: flex; align-items: center; gap: 7px; margin-top: 17px; font-size: 10px; color: #748170; line-height: 1.6; }
 .demo-footnote .status-dot { width: 4px; height: 4px; }
-.footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 15px 42px 0; padding: 21px 0; border-top: 1px solid var(--color-line); color: #7a887d; font-size: 9px; }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 15px 42px 0; padding: 21px 0; border-top: 1px solid var(--color-line); color: #65736a; font-size: 9px; }
 .footer > span:last-child { font-weight: 600; color: #5e6d60; }
 .footer > span:last-child span { margin-left: 8px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-brand); color: white; border: 1px solid transparent; border-radius: 9px; padding: 10px 17px; font-size: 12px; font-weight: 600; transition: background .15s; }
